@@ -2,12 +2,20 @@
     <div class="container-auto">
         <!-- Phần Giới thiệu -->
         <HeaderBox></HeaderBox>
+        <p v-if="myToken">You are logged in</p>
+        <p v-else>You are not logged in</p>
+        <button @click="logout" class="btn btn-sm btn-primary" v-if="myToken">Logout</button>
         <!-- Phần Việc làm hot -->
         <FooterLayout></FooterLayout>
     </div>
 </template>
 <script setup>
-
+import { useAuth } from '~/composables/useAuth';
+const { token, logout } = useAuth();
+const myToken = computed(()=>{
+    const newToken = useAuth().token
+    return !!newToken
+})
 const { $modelAPI, $_ } = useNuxtApp();
 const listJob = ref(null)
 const originalListJob = ref(null)
@@ -51,7 +59,7 @@ window.addEventListener('scroll', () => {
     const windowHeight = window.innerHeight;
     const scrollY = window.scrollY;
     const bodyHeight = document.body.offsetHeight;
-    
+
     // Tính vị trí giữa trang
     const middleOfPage = windowHeight / 2;
 

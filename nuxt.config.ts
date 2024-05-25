@@ -24,6 +24,12 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
+  modules: [
+    '@pinia/nuxt'
+  ],
+  pinia: {
+    autoImports: ['auth', 'acceptHMRUpdate']
+  },
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -33,15 +39,9 @@ export default defineNuxtConfig({
   experimental: {
     appManifest: false
   },
-  modules: [],
-  // modules: [
-  //   '@pinia/nuxt',
-  // ],
-  // pinia: {
-  //   autoImports: ['defineStore', 'acceptHMRUpdate']
-  // },
-  // imports: {
-  //   dirs: ['stores'],
-  // },
+  
+  imports: {
+    dirs: ['stores'],
+  },
  
 })
