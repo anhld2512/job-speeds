@@ -3,55 +3,6 @@
         <!-- Phần Giới thiệu -->
         <HeaderBox></HeaderBox>
         <!-- Phần Việc làm hot -->
-        <section class="py-16">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-semibold mb-8">Việc làm hot</h2>
-                <!-- Danh sách các việc làm hot -->
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Card item -->
-                   
-                    <div v-for="item in listJob" :key="item.id" class="card bg-base-100 shadow-xl">
-                        <figure class="px-10 pt-10">
-                            <img :src="renderImage(item.id)"
-                                alt="Shoes" class="rounded-xl w-full h-auto sm:h-48 md:h-64 lg:h-72 xl:h-80 object-cover" />
-                        </figure>
-                        <div class="card-body items-center text-center">
-                            <h2 class="card-title">Shoes!</h2>
-                            <p>If a dog chews shoes whose shoes does he choose?</p>
-                            <div class="card-actions">
-                                <button class="btn btn-primary">Buy Now</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Repeat card items for other jobs -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Phần Việc làm nhanh -->
-        <section class="bg-gray-100 py-16">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-semibold mb-8">Việc làm nhanh</h2>
-                <!-- Danh sách các việc làm nhanh -->
-            </div>
-        </section>
-
-        <!-- Phần Nhà tuyển dụng hot -->
-        <section class="py-16">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-semibold mb-8">Nhà tuyển dụng hot</h2>
-                <!-- Danh sách các nhà tuyển dụng hot -->
-            </div>
-        </section>
-
-        <!-- Phần Liên hệ -->
-        <section class="bg-gray-100 py-16">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-semibold mb-8">Liên hệ</h2>
-                <!-- Thông tin liên hệ -->
-            </div>
-        </section>
         <FooterLayout></FooterLayout>
     </div>
 </template>
