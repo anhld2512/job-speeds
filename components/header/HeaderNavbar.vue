@@ -66,7 +66,7 @@
         </div>
         <div class="navbar-end">
             <div class="flex-none gap-3">
-                <button class="btn btn-ghost btn-circle">
+                <!-- <button class="btn btn-ghost btn-circle">
                     <div class="indicator">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -75,7 +75,7 @@
                         </svg>
                         <span class="badge badge-xs badge-primary indicator-item"></span>
                     </div>
-                </button>
+                </button> -->
                 <label class="swap swap-rotate">
                     <!-- this hidden checkbox controls the state -->
                     <input type="checkbox" class="theme-controller" value="synthwave" v-model="selectedTheme"
