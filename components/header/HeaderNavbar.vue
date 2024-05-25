@@ -11,7 +11,7 @@
                 <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                     <div class="w-10 rounded-full">
                         <img alt="Tailwind CSS Navbar component"
-                            src="http://localhost:3000/logo-bg.png" />
+                            :src="logoDefault" />
                     </div>
                 </div>
                 <ul tabindex="0"
@@ -98,8 +98,22 @@
 </template>
 
 <script setup>
-
-const { $util } = useNuxtApp();
+const { $util, payload: nuxtPayload } = useNuxtApp();
+const baseURL = nuxtPayload.config.app.baseURL;
+const cdnURL = `${nuxtPayload.config.app.cdnURL || ""}`.trim();
+const headLinks = computed(() => {
+  let url = `logo`;
+  if (cdnURL.length > 0) {
+    url = `${!!cdnURL.endsWith('/') ? cdnURL : cdnURL + '/'}${url}`
+  } else {
+    url = `${!!baseURL.endsWith('/') ? baseURL : baseURL + '/'}${url}`
+  }
+  return {
+    rel: "stylesheet",
+    url: url,
+  }
+})
+const logoDefault = ref(`${headLinks.value.url}/logo-bg.png`)
 const currentTheme = ref(localStorage.getItem('theme') || 'light');
 const selectedTheme = ref(currentTheme.value);
 
