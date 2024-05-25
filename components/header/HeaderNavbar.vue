@@ -1,7 +1,7 @@
 <template>
     <div class="navbar bg-base-100 hidden lg:flex w-full" :data-theme="currentTheme">
         <div class="flex-1">
-            <a class="btn btn-ghost text-xl">Job Speeds</a>
+            <a class="btn btn-ghost text-xl" href="/">Job Speeds</a>
         </div>
         <div class="flex-none gap-5">
             <div class="form-control">
@@ -10,8 +10,7 @@
             <div class="dropdown dropdown-end w-full">
                 <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                     <div class="w-10 rounded-full">
-                        <img alt="Tailwind CSS Navbar component"
-                            :src="logoDefault" />
+                        <img alt="Tailwind CSS Navbar component" :src="logoDefault" />
                     </div>
                 </div>
                 <ul tabindex="0"
@@ -45,24 +44,52 @@
     </div>
     <div class="navbar bg-base-100 lg:hidden" :data-theme="currentTheme">
         <div class="navbar-start gap-5">
-            <div class="dropdown">
-                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h7" />
-                    </svg>
+
+            <div class="drawer lg:drawer-open">
+                <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+                <div class="drawer-content flex  items-center justify-start">
+                    <!-- Page content here -->
+                    <label for="my-drawer-2" tabindex="0" role="button"
+                        class="btn btn-ghost btn-circle drawer-button lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h7" />
+                        </svg>
+                    </label>
                 </div>
-                <ul tabindex="0"
-                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><a>Homepage</a></li>
-                    <li><a>Portfolio</a></li>
-                    <li><a>About</a></li>
-                </ul>
+                <div class="drawer-side z-50">
+                    <input type="checkbox" class="drawer-toggle" id="my-drawer-2">
+                    <label for="my-drawer-2" class="drawer-overlay"></label>
+                    <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+                        <!-- Sidebar content here -->
+                        <li><a href="#" class="block py-2 px-4 text-sm   flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
+                                </svg> <span>Job</span></a>
+                        </li>
+                        <!-- <li><a href="#" class="block py-2 px-4 text-sm  ">Application
+                                Form</a></li>
+                        <li><a href="#" class="block py-2 px-4 text-sm  ">Login</a>
+                        </li>
+                        <li><a href="#" class="block py-2 px-4 text-sm  ">News</a>
+                        </li>
+                        <li><a href="#" class="block py-2 px-4 text-sm  ">Job
+                                Seekers</a></li>
+                        <li><a href="#" class="block py-2 px-4 text-sm  ">Share
+                                CV</a></li>
+                        <li><a href="#" class="block py-2 px-4 text-sm  ">Analyst
+                                Link</a></li> -->
+                        <!-- Add more links and functionalities here -->
+                    </ul>
+                </div>
+
             </div>
         </div>
         <div class="navbar-center">
-            <a class="btn btn-ghost text-xl">Job Speeds</a>
+            <a class="btn btn-ghost text-xl" href="/">Job Speeds</a>
         </div>
         <div class="navbar-end">
             <div class="flex-none gap-3">
@@ -102,16 +129,16 @@ const { $util, payload: nuxtPayload } = useNuxtApp();
 const baseURL = nuxtPayload.config.app.baseURL;
 const cdnURL = `${nuxtPayload.config.app.cdnURL || ""}`.trim();
 const headLinks = computed(() => {
-  let url = `logo`;
-  if (cdnURL.length > 0) {
-    url = `${!!cdnURL.endsWith('/') ? cdnURL : cdnURL + '/'}${url}`
-  } else {
-    url = `${!!baseURL.endsWith('/') ? baseURL : baseURL + '/'}${url}`
-  }
-  return {
-    rel: "stylesheet",
-    url: url,
-  }
+    let url = `logo`;
+    if (cdnURL.length > 0) {
+        url = `${!!cdnURL.endsWith('/') ? cdnURL : cdnURL + '/'}${url}`
+    } else {
+        url = `${!!baseURL.endsWith('/') ? baseURL : baseURL + '/'}${url}`
+    }
+    return {
+        rel: "stylesheet",
+        url: url,
+    }
 })
 const logoDefault = ref(`${headLinks.value.url}/logo-bg.png`)
 const currentTheme = ref(localStorage.getItem('theme') || 'light');
