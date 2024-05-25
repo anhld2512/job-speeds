@@ -3,12 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build --dotenv .env.production",
+    "build": "nuxt build",
+    "start": "node .output/server/index.mjs",
     "dev": "nuxt dev --dotenv .env.development",
     "generate": "nuxt generate --dotenv .env.production",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "start": "nuxt start --dotenv .env.production"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
