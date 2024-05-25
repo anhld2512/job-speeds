@@ -5,10 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "start": "node .output/server/index.mjs",
-    "dev": "nuxt dev --dotenv .env.development",
-    "generate": "nuxt generate --dotenv .env.production",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
+    "dev": "nuxt dev --dotenv .env.development"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
