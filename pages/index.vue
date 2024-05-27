@@ -2,9 +2,6 @@
     <div class="h-full overflow-auto">
         <!-- Phần Giới thiệu -->
         <HeaderBox></HeaderBox>
-        <HeaderBox></HeaderBox>
-        <HeaderBox></HeaderBox>
-        <HeaderBox></HeaderBox>
      
         <FooterLayout></FooterLayout>
     </div>
