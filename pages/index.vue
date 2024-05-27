@@ -14,7 +14,7 @@ const { $modelAPI, $_ } = useNuxtApp();
 const listJob = ref(null)
 const originalListJob = ref(null)
 const renderImage = (id) => {
-    return `http://localhost:2024/file-manager/files/${id}`
+    return `htt ://localhost:2024/file-manager/files/${id}`
 }
 
 const pushMoreJobs = () => {

@@ -22,6 +22,16 @@ export default defineNuxtConfig({
       ]
     }
   },
+  proxy: {
+    '/api': {
+      target: 'http://localhost:2024', // URL của máy chủ backend
+      pathRewrite: { '^/api': '/' },
+      changeOrigin: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*' // Thêm tiêu đề vào yêu cầu tới máy chủ backend
+      }
+    }
+  },
   devtools: { enabled: true },
   css: [
     '~/assets/css/main.css',

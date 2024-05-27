@@ -34,7 +34,6 @@ const currentBreadcrumbs = computed(() => {
     const result =  breadcrumbsList.find(item => item?.path?.trim()?.toLocaleLowerCase() === currentPath?.value?.trim()?.toLocaleLowerCase())?.breadcrumbs ?? [{
         url: "/", title: "Home", icon: 'bi bi-house'
     }]
-    console.log(result)
     return result 
 })
 onMounted(() => {
