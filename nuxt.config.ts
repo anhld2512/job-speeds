@@ -19,6 +19,26 @@ export default defineNuxtConfig({
         { name: "Access-Control-Allow-Methods", content: "GET, POST, OPTIONS" },
         { name: "Access-Control-Allow-Credentials", content: "true" },
         { name: "Access-Control-Allow-Headers", content: "DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization" },
+        { name: "description", content: "Kết nối người tìm việc và nhà tuyển dụng với Job Speeds."  },
+        { 
+          name: "keywords", 
+          content: "Recruitment, employment, job search, unemployment, job application, online job search, job seeker, employer, recruiting company, labor market, career transition, job opportunities, job interview, job resume, job search skills, employee benefits, vocational training, work experience, salary, industry, vocational education, new job search, suitable job, workplace location, professional competence, work motivation,Tuyển dụng, việc làm, tìm việc, thất nghiệp, xin việc, tìm việc online, người tìm việc, nhà tuyển dụng, công ty tuyển dụng, thị trường lao động, chuyển đổi nghề nghiệp, cơ hội nghề nghiệp, phỏng vấn việc làm, hồ sơ xin việc, kỹ năng tìm kiếm việc làm, lợi ích nhân viên, khóa học nghề nghiệp, kinh nghiệm làm việc, mức lương, ngành nghề, đào tạo nghề, tìm kiếm việc làm mới, công việc phù hợp, địa điểm làm việc, bản lĩnh nghề nghiệp, động lực làm việc" 
+        },
+        { name: "author", content: "Anhld" },
+        { name: "robots", content: "index, follow" }, // Chỉ định cách bot của công cụ tìm kiếm phải xử lý trang
+        { name: "og:title", content: "Job Speeds" }, // Tiêu đề cho các liên kết mạng xã hội
+        { 
+          name: "og:description", 
+          content: "Kết nối người tìm việc và nhà tuyển dụng với Job Speeds." 
+        },
+        { name: "og:image", content: "https://api.jobspeeds.com/file-manager/files/1HRK-1cwNy660RxETKsXNznb66uxbA87H" },
+        { name: "og:url", content: "https://jobspeeds.com" },
+        // Các thẻ schema.org có thể giúp công cụ tìm kiếm hiểu được thông tin cụ thể trên trang web của bạn
+        { name: "application-name", content: "Job Speeds" },
+        { name: "theme-color", content: "#RRGGBB" }, // Màu nền của ứng dụng
+        { name: "apple-mobile-web-app-capable", content: "yes" }, // Có thể mở ứng dụng trên thiết bị di động của Apple
+        { name: "apple-mobile-web-app-status-bar-style", content: "black" }, // Màu thanh trạng thái của ứng dụng trên thiết bị di động của Apple
+        { name: "apple-mobile-web-app-title", content: "Job Speeds" }, // Tiêu đề cho ứng dụng trên thiết bị di động của Apple
       ]
     }
   },

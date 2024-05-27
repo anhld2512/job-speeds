@@ -2,7 +2,7 @@
     <div v-if="myToken">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
-            <img alt="Tailwind CSS Navbar component" :src="logoDefault" />
+            <img alt="logo-tech" :src="logoDefault"  />
         </div>
     </div>
     <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
@@ -35,19 +35,19 @@ const myToken = computed(()=>{
 })
 const baseURL = nuxtPayload.config.app.baseURL;
 const cdnURL = `${nuxtPayload.config.app.cdnURL || ""}`.trim();
-const headLinks = computed(() => {
-    let url = `logo`;
-    if (cdnURL.length > 0) {
-        url = `${!!cdnURL.endsWith('/') ? cdnURL : cdnURL + '/'}${url}`
-    } else {
-        url = `${!!baseURL.endsWith('/') ? baseURL : baseURL + '/'}${url}`
-    }
-    return {
-        rel: "stylesheet",
-        url: url,
-    }
-})
-const logoDefault = ref(`${headLinks.value.url}/logo-bg.png`)
+// const headLinks = computed(() => {
+//     let url = `logo`;
+//     if (cdnURL.length > 0) {
+//         url = `${!!cdnURL.endsWith('/') ? cdnURL : cdnURL + '/'}${url}`
+//     } else {
+//         url = `${!!baseURL.endsWith('/') ? baseURL : baseURL + '/'}${url}`
+//     }
+//     return {
+//         rel: "stylesheet",
+//         url: url,
+//     }
+// })
+const logoDefault = ref(`https://api.jobspeeds.com/file-manager/files/1HRK-1cwNy660RxETKsXNznb66uxbA87H`)
 </script>
 
 <style lang="scss" scoped></style>
