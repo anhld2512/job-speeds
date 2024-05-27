@@ -5,29 +5,29 @@
             <div class="flex gap-3 items-center justify-start w-full">
                 <div class="avatar">
                     <div class="w-10 h-10 rounded-full ring">
-                        <img src="https://nuxt.com/assets/design-kit/icon-green.svg" alt="logo-tech-stack"/>
+                        <NuxtImg src="https://nuxt.com/assets/design-kit/icon-green.svg" alt="logo-tech-stack"/>
                     </div>
                 </div>
                 <div class="avatar">
                     <div class="w-10 h-10 rounded-full ring">
-                        <img src="https://logowik.com/content/uploads/images/tailwind-css3232.logowik.com.webp" alt="logo-tech-stack" />
+                        <NuxtImg src="https://logowik.com/content/uploads/images/tailwind-css3232.logowik.com.webp" alt="logo-tech-stack" />
                     </div>
                 </div>
                 <div class="avatar">
                     <div class="w-10 h-10 rounded-full ring">
-                        <img
+                        <NuxtImg
                             src="https://e7.pngegg.com/pngimages/247/558/png-clipart-node-js-javascript-express-js-npm-react-github-angle-text.png" alt="logo-tech-stack" />
                     </div>
                 </div>
                 <div class="avatar">
                     <div class="w-10 h-10 rounded-full ring">
-                        <img
+                        <NuxtImg
                             src="https://w7.pngwing.com/pngs/169/258/png-transparent-mongodb-compass-macos-bigsur-icon-thumbnail.png" alt="logo-tech-stack" />
                     </div>
                 </div>
                 <div class="avatar">
                     <div class="w-10 h-10 rounded-full ring">
-                        <img
+                        <NuxtImg
                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpMImemstQDjHmZ1xWx458k0zd4y_U82UEupgjEFsj7A&s"  alt="logo-tech-stack"/>
                     </div>
                 </div>

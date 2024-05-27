@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /admin/       # Loại trừ các trang quản trị
+Disallow: /dashboard/   # Loại trừ các trang bảng điều khiển
+Disallow: /private/     # Loại trừ các trang có nội dung riêng tư
+Disallow: /secret-page/ # Loại trừ các trang bí mật
+Disallow: /cgi-bin/     # Loại trừ các thư mục CGI
+Disallow: /tmp/         # Loại trừ các thư mục tạm
+Disallow: /temp/        # Loại trừ các thư mục tạm
+Disallow: /cache/       # Loại trừ các thư mục cache
+
+Sitemap: https://jobspeeds.com/sitemap.xml   # Đường dẫn tới sitemap của bạn

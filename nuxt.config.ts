@@ -58,8 +58,14 @@ export default defineNuxtConfig({
     'bootstrap-icons/font/bootstrap-icons.css'
   ],
   modules: [
-    '@pinia/nuxt',"@nuxtjs/tailwindcss"
+    '@pinia/nuxt',"@nuxtjs/tailwindcss",'@nuxtjs/sitemap','@nuxt/image'
   ],
+  sitemap: {
+    // Cấu hình cho sitemap
+    hostname: 'https://jobspeeds.com', // Địa chỉ URL gốc của trang web của bạn
+    exclude: ['/admin/**'], // Các URL bạn muốn loại trừ khỏi sitemap
+    // Các cấu hình khác cho sitemap
+  },
   pinia: {
     autoImports: ['auth', 'acceptHMRUpdate']
   },
