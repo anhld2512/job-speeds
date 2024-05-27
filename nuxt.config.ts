@@ -28,7 +28,7 @@ export default defineNuxtConfig({
     'bootstrap-icons/font/bootstrap-icons.css'
   ],
   modules: [
-    '@pinia/nuxt'
+    '@pinia/nuxt',"@nuxtjs/tailwindcss"
   ],
   pinia: {
     autoImports: ['auth', 'acceptHMRUpdate']

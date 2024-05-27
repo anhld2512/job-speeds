@@ -7,9 +7,12 @@
             </a>
         </li>
         <hr class="mt-1 mb-1">
-        <div @click="logout" class="w-full btn btn-sm btn-primary">
+        <div v-if="myToken" @click="actionLogout" class="w-full btn btn-sm btn-primary">
                 <i class="bi bi-box-arrow-in-right fs-6"></i>Logout
-            </div>
+        </div>
+        <div v-else>
+            <button  class="btn btn-sm btn-primary w-full"><a href="/login">Login</a> </button>
+        </div>
     </ul>
 </template>
 <script setup>
@@ -17,5 +20,17 @@
         token,
         logout
     } = useAuth();
+    const myToken = computed(()=>{
+    const newToken = useAuth().token
+    return !!newToken
+})
+const router = useRouter();
+
+const actionLogout = () =>{
+    logout()
+    router.push("/").then(() => {
+        window.location.reload();
+    });
+}
 </script>
 <style lang="scss" scoped></style>

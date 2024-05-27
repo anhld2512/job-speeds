@@ -1,8 +1,11 @@
 <template>
-    <div class="container-auto">
+    <div class="h-full overflow-auto">
         <!-- Phần Giới thiệu -->
         <HeaderBox></HeaderBox>
-        <!-- Phần Việc làm hot -->
+        <HeaderBox></HeaderBox>
+        <HeaderBox></HeaderBox>
+        <HeaderBox></HeaderBox>
+     
         <FooterLayout></FooterLayout>
     </div>
 </template>

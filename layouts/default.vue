@@ -1,7 +1,7 @@
 <template>
     <div id="job-speed" class="h-full w-full overflow-hidden">
       <HeaderNavbar></HeaderNavbar>
-      <div class="overflow-hidden h-full w-full">
+      <div class="container-auto h-screen overflow-hidden h-full w-full">
         <slot />
       </div>
     </div>
