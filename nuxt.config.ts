@@ -23,7 +23,10 @@ export default defineNuxtConfig({
     }
   },
   devtools: { enabled: true },
-  css: ['~/assets/css/main.css'],
+  css: [
+    '~/assets/css/main.css',
+    'bootstrap-icons/font/bootstrap-icons.css'
+  ],
   modules: [
     '@pinia/nuxt'
   ],

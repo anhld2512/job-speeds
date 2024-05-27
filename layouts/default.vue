@@ -1,15 +1,21 @@
 <template>
-    <div id="job-speed" class="h-full overflow-hidden" :data-theme="currentTheme">
-        <HeaderNavbar></HeaderNavbar>
-        <div class="overflow-hidden h-full" >
+    <div id="job-speed" class="h-full w-full overflow-hidden">
+      <HeaderNavbar></HeaderNavbar>
+      <div class="overflow-hidden h-full w-full">
         <slot />
+      </div>
     </div>
-    </div>
+  </template>
   
+  <script setup>
+  const { $util } = useNuxtApp();
+  </script>
+  
+<style>
+/* global.css */
+html, body, #__nuxt, #job-speed {
+  height: 100%;
+  margin: 0;
+}
 
-</template>
-
-<script setup>
-const { $util } = useNuxtApp();
-
-</script>
+</style>

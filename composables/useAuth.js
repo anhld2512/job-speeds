@@ -13,7 +13,6 @@ export const useAuth = () => {
   //#endregion
   const login = async (username, password) => {
     try {
-      console.log(username, password)
       const response = await $api.post('/auth/login', { username, password });
       const token = response.data.token; // Lấy token từ phản hồi của API đăng nhập
       authStore.login(token);
@@ -21,7 +20,7 @@ export const useAuth = () => {
 
       return true;
     } catch (error) {
-      console.error(error);
+      console.log(error);
       return false;
     }
   };
@@ -47,7 +46,7 @@ export const useAuth = () => {
       }
     } catch (error) {
       // Nếu có lỗi trong quá trình gửi yêu cầu đến API, in ra lỗi và trả về false
-      console.error(error);
+      console.log(error);
       return false;
     }
   };

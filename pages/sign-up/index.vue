@@ -1,57 +1,68 @@
 <template>
   <div class="items-center justify-center p-5">
     <div class="card shadow-2xl bg-base-100 py-3 max-w-md mx-auto">
+      <h1 class="text-2xl font-bold text-center mb-6">Register</h1>
       <div class="card-body">
         <div class="form-control">
           <label class="label">
             <span class="label-text">Email</span>
           </label>
           <input required v-model="username" type="email" placeholder="Email" class="input input-bordered" />
-
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">Password</span>
           </label>
           <input required v-model="password" type="password" placeholder="Password" class="input input-bordered" />
-         
+
         </div>
         <div class="flex-row">
-          <label class="label">
-            <a href="/forgot" class="label-text-alt link link-hover">Forgot password?</a>
-          </label>
           <label class="label ms-auto">
-            <span>You can create an account. <NuxtLink href="/sign-up" class="text-primary link link-hover">Sign Up</NuxtLink></span>
+            <span>Already have an account? <NuxtLink href="/login" class="text-primary link link-hover">Login In
+              </NuxtLink></span>
           </label>
         </div>
         <div class="form-control mt-3">
-          <button @click="handleLogin" class="btn btn-primary">Login</button>
+          <button @click="handleRegister" class="btn btn-primary w-full">
+            Sign Up
+          </button>
         </div>
       </div>
     </div>
   </div>
+
   <ToastMessage ref="toastRef" :typeToast="currentToastType" :message="toastMessage" :show="showToast" />
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useAuth } from '~/composables/useAuth';
-const { token, logout } = useAuth();
 
 const router = useRouter();
 const username = ref('');
 const password = ref('');
-const { login } = useAuth();
 const toastRef = ref(null);
 const showToast = ref(false);
 const currentToastType = ref('');
 const toastMessage = ref('');
+const { signup, login } = useAuth();
 
+const handleRegister = async () => {
+  const success = await signup(username.value, password.value);
+  if (success) {
+    handleLogin()
+    triggerToast('success', 'Login successful.')
+  } else {
+    triggerToast('error', 'Registration failed.')
+  }
+};
 const handleLogin = async () => {
   const success = await login(username.value, password.value);
   if (success) {
     router.push('/');
   } else {
-    triggerToast('error','Login failed.')
+    triggerToast('error', 'Login failed.')
   }
 };
 const triggerToast = (type, message) => {
@@ -62,15 +73,6 @@ const triggerToast = (type, message) => {
     toastRef.value.show();
   }
 };
-onMounted(() => {
-    nextTick().then(() => {
-        setTimeout(() => {
-          if(token){
-             router.push('/');
-          }
-        }, 1);
-    });
-})
 </script>
 
 <style></style>
