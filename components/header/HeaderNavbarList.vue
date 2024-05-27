@@ -11,7 +11,7 @@
                 <i class="bi bi-box-arrow-in-right fs-6"></i>Logout
         </div>
         <div v-else>
-            <button  class="btn btn-sm btn-primary w-full"><a href="/login">Login</a> </button>
+            <button @click="actionLogin" class="btn btn-sm btn-primary w-full">Login</button>
         </div>
     </ul>
 </template>
@@ -29,6 +29,11 @@ const router = useRouter();
 const actionLogout = () =>{
     logout()
     router.push("/").then(() => {
+        window.location.reload();
+    });
+}
+const actionLogin = () =>{
+    router.push("/login").then(() => {
         window.location.reload();
     });
 }
