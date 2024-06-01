@@ -1,6 +1,7 @@
 <template>
-  <div class="items-center justify-center p-5">
-    <div class="card shadow-2xl bg-base-100 py-3 max-w-md mx-auto">
+  <div class="items-center justify-center p-5 h-screen">
+    <div class="card shadow-2xl bg-base-100 py-3 max-w-md mx-auto  border border-2 shadow-xl">
+      <h3 class="text-2xl font-bold text-center">Login</h3>
       <div class="card-body">
         <div class="form-control">
           <label class="label">
@@ -25,18 +26,19 @@
           </label>
         </div>
         <div class="form-control mt-3">
-          <button @click="handleLogin" class="btn btn-primary">Login</button>
+          <button :disabled="disabledBtnLogin" @click="handleLogin" class="btn btn-primary">Login</button>
         </div>
       </div>
     </div>
   </div>
   <ToastMessage ref="toastRef" :typeToast="currentToastType" :message="toastMessage" :show="showToast" />
+  <LoadingBasic ref="loading" :isClose="false"></LoadingBasic>
 </template>
 
 <script setup>
 import { useAuth } from '~/composables/useAuth';
 const { token, logout } = useAuth();
-
+const loading = ref(null)
 const router = useRouter();
 const username = ref('');
 const password = ref('');
@@ -45,10 +47,14 @@ const toastRef = ref(null);
 const showToast = ref(false);
 const currentToastType = ref('');
 const toastMessage = ref('');
-
+const disabledBtnLogin = ref(false)
 const handleLogin = async () => {
+  loading.value.show()
+  disabledBtnLogin.value = true
   const success = await login(username.value, password.value);
   if (success) {
+    disabledBtnLogin.value =true
+    loading.value.close()
     router.push('/');
   } else {
     triggerToast('error','Login failed.')

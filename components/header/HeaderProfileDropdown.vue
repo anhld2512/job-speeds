@@ -2,7 +2,7 @@
     <div v-if="myToken">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
-            <NuxtImg alt="logo-tech" :src="logoDefault"  />
+            <NuxtImg alt="logo-tech" :src="logoDefault"  class="skeleton"/>
         </div>
     </div>
     <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
@@ -22,7 +22,7 @@
     </ul>
     </div>
     <div v-else>
-        <button class="btn btn-sm btn-primary"><NuxtLink href="/login">Login</NuxtLink> </button>
+        <NuxtLink href="/login"><button class="btn btn-sm btn-primary">Login</button></NuxtLink>
     </div>
 </template>
 

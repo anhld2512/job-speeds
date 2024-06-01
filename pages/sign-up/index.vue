@@ -1,7 +1,7 @@
 <template>
-  <div class="items-center justify-center p-5">
-    <div class="card shadow-2xl bg-base-100 py-3 max-w-md mx-auto">
-      <h1 class="text-2xl font-bold text-center mb-6">Register</h1>
+  <div class="items-center justify-center p-5 h-screen ">
+    <div class="card shadow-2xl bg-base-100 py-3 max-w-md mx-auto border border-2 shadow-xl">
+      <h3 class="text-2xl font-bold text-center">Register</h3>
       <div class="card-body">
         <div class="form-control">
           <label class="label">
@@ -35,8 +35,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 import { useAuth } from '~/composables/useAuth';
 
 const router = useRouter();

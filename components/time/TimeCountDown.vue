@@ -6,13 +6,14 @@
           <div class="text-gray-600">{{ unit }}</div>
         </div>
       </div>
+      <div class="text-gray-500 text-small mt-3">Ngày dự kiến: 06/06/2024.</div>
     </div>
   </template>
   
   <script setup>
   import { ref, computed, onMounted } from 'vue';
   
-  const targetDateString = '2024-06-01';
+  const targetDateString = '2024-06-06';
   const targetDate = new Date(targetDateString).getTime();
   
   const time = ref({

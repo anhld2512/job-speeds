@@ -1,21 +1,30 @@
 <template>
-    <div id="job-speed" class="h-full w-full overflow-hidden">
+  <div id="job-speed" class="w-full overflow-hidden flex-row min-h-screen">
+    <header class="fixed top-0 z-50 w-full">
       <HeaderNavbar></HeaderNavbar>
-      <div class="container-auto h-screen overflow-hidden h-full w-full">
+    </header>
+    <main>
+      <div class="container-auto overflow-auto mt-20">
         <slot />
       </div>
-    </div>
-  </template>
-  
-  <script setup>
-  const { $util } = useNuxtApp();
-  </script>
-  
+    </main>
+    <footer class="flex-grow-1 footer p-5 mb-10 bg-base-100 text-base-content flex-row text-base-content">
+      <FooterLayout></FooterLayout>
+    </footer>
+  </div>
+</template>
+
+<script setup>
+const { $util } = useNuxtApp();
+</script>
+
 <style>
 /* global.css */
-html, body, #__nuxt, #job-speed {
-  height: 100%;
+html,
+body,
+#__nuxt,
+#job-speed {
   margin: 0;
+  padding: 0;
 }
-
 </style>

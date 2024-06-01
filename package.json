@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
+    "build": "nuxt build --dotenv .env.production",
     "start": "node .output/server/index.mjs",
-    "dev": "nuxt dev --dotenv .env"
+    "dev": "nuxt dev --dotenv .env.development"
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.22",

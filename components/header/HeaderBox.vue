@@ -1,7 +1,7 @@
 <template>
  <div class="hero bg-base-200">
   <div class="hero-content flex-col lg:flex-row">
-    <NuxtImg style="max-width: 255px;;max-height: 255px;object-fit: cover;" :src="logoDefault" class="max-w-sm rounded-lg shadow-2xl hidden lg:flex w-full"  alt="logo"/>
+    <NuxtImg style="max-width: 255px;;max-height: 255px;object-fit: cover;" :src="logoDefault" class="skeleton max-w-sm rounded-lg shadow-2xl hidden lg:flex w-full" format="webp"  alt="logo"/>
     <div>
       <h1 class="text-5xl font-bold">Job Speed!</h1>
       <p class="py-6">

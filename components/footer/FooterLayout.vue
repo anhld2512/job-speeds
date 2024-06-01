@@ -1,32 +1,31 @@
 <template>
-    <footer class="footer p-5 mb-10 bg-base-100 text-base-content flex-row text-base-content">
         <aside class="mb-10 w-full">
             <div class="w-full text-md font-bold">Tech stack</div>
             <div class="flex gap-3 items-center justify-start w-full">
                 <div class="avatar">
-                    <div class="w-10 h-10 rounded-full ring">
+                    <div class="w-10 h-10 rounded-full ring ">
                         <NuxtImg src="https://nuxt.com/assets/design-kit/icon-green.svg" alt="logo-tech-stack"/>
                     </div>
                 </div>
                 <div class="avatar">
-                    <div class="w-10 h-10 rounded-full ring">
+                    <div class="w-10 h-10 rounded-full ring ">
                         <NuxtImg src="https://logowik.com/content/uploads/images/tailwind-css3232.logowik.com.webp" alt="logo-tech-stack" />
                     </div>
                 </div>
                 <div class="avatar">
-                    <div class="w-10 h-10 rounded-full ring">
+                    <div class="w-10 h-10 rounded-full ring ">
                         <NuxtImg
                             src="https://e7.pngegg.com/pngimages/247/558/png-clipart-node-js-javascript-express-js-npm-react-github-angle-text.png" alt="logo-tech-stack" />
                     </div>
                 </div>
                 <div class="avatar">
-                    <div class="w-10 h-10 rounded-full ring">
+                    <div class="w-10 h-10 rounded-full ring ">
                         <NuxtImg
                             src="https://w7.pngwing.com/pngs/169/258/png-transparent-mongodb-compass-macos-bigsur-icon-thumbnail.png" alt="logo-tech-stack" />
                     </div>
                 </div>
                 <div class="avatar">
-                    <div class="w-10 h-10 rounded-full ring">
+                    <div class="w-10 h-10 rounded-full ring ">
                         <NuxtImg
                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpMImemstQDjHmZ1xWx458k0zd4y_U82UEupgjEFsj7A&s"  alt="logo-tech-stack"/>
                     </div>
@@ -42,12 +41,6 @@
                 <p>Sone Team<br>@2024</p>
             </div>
         </aside>
-        <br>
-        <br>
-        <br>
-        <br>
-    </footer>
-  
 </template>
 
 <script setup>
