@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto py-8">
+    <div class="container mx-auto py-6 px-8">
         <h1 class="text-3xl font-bold mb-4">About Us</h1>
         <p class="mb-8">Learn more about our company and team. If you have any questions, feel free to reach out to us!
         </p>
