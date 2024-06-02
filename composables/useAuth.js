@@ -11,8 +11,11 @@ export const useAuth = () => {
 
       const response = await $api.post('/auth/login', { username, password: encryptedPassword });
       const token = response.data.token;
-      authStore.login(token);
-      localStorage.setItem('token', token);
+
+      // Giải mã token trước khi lưu vào store và localStorage
+      const decryptedToken = CryptoJS.AES.decrypt(token, 'your-secret-key').toString(CryptoJS.enc.Utf8);
+      authStore.login(decryptedToken);
+      localStorage.setItem('token', decryptedToken);
 
       return true;
     } catch (error) {
@@ -30,8 +33,11 @@ export const useAuth = () => {
 
       if (response.status === 201) {
         const token = response.data.token;
-        authStore.login(token);
-        localStorage.setItem('token', token);
+
+        // Giải mã token trước khi lưu vào store và localStorage
+        const decryptedToken = CryptoJS.AES.decrypt(token, 'your-secret-key').toString(CryptoJS.enc.Utf8);
+        authStore.login(decryptedToken);
+        localStorage.setItem('token', decryptedToken);
 
         return true;
       } else {
