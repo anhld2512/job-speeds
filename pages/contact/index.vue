@@ -47,7 +47,7 @@
 
         </div>
     </div>
-    <div class="container mx-auto py-8">
+    <div class="container mx-auto py-6 px-8">
         <h1 class="text-3xl font-bold mb-4">Contact Us</h1>
         <p class="mb-8">Have a question or feedback? We're here to help. Fill out the form below and we'll get back to
             you as soon as possible.</p>
