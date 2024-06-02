@@ -1,6 +1,6 @@
 <template>
 
-  <div :key="refeshFilter" class="relative w-full">
+  <div :key="refeshFilter" class="relative w-full md:w-1/2">
     <div class="w-full">
       <input v-show="!showFilter" type="text" placeholder="Search" class="input input-bordered w-full"
         @focus="focusInputSearch"/>
@@ -12,13 +12,13 @@
       class="absolute z-10 w-full bg-white border border-2 rounded mt-2 py-1 shadow-lg max-h-96 h-96 overflow-auto p-3">
       <div class="d-flex mt-3 mb-3">
         <h6>Tìm Kiếm Nâng Cao</h6>
-        <div class="text-end absolute top-0 right-0 mb-12 m-3">
+        <div class="absolute top-5 right-5">
           <button @click="closeFilter" class="btn btn-sm border border-2 border-primary text-end"><i
               class="bi bi-x"></i> Close</button>
         </div>
       </div>
 
-      <div class="flex-row gap-3 mt-6">
+      <div class="flex-row gap-3 mt-6 px-2">
         <div class="w-full">
           <ComboboxDropdown label="Name" filedFilter="jobName" v-model="filterName" :data="data">
           </ComboboxDropdown>

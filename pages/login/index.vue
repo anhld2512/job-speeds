@@ -53,11 +53,13 @@ const handleLogin = async () => {
   disabledBtnLogin.value = true
   const success = await login(username.value, password.value);
   if (success) {
-    disabledBtnLogin.value =true
+    disabledBtnLogin.value =false
     loading.value.close()
-    router.push('/');
+    router.back()
   } else {
     triggerToast('error','Login failed.')
+    loading.value.close()
+    disabledBtnLogin.value =false
   }
 };
 const triggerToast = (type, message) => {
