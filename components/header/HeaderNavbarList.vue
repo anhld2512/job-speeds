@@ -6,30 +6,25 @@
         <i class="bi bi-house"></i> <span>Home</span>
       </a>
     </li>
-    <li>
+    <!-- <li>
       <a href="/dashboard" class="py-2 px-4 text-lg flex font-extrabold">
         <i class="bi bi-grid"></i> <span>Dashboard</span>
       </a>
-    </li>
+    </li> -->
     <li>
       <a href="/job" class="py-2 px-4 text-lg flex font-extrabold">
         <i class="bi bi-list-ul"></i> <span>Job</span>
       </a>
     </li>
 
-    <li>
+    <!-- <li>
       <a href="/candidate" class="py-2 px-4 text-lg flex font-extrabold">
         <i class="bi bi-list-stars"></i> <span>Candidate</span>
       </a>
-    </li>
+    </li> -->
     <li>
       <a href="/application" class="py-2 px-4 text-lg flex font-extrabold">
         <i class="bi bi-card-list"></i> <span>Application</span>
-      </a>
-    </li>
-    <li>
-      <a href="/about" class="py-2 px-4 text-lg flex font-extrabold">
-        <i class="bi bi-info-square"></i> <span>About</span>
       </a>
     </li>
     <li>

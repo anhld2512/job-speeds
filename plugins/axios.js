@@ -4,7 +4,7 @@ import axios from 'axios';
 export default defineNuxtPlugin(() => {
   const api = axios.create({
     // process.env.API_URL || 
-    baseURL: 'http://localhost:2024'
+    baseURL: process.env.API_URL
   });
 
   api.interceptors.request.use(config => {

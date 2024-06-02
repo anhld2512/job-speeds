@@ -1,7 +1,5 @@
 <template>
-    <div>
-        Application Form
-    </div>
+    <ApplyForm></ApplyForm>
 </template>
 
 <script setup>
