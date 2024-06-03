@@ -56,7 +56,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: [
     '~/assets/css/main.css',
-    'bootstrap-icons/font/bootstrap-icons.css'
+    '~/node_modules/bootstrap-icons/font/bootstrap-icons.css'
   ],
   modules: [
     '@pinia/nuxt',"@nuxtjs/tailwindcss",'@nuxtjs/sitemap','@nuxt/image',''

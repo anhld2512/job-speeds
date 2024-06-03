@@ -5,7 +5,7 @@ export const useAuthStore = defineStore({
   state: () => ({
     token: localStorage.getItem('token'), // Kiểm tra token trong localStorage
     isAuthenticated: !!localStorage.getItem('token'), // Kiểm tra trạng thái đăng nhập từ token trong localStorage
-    user: null
+    userId: localStorage.getItem('userId')
   }),
   actions: {
     login(token) {

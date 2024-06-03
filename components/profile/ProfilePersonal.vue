@@ -69,7 +69,7 @@
             v-model="profile.personalInfo.gender" 
             class="select select-bordered w-full"
           >
-            <option value="male">Male</option>
+            <option value="male" selected>Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
           </select>
@@ -85,16 +85,19 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
-
+const { token, logout ,userId} = useAuth();
+console.log(useAuth())
 // Mock data
 const profile = reactive({
+  userId: userId,
+  role:'employer',
+  avatar:'',
   personalInfo: {
-    fullName: 'Nguyễn Văn A',
-    email: 'example@example.com',
-    phone: '0123456789',
-    address: '123 đường ABC, Quận XYZ, TP HCM',
-    dateOfBirth: '1990-01-01',
+    fullName: '',
+    email: '',
+    phone: '',
+    address: '',
+    dateOfBirth: '',
     gender: 'male'
   }
 });
