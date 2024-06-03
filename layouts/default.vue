@@ -18,11 +18,11 @@
     <dialog ref="updateProfile" class="modal mt-3 mb-3">
       <div class="modal-box w-11/12 max-w-6xl m-2 border border-2 rounded-xl">
         <ProfilePersonal></ProfilePersonal>
-        <!-- <div class="modal-action">
+        <div class="modal-action">
           <form method="dialog">
             <button class="btn">Close</button>
           </form>
-        </div> -->
+        </div>
       </div>
     </dialog>
   </div>
