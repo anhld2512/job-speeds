@@ -28,18 +28,20 @@ export const useAuth = () => {
     try {
       // Mã hóa mật khẩu trước khi gửi đến server
       const encryptedPassword = CryptoJS.AES.encrypt(password, 'your-secret-key').toString();
-
+  
       const response = await $api.post('/auth/signup', { username, password: encryptedPassword });
-
+  
       if (response.status === 201) {
         const token = response.data.token;
-
-        // Giải mã token trước khi lưu vào store và localStorage
-        const decryptedToken = CryptoJS.AES.decrypt(token, 'your-secret-key').toString(CryptoJS.enc.Utf8);
-        authStore.login(decryptedToken);
-        localStorage.setItem('token', decryptedToken);
-
-        return true;
+  
+        // Lưu token vào store và localStorage
+        authStore.login(token);
+        localStorage.setItem('token', token);
+  
+        return {
+          result:true,
+          encryptedPassword:encryptedPassword
+        };
       } else {
         console.error('Error:', response.data.message);
         return false;
@@ -49,6 +51,7 @@ export const useAuth = () => {
       return false;
     }
   };
+  
 
   const logout = () => {
     authStore.logout();
