@@ -1,4 +1,5 @@
 import jobAPI from "./model-api/job-api";
+import profileAPI from "./model-api/profile-api";
 
 
 export default defineNuxtPlugin(() => {
@@ -7,7 +8,8 @@ export default defineNuxtPlugin(() => {
   return {
     provide: {
       modelAPI: {
-        jobAPI:jobAPI(appConfig,$moment, $filters, $_)
+        jobAPI:jobAPI(appConfig,$moment, $filters, $_),
+        profileAPI:profileAPI(appConfig,$moment, $filters, $_)
       },
     }
   }

@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto p-4">
+    <div class="container mx-auto">
         <div class="shadow-md rounded p-6 border border-1">
             <div class="text-end">
                 <button @click="myFormApplicantion.showModal()"
@@ -103,7 +103,7 @@
 
         </div>
     </dialog>
-    <LoadingBasic ref="loading" :isClose="true"></LoadingBasic>
+    <LoadingBasic ref="loading" :isClose="false"></LoadingBasic>
 
 </template>
 

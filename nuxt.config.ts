@@ -45,7 +45,7 @@ export default defineNuxtConfig({
   },
   proxy: {
     '/api': {
-      target: 'https://api.jobspeeds.com', // URL của máy chủ backend
+      target: process.env.API_URL, // URL của máy chủ backend
       pathRewrite: { '^/api': '/' },
       changeOrigin: true,
       headers: {
@@ -59,7 +59,7 @@ export default defineNuxtConfig({
     'bootstrap-icons/font/bootstrap-icons.css'
   ],
   modules: [
-    '@pinia/nuxt',"@nuxtjs/tailwindcss",'@nuxtjs/sitemap','@nuxt/image'
+    '@pinia/nuxt',"@nuxtjs/tailwindcss",'@nuxtjs/sitemap','@nuxt/image',''
   ],
   sitemap: {
     // Cấu hình cho sitemap

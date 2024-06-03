@@ -2,9 +2,10 @@
 import axios from 'axios';
 
 export default defineNuxtPlugin(() => {
+  const appConfig = useAppConfig();
   const api = axios.create({
     // process.env.API_URL || 
-    baseURL: 'https://api.jobspeeds.com'
+    baseURL: appConfig.apiURL.API
   });
 
   api.interceptors.request.use(config => {

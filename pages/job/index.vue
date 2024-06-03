@@ -1,22 +1,22 @@
 <template>
   <!-- Thanh lọc và nút tạo công việc -->
-  <div class="w-full flex-row md:flex fixed w-full bg-base-100 z-10 h-auto -mt-4 px-4 gap-3">
+  <div class="fixed w-full max-w-xl flex-row md:flex bg-base-100 z-10 h-auto -mt-4 px-2 gap-3">
     <!-- Nội dung bộ lọc -->
-    <div class="w-full md:w-1/2 flex flex-wrap md:flex-nowrap py-3">
+    <div class="w-full md:w-1/2 flex py-3 items-center justify-start">
       <FilterSearch :data="listJob" @actionBtnFilter="actionBtnFilter"></FilterSearch>
     </div>
-    <div class="w-full md:w-1/2 py-3 text-end">
+    <div class="w-full flex md:w-1/2 py-3 items-center justify-end">
       <button class="btn btn-md btn-primary "><i class="bi bi-plus-circle"></i> Create</button>
     </div>
   </div>
 
   <!-- Khu vực hiển thị danh sách công việc -->
-  <div class="overflow-auto my-3 px-4 md:mt-12 mt-32 gap-3">
+  <div class="overflow-auto md:mt-12 mt-32 gap-3">
     <!-- Hiển thị trang tải dữ liệu -->
     <LoadingPage class="h-screen" v-if="isLoadingData" />
     <div v-else class="flex flex-wrap">
       <!-- Hiển thị danh sách công việc -->
-      <div v-if="listJob.length > 0" v-for="(item, index) in listJob" :key="index" class="w-full p-2 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 my-2">
+      <div v-if="listJob.length > 0" v-for="(item, index) in listJob" :key="index" class="w-full p-2 sm:w-1/2 md:w-1/3">
         <!-- Thẻ công việc -->
         <div class="card flex flex-col h-full bg-base-100 shadow-xl p-3 border-2 rounded-xl">
           <div class="card-header"></div>
