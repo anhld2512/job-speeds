@@ -22,9 +22,7 @@
 
 <script setup>
 import { onMounted, ref, onUnmounted } from 'vue';
-
 const showScrollButton = ref(false);
-
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
