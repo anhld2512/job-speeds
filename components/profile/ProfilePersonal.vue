@@ -1,7 +1,6 @@
 <template>
   <div v-if="profile" class="max-w-6xl">
     <!-- Form Title -->
-    <h3 class="text-xl font-semibold mb-3">Personal Information</h3>
     <!-- Form -->
     <form @submit.prevent="updateProfile">
       <div class="grid grid-cols-2 gap-2">

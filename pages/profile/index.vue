@@ -3,6 +3,7 @@
         <div class="flex-row md:flex gap-3 p-3">
             <div class="card w-full md:w-2/3 border border-2 mb-3 shadow">
                 <div class="card-body p-2">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center justify-start gap-2"><i class="bi bi-person-bounding-box text-3xl"></i> Personal</h3>
                     <ProfilePersonal v-model="User" :enableEditMode="false"> </ProfilePersonal>
                     <div class="absolute top-0 right-0 mt-1 mr-1 ">
                         <div class="dropdown dropdown-bottom dropdown-end">
@@ -21,7 +22,7 @@
             </div>
             <div class="card w-full md:w-1/3 border border-2 mb-3 shadow">
                 <div class="card-body p-2">
-                    <h3 class="text-xl font-semibold">Other Information</h3>
+                    <h3 class="text-xl font-semibold mb-3 flex items-center justify-start gap-2"><i class="bi bi-person-badge text-3xl"></i> Other</h3>
                     <div class="grid grid-cols-2 gap-1">
                         <div class="information-avatar">
                             <FormInPlaceEditor label="Avatar" :required="false" v-model="User.avatar"
@@ -79,26 +80,30 @@
         <div class="flex-row md:flex gap-3 p-3">
             <div class="card w-full border border-2 mb-3 shadow">
                 <div class="card-body p-2">
-                    <h3 class="text-xl font-semibold">Post</h3>
+                    <h3 class="text-xl font-semibold mb-3 flex items-center justify-start gap-2"><i class="bi bi-postcard text-3x"></i>Post</h3>
+                    <div class="badge badge-accent">Comming soon</div>
                 </div>
             </div>
         </div>
         <div class="flex-row md:flex gap-3 p-3">
             <div class="card w-full border border-2 mb-3 shadow">
                 <div class="card-body p-2">
-                    <h3 class="text-xl font-semibold">Ablum</h3>
+                    <h3 class="text-xl font-semibold mb-3 flex items-center justify-start gap-2"><i class="bi bi-images text-3xl"></i>Ablum</h3>
+                    <div class="badge badge-accent">Comming soon</div>
                 </div>
             </div>
         </div>
         <div class="flex-row md:flex gap-3 p-3">
             <div class="card w-full border border-2 mb-3 shadow">
                 <div class="card-body p-2">
-                    <h3 class="text-xl font-semibold">Service</h3>
+                    <h3 class="text-xl font-semibold mb-3 flex items-center justify-start gap-2"><i class="bi bi-grid text-3xl"></i>Service</h3>
+                    <div class="badge badge-accent">Comming soon</div>
                 </div>
             </div>
             <div class="card w-full border border-2 mb-3 shadow">
                 <div class="card-body p-2">
-                    <h3 class="text-xl font-semibold">Billing</h3>
+                    <h3 class="text-xl font-semibold mb-3 flex items-center justify-start gap-2"><i class="bi bi-credit-card text-3xl"></i>Billing</h3>
+                    <div class="badge badge-accent">Comming soon</div>
                 </div>
             </div>
         </div>

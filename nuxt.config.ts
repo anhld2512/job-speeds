@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   appConfig: {
     apiURL: {
       API: (process.env.API_URL || '').replace(/^\/+|\/+$/g, ''),
+    },
+    key:{
+      secret:(process.env.SECRET_KEY || '').replace(/^\/+|\/+$/g, ''),
     }
   },
   app: {

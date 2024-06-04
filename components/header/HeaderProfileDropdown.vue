@@ -17,8 +17,8 @@
                 </div>
             </li>
             <li>
-                <a href="/profile" class="justify-between text-lg">
-                    Profile
+                <a href="/profile" class="text-lg">
+                    <i class="bi bi-person-video text-2xl text-accent"></i>Profile
                 </a>
             </li>
             <li>
