@@ -14,6 +14,7 @@ export const useAuthStore = defineStore({
     },
     logout() {
       localStorage.removeItem('token'); // Xóa token từ localStorage khi đăng xuất
+      localStorage.removeItem('userId');
       this.token = null;
       this.isAuthenticated = false;
     },

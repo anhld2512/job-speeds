@@ -55,6 +55,7 @@ export const useAuth = () => {
 
   const logout = () => {
     authStore.logout();
+    window.location.reload();
   };
 
   return {

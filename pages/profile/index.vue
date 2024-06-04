@@ -152,13 +152,14 @@
         <ProfilePersonal v-model="User" :enableEditMode="true" @valid="valid"></ProfilePersonal>
       </div>
     </dialog>
+
 </template>
 
 <script setup>
 import { Cropper } from "vue-advanced-cropper";
 const { $modelAPI, $_, $filters, $uuidv4 } = useNuxtApp();
 const { token, logout, userId } = useAuth();
-
+const router = useRouter();
 const loading = ref(null)
 const User = ref(null)
 // #region Avatar
@@ -268,13 +269,16 @@ const valid = (value) =>{
     triggerToast('success','Information is updated')
   }
 }
+const isReloadPage = ref(true)
 //#endregion
 onMounted(() => {
     nextTick().then(() => {
         setTimeout(() => {
-            $modelAPI.profileAPI.getProfilById(userId).then(result => {
-                loading.value.show()
-                if (result.data.value.result) {
+            if(token){
+                if(userId){
+                    loading.value.show()
+                    $modelAPI.profileAPI.getProfilById(userId).then(result => {
+                if (result?.data?.value?.result) {
                     User.value =  $_.cloneDeep($modelAPI.profileAPI.profileFormat(result.data.value.data))
                 }
             }).catch(error => {
@@ -282,6 +286,12 @@ onMounted(() => {
             }).finally(() => {
                 loading.value.close()
             })
+                }else{
+                window.location.reload()
+                }
+            }else{
+                router.push('/login');
+            }
         }, 1);
     });
 })
