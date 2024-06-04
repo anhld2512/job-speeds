@@ -56,10 +56,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: [
     '~/assets/css/main.css',
-    '~/node_modules/bootstrap-icons/font/bootstrap-icons.css'
+    'bootstrap-icons/font/bootstrap-icons.css',
+    '~/assets/scss/style.scss',
   ],
   modules: [
-    '@pinia/nuxt',"@nuxtjs/tailwindcss",'@nuxtjs/sitemap','@nuxt/image',''
+    '@pinia/nuxt',"@nuxtjs/tailwindcss",'@nuxtjs/sitemap','@nuxt/image'
   ],
   sitemap: {
     // Cấu hình cho sitemap

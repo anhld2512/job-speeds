@@ -1,109 +1,124 @@
 <template>
-  <div class="max-w-4xl mx-auto">
+  <div v-if="profile" class="max-w-4xl mx-auto">
     <!-- Form Title -->
-    <h2 class="text-2xl font-semibold mb-6">Update Personal Information</h2>
-
+    <h3 class="text-xl font-semibold mb-3">Personal Information</h3>
     <!-- Form -->
     <form @submit.prevent="updateProfile">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-6">
         <!-- Full Name -->
-        <div class="mb-4">
-          <label for="fullName" class="block text-gray-700 font-bold mb-2">Full Name</label>
-          <input 
-            type="text" 
-            id="fullName" 
-            v-model="profile.personalInfo.fullName" 
-            class="input input-bordered w-full"
-          />
-        </div>
-
+        <FormInPlaceEditor label="Full Name" labelTooltip="Full Name" :required="true"
+          v-model="profile.personalInfo.fullName" cssClass="block text-xl mb-2" :showButtonEditMode="false"
+          :enableEditMode="isEditMode">
+          <input type="text" id="fullName" v-model="profile.personalInfo.fullName"
+            class="input input-bordered w-full" />
+        </FormInPlaceEditor>
         <!-- Email -->
-        <div class="mb-4">
-          <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
-          <input 
-            type="email" 
-            id="email" 
-            v-model="profile.personalInfo.email" 
-            class="input input-bordered w-full"
-          />
-        </div>
+        <FormInPlaceEditor label="Email" labelTooltip="Email" :required="true" v-model="profile.personalInfo.email"
+          cssClass="block text-xl mb-2" :showButtonEditMode="false" :enableEditMode="isEditMode">
+          <input type="email" id="email" v-model="profile.personalInfo.email" class="input input-bordered w-full" />
+        </FormInPlaceEditor>
 
         <!-- Phone -->
-        <div class="mb-4">
-          <label for="phone" class="block text-gray-700 font-bold mb-2">Phone</label>
-          <input 
-            type="text" 
-            id="phone" 
-            v-model="profile.personalInfo.phone" 
-            class="input input-bordered w-full"
-          />
-        </div>
+        <FormInPlaceEditor label="Phone" labelTooltip="Phone" :required="true" v-model="profile.personalInfo.phone"
+          cssClass="block text-xl mb-2" :showButtonEditMode="false" :enableEditMode="isEditMode">
+          <input type="text" id="phone" v-model="profile.personalInfo.phone" class="input input-bordered w-full" />
+        </FormInPlaceEditor>
 
         <!-- Address -->
-        <div class="mb-4">
-          <label for="address" class="block text-gray-700 font-bold mb-2">Address</label>
-          <input 
-            type="text" 
-            id="address" 
-            v-model="profile.personalInfo.address" 
-            class="input input-bordered w-full"
-          />
-        </div>
+        <FormInPlaceEditor label="Address" labelTooltip="Address" :required="true"
+          v-model="profile.personalInfo.address" cssClass="block text-xl mb-2" :showButtonEditMode="false"
+          :enableEditMode="isEditMode">
+          <input type="text" id="address" v-model="profile.personalInfo.address" class="input input-bordered w-full" />
+        </FormInPlaceEditor>
+
 
         <!-- Date of Birth -->
-        <div class="mb-4">
-          <label for="dateOfBirth" class="block text-gray-700 font-bold mb-2">Date of Birth</label>
-          <input 
-            type="date" 
-            id="dateOfBirth" 
-            v-model="profile.personalInfo.dateOfBirth" 
-            class="input input-bordered w-full"
-          />
-        </div>
+        <FormInPlaceEditor label="Date of Birth" labelTooltip="Date of Birth" :required="true"
+          v-model="profile.personalInfo.dateOfBirth" cssClass="block text-xl mb-2" :showButtonEditMode="false"
+          :enableEditMode="isEditMode">
+          <input type="date" id="dateOfBirth" v-model="profile.personalInfo.dateOfBirth"
+            class="input input-bordered w-full" />
+        </FormInPlaceEditor>
 
         <!-- Gender -->
-        <div class="mb-4">
-          <label for="gender" class="block text-gray-700 font-bold mb-2">Gender</label>
-          <select 
-            id="gender" 
-            v-model="profile.personalInfo.gender" 
-            class="select select-bordered w-full"
-          >
-            <option value="male" selected>Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
+        <FormInPlaceEditor label="Gender" labelTooltip="Gender" :required="true" v-model="profile.personalInfo.gender"
+          cssClass="block text-xl mb-2" :showButtonEditMode="false" :enableEditMode="isEditMode">
+          <select id="gender" v-model="profile.personalInfo.gender" class="select select-bordered w-full">
+            <option value="Male" selected>Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
           </select>
-        </div>
+        </FormInPlaceEditor>
       </div>
 
       <!-- Submit Button -->
-      <div class="flex justify-end">
-        <button type="submit" class="btn btn-primary">Update Profile</button>
+      <div v-if="enableEditMode" class="flex justify-end mt-3">
+        <button type="submit" :disabled="isValidateForm" class="btn btn-primary">Save</button>
       </div>
     </form>
   </div>
 </template>
 
 <script setup>
-const { token, logout ,userId} = useAuth();
-console.log(useAuth())
-// Mock data
-const profile = reactive({
-  userId: userId,
-  role:'employer',
-  avatar:'',
-  personalInfo: {
-    fullName: '',
-    email: '',
-    phone: '',
-    address: '',
-    dateOfBirth: '',
-    gender: 'male'
+const { $modelAPI, $_ ,$filters, $uuidToObjectId ,$uuidv4 } = useNuxtApp();
+
+const { token, logout, userId } = useAuth();
+
+const props = defineProps({
+  modelValue: {
+    type: Object,
+    default: () => {}
+  },
+  enableEditMode: {
+    type: Boolean,
+    default: () => true
+  }
+});
+const { enableEditMode,modelValue } = toRefs(props);
+const emit = defineEmits(["update:modelValue","valid"]);
+const profile = computed({
+  get() {
+    return modelValue?.value ?? {};
+  },
+  set(value) {
+    if (!$_.isEqual(modelValue.value, value)) {
+      emit("update:modelValue", value)
+    }
   }
 });
 
+const isEditMode = computed(() => {
+  return enableEditMode.value
+});
+// Mock data
+const isValidateForm = ref(true)
+const uuidv4 = $uuidv4()
+const idProfile = ref($uuidToObjectId(uuidv4))
+watch(
+  () => [
+    profile.value.role,
+    profile.value?.personalInfo?.fullName,
+    profile.value?.personalInfo?.email,
+    profile.value?.personalInfo?.phone,
+    profile.value?.personalInfo?.address,
+    profile.value?.personalInfo?.gender,
+    profile.value?.personalInfo?.dateOfBirth
+  ],
+  (newValue) => {
+    const isValidFields =
+      (newValue || []).length > 0 &&
+      !newValue.some((v) => `${v || ""}`.trim().length < 1);
+      isValidateForm.value = !isValidFields
+  },
+  { immediate: true, deep: true }
+);
 const updateProfile = () => {
   // Handle profile update logic here
-  console.log('Profile updated', profile.personalInfo);
-};
+  console.log('Profile updated', profile);
+  $modelAPI.profileAPI.updateProfile(idProfile.value,profile).then(result => {
+    if(result.data.value.result){
+      emit('valid',true)
+    }
+  })
+}
 </script>

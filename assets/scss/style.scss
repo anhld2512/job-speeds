@@ -1,0 +1,52 @@
+/* In Place Edit */
+.job-speed-in-place-editor {
+  .job-speed-in-place-labor {
+    label {
+      margin: 0;
+      font-size: 0.85rem;
+      padding: 0.125rem 0.25rem 0.125rem 0rem !important;
+      font-weight: 600 !important;
+    }
+
+    button {
+      padding: 0.1rem 0.25rem !important;
+    }
+  }
+
+  .job-speed-in-place-value-wrapper {
+    min-height: 32px !important;
+
+    .job-speed-in-place-value {
+      font-size: 1rem !important;
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+    }
+
+    .job-speed-html-text {
+      p {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+      }
+    }
+  }
+}
+
+.job-speed-in-place-editor.job-speed-required {
+  .job-speed-in-place-labor {
+    label::after {
+      content: "(*)";
+      padding-left: 0.25rem;
+      color: red;
+    }
+  }
+}
+
+a.cursor-pointer {
+  cursor: pointer;
+}
+#job-speed{
+  .modal-box {
+    max-height: calc(100vh - 8em) !important;
+  }
+}
+/* In Place Edit */

@@ -9,7 +9,7 @@ import 'moment/dist/locale/vi';
  * @param {String} lang - Optional
  * @returns {String}
  */
-export const dateStringFormat = (dateString, format = 'YYYY-MM-DD', lang = null) => {
+export const job-speed-tringFormat = (dateString, format = 'YYYY-MM-DD', lang = null) => {
   if (!dateString) {
     return;
   }

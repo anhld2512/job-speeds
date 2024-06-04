@@ -1,5 +1,5 @@
 export default (appConfig, $moment, $filters, $_) => {
-    const getProfile = async  (userId,option = {}) => {
+    const getProfilById = async  (userId,option = {}) => {
       //Merge options.
       const fetchOption = {
         ...option,
@@ -7,16 +7,18 @@ export default (appConfig, $moment, $filters, $_) => {
       };
       return await useFetch(`${appConfig.apiURL.API}/profile/${userId}`, fetchOption);
     };
-    const updateProfile = async  (userId,option = {}) => {
+    const updateProfile = async  (profileId,data,option = {}) => {
       //Merge options.
       const fetchOption = {
         ...option,
-        method: "POST",
+        method: "PUT",
+        body: data
       };
-      return await useFetch(`${appConfig.apiURL.API}/profile/${userId}`, fetchOption);
+      return await useFetch(`${appConfig.apiURL.API}/profile/${profileId}`, fetchOption);
     };
     return {
-        getProfile,
+      getProfilById,
+      updateProfile
     };
   };
   
