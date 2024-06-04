@@ -1,48 +1,48 @@
 <template>
-  <div v-if="profile" class="max-w-4xl mx-auto">
+  <div v-if="profile" class="max-w-6xl">
     <!-- Form Title -->
     <h3 class="text-xl font-semibold mb-3">Personal Information</h3>
     <!-- Form -->
     <form @submit.prevent="updateProfile">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-6">
+      <div class="grid grid-cols-2 gap-1">
         <!-- Full Name -->
-        <FormInPlaceEditor label="Full Name" labelTooltip="Full Name" :required="true"
-          v-model="profile.personalInfo.fullName" cssClass="block text-xl mb-2" :showButtonEditMode="false"
-          :enableEditMode="isEditMode">
+        <FormInPlaceEditor label="Full Name" :required="true" v-model="profile.personalInfo.fullName"
+          cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">
           <input type="text" id="fullName" v-model="profile.personalInfo.fullName"
             class="input input-bordered w-full" />
         </FormInPlaceEditor>
         <!-- Email -->
-        <FormInPlaceEditor label="Email" labelTooltip="Email" :required="true" v-model="profile.personalInfo.email"
-          cssClass="block text-xl mb-2" :showButtonEditMode="false" :enableEditMode="isEditMode">
+        <FormInPlaceEditor label="Email" :required="true" v-model="profile.personalInfo.email"
+          cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">
           <input type="email" id="email" v-model="profile.personalInfo.email" class="input input-bordered w-full" />
         </FormInPlaceEditor>
 
         <!-- Phone -->
-        <FormInPlaceEditor label="Phone" labelTooltip="Phone" :required="true" v-model="profile.personalInfo.phone"
-          cssClass="block text-xl mb-2" :showButtonEditMode="false" :enableEditMode="isEditMode">
+        <FormInPlaceEditor label="Phone" :required="true" v-model="profile.personalInfo.phone"
+          cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">
           <input type="text" id="phone" v-model="profile.personalInfo.phone" class="input input-bordered w-full" />
         </FormInPlaceEditor>
 
         <!-- Address -->
-        <FormInPlaceEditor label="Address" labelTooltip="Address" :required="true"
-          v-model="profile.personalInfo.address" cssClass="block text-xl mb-2" :showButtonEditMode="false"
-          :enableEditMode="isEditMode">
+        <FormInPlaceEditor label="Address" :required="true" v-model="profile.personalInfo.address"
+          cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">
           <input type="text" id="address" v-model="profile.personalInfo.address" class="input input-bordered w-full" />
         </FormInPlaceEditor>
 
 
         <!-- Date of Birth -->
-        <FormInPlaceEditor label="Date of Birth" labelTooltip="Date of Birth" :required="true"
-          v-model="profile.personalInfo.dateOfBirth" cssClass="block text-xl mb-2" :showButtonEditMode="false"
-          :enableEditMode="isEditMode">
+        <FormInPlaceEditor label="Date of Birth" :required="true" v-model="profile.personalInfo.dateOfBirth"
+          cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">
           <input type="date" id="dateOfBirth" v-model="profile.personalInfo.dateOfBirth"
             class="input input-bordered w-full" />
+          <template #displayValue>
+            <span> {{ $filters.dateStringFormat(profile?.personalInfo?.dateOfBirth, "DD/MM/YYYY") }}</span>
+          </template>
         </FormInPlaceEditor>
 
         <!-- Gender -->
-        <FormInPlaceEditor label="Gender" labelTooltip="Gender" :required="true" v-model="profile.personalInfo.gender"
-          cssClass="block text-xl mb-2" :showButtonEditMode="false" :enableEditMode="isEditMode">
+        <FormInPlaceEditor label="Gender" :required="true" v-model="profile.personalInfo.gender"
+          cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">
           <select id="gender" v-model="profile.personalInfo.gender" class="select select-bordered w-full">
             <option value="Male" selected>Male</option>
             <option value="Female">Female</option>
@@ -60,22 +60,22 @@
 </template>
 
 <script setup>
-const { $modelAPI, $_ ,$filters, $uuidToObjectId ,$uuidv4 } = useNuxtApp();
+const { $modelAPI, $_, $filters, $uuidToObjectId, $uuidv4 } = useNuxtApp();
 
 const { token, logout, userId } = useAuth();
 
 const props = defineProps({
   modelValue: {
     type: Object,
-    default: () => {}
+    default: () => { }
   },
   enableEditMode: {
     type: Boolean,
     default: () => true
   }
 });
-const { enableEditMode,modelValue } = toRefs(props);
-const emit = defineEmits(["update:modelValue","valid"]);
+const { enableEditMode, modelValue } = toRefs(props);
+const emit = defineEmits(["update:modelValue", "valid"]);
 const profile = computed({
   get() {
     return modelValue?.value ?? {};
@@ -108,16 +108,15 @@ watch(
     const isValidFields =
       (newValue || []).length > 0 &&
       !newValue.some((v) => `${v || ""}`.trim().length < 1);
-      isValidateForm.value = !isValidFields
+    isValidateForm.value = !isValidFields
   },
   { immediate: true, deep: true }
 );
 const updateProfile = () => {
   // Handle profile update logic here
-  console.log('Profile updated', profile);
-  $modelAPI.profileAPI.updateProfile(idProfile.value,profile).then(result => {
-    if(result.data.value.result){
-      emit('valid',true)
+  $modelAPI.profileAPI.updateProfile(idProfile.value, profile).then(result => {
+    if (result.data.value.result) {
+      emit('valid', true)
     }
   })
 }

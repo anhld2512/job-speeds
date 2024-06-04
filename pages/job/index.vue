@@ -1,6 +1,6 @@
 <template>
   <!-- Thanh lọc và nút tạo công việc -->
-  <div class="fixed w-full max-w-xl flex-row md:flex bg-base-100 z-10 h-auto -mt-4 px-2 gap-3">
+  <div class="fixed w-full max-w-6xl flex-row md:flex bg-base-100 z-10 h-auto -mt-4 px-2 gap-3">
     <!-- Nội dung bộ lọc -->
     <div class="w-full md:w-1/2 flex py-3 items-center justify-start">
       <FilterSearch :data="listJob" @actionBtnFilter="actionBtnFilter"></FilterSearch>

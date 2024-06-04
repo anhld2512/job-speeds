@@ -4,7 +4,7 @@
       <HeaderNavbar v-model="User"></HeaderNavbar>
     </header>
     <main>
-      <div class="container-auto overflow-auto mt-20 max-w-6xl mx-auto">
+      <div class="container-auto overflow-hidden mt-20 max-w-7xl mx-auto">
         <slot />
       </div>
     </main>
@@ -12,17 +12,17 @@
       <FooterLayout></FooterLayout>
     </footer>
     <button v-if="showScrollButton" @click="scrollToTop"
-      class="fixed bottom-5 right-5 btn btn-circle btn-primary transition-opacity duration-300">
+      class="fixed bottom-5 right-5 z-100 btn btn-circle btn-primary transition-opacity duration-300">
       <i class="bi bi-arrow-up-circle text-2xl"></i></button>
     <!-- Open the modal using ID.showModal() method -->
     <dialog ref="updateProfile" class="modal py-3" >
       <div class="modal-box w-11/12 max-w-4xl m-2 border border-2 rounded-xl ">
-        <div class="fixed top-0 right-5 modal-action">
+        <!-- <div class="fixed top-0 right-5 modal-action">
             <form method="dialog">
                 <button class="btn btn-circle btn-sm">
                     <i class="bi bi-x text-2xl"></i></button>
             </form>
-        </div>
+        </div> -->
         <ProfilePersonal v-model="profile" :enableEditMode="true" @valid="valid"></ProfilePersonal>
       </div>
     </dialog>
@@ -63,6 +63,7 @@ const valid = (value) =>{
   if(value){
     updateProfile.value.close()
     triggerToast('success','Information is updated')
+    window.location.reload();
   }
 }
 const triggerToast = (type, message) => {

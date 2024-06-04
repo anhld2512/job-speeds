@@ -1,9 +1,13 @@
 export default (appConfig, $moment, $filters, $_) => {
+    const { token, logout, userId } = useAuth();
     const getProfilById = async  (userId,option = {}) => {
       //Merge options.
       const fetchOption = {
         ...option,
         method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       };
       return await useFetch(`${appConfig.apiURL.API}/profile/${userId}`, fetchOption);
     };
@@ -12,7 +16,10 @@ export default (appConfig, $moment, $filters, $_) => {
       const fetchOption = {
         ...option,
         method: "PUT",
-        body: data
+        body: data,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       };
       return await useFetch(`${appConfig.apiURL.API}/profile/${profileId}`, fetchOption);
     };

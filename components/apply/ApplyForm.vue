@@ -1,13 +1,13 @@
 <template>
-    <div class="container mx-auto p-4">
-        <div  class="fixed  top-0 right-5 modal-action">
+    <div class="container mx-auto p-3">
+        <div class="fixed top-0 right-5 modal-action">
             <form method="dialog">
                 <button class="btn btn-circle btn-sm border border-1 border-primary">
                     <i class="bi bi-x text-2xl"></i></button>
             </form>
         </div>
-        <h1 class="text-3xl font-bold mb-6 text-center text-primary">Job Application</h1>
-        <form @submit.prevent="submitForm" class="space-y-6">
+        <form @submit.prevent="submitForm" class="p-3 space-y-6 lg:border lg:border-2 lg:border-primary rounded-xl">
+            <h1 class="text-3xl font-bold mb-6 text-center text-primary">Application</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <label class="input input-primary input-bordered flex items-center gap-2">
                     <i class="bi bi-person text-primary"></i>
@@ -33,11 +33,11 @@
                     <textarea class="textarea textarea-primary w-full h-20" placeholder="Bio"></textarea>
                 </div>
                 <div class="md:col-span-2 w-full text-primary">
-                    <input type="file" class="file-input w-full max-w-xs text-primary" />
+                    <input type="file" class="file-input w-full text-primary border border-1 border-primary rounded-lg" />
                 </div>
             </div>
             <div class="text-end">
-                <button type="submit" class="btn btn-md btn-primary border border-1">
+                <button type="submit" class="w-full btn btn-md btn-primary border border-1">
                     Submit
                 </button>
             </div>

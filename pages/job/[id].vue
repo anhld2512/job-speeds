@@ -1,6 +1,6 @@
 <template>
-    <div class="container mx-auto">
-        <div class="shadow-md rounded p-6 border border-1">
+    <div class="container mx-auto p-3">
+        <div class="shadow-md rounded p-6 border border-2 rounded-xl">
             <div class="text-end">
                 <button @click="myFormApplicantion.showModal()"
                     class="btn w-full md:w-1/6 text-end btn-sm btn-primary font-bold py-2 px-4 rounded transition duration-300">
