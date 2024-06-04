@@ -212,7 +212,7 @@ const uploadImageBlobAvatar = async (ImageAvatar) => {
         //AnhTranTuan 2024-05-06: Điều chỉnh API Upload ID Photo
         $modelAPI.uploadAPI.uploadLocal(ImageAvatar).then(result => {
             if (result.data.value.result) {
-                User.value.avatar = 'http://localhost:2024/file-manager/files/'+result.data.value.imageUrl
+                User.value.avatar = 'https://api.jobspeeds.com/file-manager/files/'+result.data.value.imageUrl
                 $modelAPI.profileAPI.updateProfile(User.value._id, User.value).then(result => {
                     if (result.data.value.result) {
                         triggerToast('success','Avatar is updated')
