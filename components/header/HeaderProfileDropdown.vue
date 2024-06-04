@@ -2,7 +2,7 @@
     <div v-if="myToken">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
             <div class="w-10 rounded-full">
-                <NuxtImg alt="logo-tech" :src="logoDefault" class="skeleton" />
+                <i class="bi bi-person-lines-fill text-4xl font-extrabold"></i>
             </div>
         </div>
         <ul tabindex="0" class="mt-3 mb-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 border border-2 rounded-box w-60 gap-3">

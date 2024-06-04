@@ -10,7 +10,7 @@
                                     class="bi bi-gear text-lg front-bold"></i></div>
                             <ul tabindex="0"
                                 class="border border-2 dropdown-content z-[1] menu p-1 shadow bg-base-100 rounded-md w-36">
-                                <li><a><i class="bi bi-pen text-lg text-accent font-extrabold"></i>Edit</a></li>
+                                <li><a @click="actionEditProfile"><i class="bi bi-pen text-lg text-accent font-extrabold"></i>Edit</a></li>
                                 <hr class="border border-3 border-gray mb-1 mt-1 font-extrabold">
                                 <li><a><i class="bi bi-info-square text-lg text-accent font-extrabold"></i>Help</a></li>
                                 <!-- <li><a @click="deleteJob(item._id)"><i class="bi bi-trash3"></i> Delete</a></li> -->
@@ -109,8 +109,7 @@
 
    
     <dialog ref="modalAvatar" class="modal">
-
-        <div  class="modal-box h-full w-11/12 max-w-6xl m-2 border border-2 rounded-xl shadow overflow-hidden bg-black">
+        <div class="modal-box h-full w-11/12 max-w-6xl m-2 border border-2 rounded-xl shadow overflow-hidden bg-black">
             <div class="fixed top-0 right-5 modal-action z-50">
                 <button @click="closeModal" class="btn btn-circle btn-md border border-1 border-primary">
                     <i class="bi bi-x text-2xl"></i></button>
@@ -136,6 +135,17 @@
                         class="bi bi-save text-lg front-bold"></i> Save</button>
             </div>
         </div>
+    </dialog>
+    <dialog v-if="User" ref="updateProfile" class="modal py-3" >
+      <div class="modal-box w-11/12 max-w-6xl m-2 border border-2 rounded-xl ">
+        <div class="fixed top-0 right-5 modal-action">
+            <form method="dialog">
+                <button class="btn btn-circle btn-sm">
+                    <i class="bi bi-x text-2xl"></i></button>
+            </form>
+        </div>
+        <ProfilePersonal v-model="User" :enableEditMode="true" @valid="valid"></ProfilePersonal>
+      </div>
     </dialog>
 </template>
 
@@ -242,13 +252,25 @@ const triggerToast = (type, message) => {
 };
 //#endregion
 // #endregion
+//#region Change Information
+const updateProfile = ref(null)
+const actionEditProfile = () =>{
+    updateProfile.value.show()
+}
+const valid = (value) =>{
+  if(value){
+    updateProfile.value.close()
+    triggerToast('success','Information is updated')
+  }
+}
+//#endregion
 onMounted(() => {
     nextTick().then(() => {
         setTimeout(() => {
             $modelAPI.profileAPI.getProfilById(userId).then(result => {
                 loading.value.show()
                 if (result.data.value.result) {
-                    User.value = result.data.value.data
+                    User.value =  $_.cloneDeep($modelAPI.profileAPI.profileFormat(result.data.value.data))
                 }
             }).catch(error => {
                 console.error(error)

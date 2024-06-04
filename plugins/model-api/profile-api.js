@@ -1,5 +1,16 @@
 export default (appConfig, $moment, $filters, $_) => {
     const { token, logout, userId } = useAuth();
+    const profileFormat = (item) => {
+      //Valid Input.
+      if (!(item && typeof item === 'object')) return null;
+      return {
+        ...item,
+        personalInfo:{
+          ...item.personalInfo,
+          dateOfBirth:!!item.personalInfo.dateOfBirth ? $moment(item.personalInfo.dateOfBirth).format("YYYY-MM-DD") : null,
+        }
+      }
+    }
     const getProfilById = async  (userId,option = {}) => {
       //Merge options.
       const fetchOption = {
@@ -24,6 +35,7 @@ export default (appConfig, $moment, $filters, $_) => {
       return await useFetch(`${appConfig.apiURL.API}/profile/${profileId}`, fetchOption);
     };
     return {
+      profileFormat,
       getProfilById,
       updateProfile
     };

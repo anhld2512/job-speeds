@@ -4,7 +4,7 @@
     <h3 class="text-xl font-semibold mb-3">Personal Information</h3>
     <!-- Form -->
     <form @submit.prevent="updateProfile">
-      <div class="grid grid-cols-2 gap-1">
+      <div class="grid grid-cols-2 gap-2">
         <!-- Full Name -->
         <FormInPlaceEditor label="Full Name" :required="true" v-model="profile.personalInfo.fullName"
           cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">
@@ -33,10 +33,11 @@
         <!-- Date of Birth -->
         <FormInPlaceEditor label="Date of Birth" :required="true" v-model="profile.personalInfo.dateOfBirth"
           cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">
-          <input type="date" id="dateOfBirth" v-model="profile.personalInfo.dateOfBirth"
+         
+          <input type="date" id="dateOfBirth" v-model="profile.personalInfo.dateOfBirth" 
             class="input input-bordered w-full" />
           <template #displayValue>
-            <span> {{ $filters.dateStringFormat(profile?.personalInfo?.dateOfBirth, "DD/MM/YYYY") }}</span>
+            <span> {{ profile?.personalInfo?.dateOfBirth ? $filters.dateStringFormat(profile?.personalInfo?.dateOfBirth, "DD/MM/YYYY") : ''}}</span>
           </template>
         </FormInPlaceEditor>
 
@@ -63,7 +64,7 @@
 const { $modelAPI, $_, $filters, $uuidToObjectId, $uuidv4 } = useNuxtApp();
 
 const { token, logout, userId } = useAuth();
-
+const test = '2024-06-05'
 const props = defineProps({
   modelValue: {
     type: Object,
@@ -112,7 +113,10 @@ watch(
   },
   { immediate: true, deep: true }
 );
-const updateProfile = () => {
+const updateProfile = (event) => {
+  if (event) {
+        event.preventDefault();
+  }
   // Handle profile update logic here
   $modelAPI.profileAPI.updateProfile(idProfile.value, profile).then(result => {
     if (result.data.value.result) {

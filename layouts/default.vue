@@ -83,7 +83,7 @@ onMounted(() => {
           if(!result.data.value.result){
             updateProfile.value.show()
           }
-          User.value = result.data.value.data
+          User.value = $_.cloneDeep($modelAPI.profileAPI.profileFormat(result.data.value.data))
         })
       }
     }, 1);

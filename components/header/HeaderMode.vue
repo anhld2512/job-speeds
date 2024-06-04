@@ -1,5 +1,5 @@
 <template>
-  <label class="swap swap-rotate">
+  <label class="swap swap-rotate btn btn-circle">
     <!-- this hidden checkbox controls the state -->
     <input
       ref="isMode"
