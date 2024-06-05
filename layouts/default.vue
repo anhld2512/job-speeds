@@ -32,7 +32,7 @@
 
 <script setup>
 const { $modelAPI, $_ } = useNuxtApp();
-const { token, logout,userId} = useAuth();
+const { token, logout,userId } = useAuth();
 const User =ref(null)
 const showScrollButton = ref(false);
 const toastRef = ref(null);
@@ -78,7 +78,7 @@ onMounted(() => {
   nextTick().then(() => {
     setTimeout(() => {
       window.addEventListener('scroll', handleScroll);
-      if (token) {
+      if (!!token) {
         $modelAPI.profileAPI.getProfilById(userId).then(result =>{
           if(!result.data.value.result){
             updateProfile.value.show()
