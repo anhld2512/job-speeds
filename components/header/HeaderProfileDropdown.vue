@@ -6,7 +6,7 @@
             </div>
         </div>
         <ul tabindex="0" class="mt-3 mb-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 border border-2 rounded-box w-60 gap-3">
-            <li >
+            <li v-if="isUser">
                 <div class="flex items-center justify-start">
                     <img :src="User?.avatar || logoDefault"
                         alt="Avatar" class="w-12 h-12 rounded-full mr-2">
@@ -55,6 +55,9 @@ const User = computed({
     }
   }
 });
+const isUser = computed(()=>{
+    return Object.keys(User.value).length > 0;
+})
 const isAuthenticated = computed(() => {
     return useAuth().isAuthenticated
 })
