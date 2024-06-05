@@ -7,15 +7,12 @@ export const useAuth = () => {
   const login = async (username, password) => {
     try {
       // Mã hóa mật khẩu trước khi gửi đến server
-      const encryptedPassword = CryptoJS.AES.encrypt(password, appConfig.key.secret).toString();
-
-      const response = await $api.post('/auth/login', { username, password: encryptedPassword });
+      const response = await $api.post('/auth/login', { username, password: password });
       const token = response.data.token;
       const userId = response.data.userId;
       // Giải mã token trước khi lưu vào store và localStorage
-      const decryptedToken = CryptoJS.AES.decrypt(token, appConfig.key.secret).toString(CryptoJS.enc.Utf8);
-      authStore.login(decryptedToken);
-      localStorage.setItem('token', decryptedToken);
+      authStore.login(token);
+      localStorage.setItem('token', token);
       localStorage.setItem('userId', userId);
       return true;
     } catch (error) {
@@ -27,9 +24,8 @@ export const useAuth = () => {
   const signup = async (username, password) => {
     try {
       // Mã hóa mật khẩu trước khi gửi đến server
-      const encryptedPassword = CryptoJS.AES.encrypt(password, appConfig.key.secret).toString();
   
-      const response = await $api.post('/auth/signup', { username, password: encryptedPassword });
+      const response = await $api.post('/auth/signup', { username, password: password });
   
       if (response.status === 201) {
         const token = response.data.token;
@@ -37,10 +33,8 @@ export const useAuth = () => {
         // Lưu token vào store và localStorage
         authStore.login(token);
         localStorage.setItem('token', token);
-  
         return {
           result:true,
-          encryptedPassword:encryptedPassword
         };
       } else {
         console.error('Error:', response.data.message);
@@ -61,6 +55,7 @@ export const useAuth = () => {
   return {
     token: authStore.token,
     userId:authStore.userId,
+    isAuthenticated:authStore.isAuthenticated,
     login,
     signup,
     logout

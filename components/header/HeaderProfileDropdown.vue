@@ -1,12 +1,12 @@
 <template>
-    <div v-if="myToken">
+    <div v-if="isAuthenticated">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
             <div class="w-10 rounded-full">
                 <i class="bi bi-person-lines-fill text-4xl font-extrabold"></i>
             </div>
         </div>
         <ul tabindex="0" class="mt-3 mb-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 border border-2 rounded-box w-60 gap-3">
-            <li>
+            <li >
                 <div class="flex items-center justify-start">
                     <img :src="User?.avatar || logoDefault"
                         alt="Avatar" class="w-12 h-12 rounded-full mr-2">
@@ -36,7 +36,7 @@
 
 <script setup>
 const {  $util, payload: nuxtPayload , $_} = useNuxtApp();
-const { token, logout, userId} = useAuth();
+const { token, logout, userId } = useAuth();
 const props = defineProps({
   modelValue: {
     type: Object,
@@ -44,6 +44,7 @@ const props = defineProps({
   },
 });
 const { modelValue } = toRefs(props);
+const emit = defineEmits(["update:modelValue"]);
 const User = computed({
   get() {
     return modelValue?.value ?? {};
@@ -54,9 +55,8 @@ const User = computed({
     }
   }
 });
-const myToken = computed(() => {
-    const newToken = useAuth().token
-    return !!newToken
+const isAuthenticated = computed(() => {
+    return useAuth().isAuthenticated
 })
 
 const logoDefault = ref(`https://jobspeeds.com/logo/logo-bg.png`)

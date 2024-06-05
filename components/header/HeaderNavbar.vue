@@ -46,6 +46,7 @@ const props = defineProps({
   },
 });
 const { modelValue } = toRefs(props);
+const emit = defineEmits(["update:modelValue"]);
 const User = computed({
   get() {
     return modelValue?.value ?? {};
