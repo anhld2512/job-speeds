@@ -18,7 +18,7 @@
         </div>
         <div class="flex-row">
           <label class="label ms-auto">
-            <span>Already have an account? <NuxtLink href="/login" class="text-primary link link-hover">Login In
+            <span>Already have an account? <NuxtLink href="/login" class="text-primary link link-hover">Login
               </NuxtLink></span>
           </label>
         </div>
