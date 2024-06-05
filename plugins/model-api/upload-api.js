@@ -12,7 +12,7 @@ export default (appConfig, $moment, $filters, $_) => {
             Authorization: `Bearer ${token}`
           }
         };
-        return await useFetch(`${appConfig.apiURL.API}/file-manager/uploads`, fetchOption);
+        return await useFetch(`https://api.jobspeeds.com/file-manager/uploads`, fetchOption);
       };
       return {
         uploadLocal,
