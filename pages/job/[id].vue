@@ -23,7 +23,7 @@
                 <div class="flex flex-wrap mb-4">
                     <div class="w-full md:w-1/2">
                         <h2 class="text-xl font-semibold mb-2">Type</h2>
-                        <p class="mb-4">{{ currentJob?.jobType }}</p>
+                        <p class="mb-4">{{ currentJob?.jobTyped }}</p>
                     </div>
                     <div class="w-full md:w-1/2">
                         <h2 class="text-xl font-semibold mb-2">Skill</h2>

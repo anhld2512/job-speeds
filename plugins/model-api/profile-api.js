@@ -20,7 +20,7 @@ export default (appConfig, $moment, $filters, $_) => {
           Authorization: `Bearer ${token}`
         }
       };
-      return await useFetch(`https://api.jobspeeds.com/profile/${userId}`, fetchOption);
+      return await useFetch(`http://localhost:2024/api/profiles/${userId}`, fetchOption);
     };
     const updateProfile = async  (profileId,data,option = {}) => {
       //Merge options.
@@ -32,7 +32,7 @@ export default (appConfig, $moment, $filters, $_) => {
           Authorization: `Bearer ${token}`
         }
       };
-      return await useFetch(`https://api.jobspeeds.com/profile/${profileId}`, fetchOption);
+      return await useFetch(`http://localhost:2024/api/profiles/${profileId}`, fetchOption);
     };
     return {
       profileFormat,

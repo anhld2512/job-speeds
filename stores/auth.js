@@ -1,26 +1,43 @@
 import { defineStore } from 'pinia';
 
-export const useAuthStore = defineStore({
-  id: 'auth',
+export const useAuthStore = defineStore('auth', {
   state: () => ({
-    token: localStorage.getItem('token'), // Kiểm tra token trong localStorage
-    isAuthenticated: !!localStorage.getItem('token'), // Kiểm tra trạng thái đăng nhập từ token trong localStorage
-    userId: localStorage.getItem('userId')
+    token: localStorage.getItem('token') || '',
+    refreshToken: localStorage.getItem('refreshToken') || '', // Thêm refreshToken vào state
+    userId: localStorage.getItem('userId') || '',
+    isAuthenticated: !!localStorage.getItem('token'),
   }),
   actions: {
-    login(token) {
+    login(token, refreshToken) { // Cập nhật để nhận cả token và refreshToken
       this.token = token;
+      this.refreshToken = refreshToken; // Lưu refreshToken
       this.isAuthenticated = true;
     },
     logout() {
-      localStorage.removeItem('token'); // Xóa token từ localStorage khi đăng xuất
-      localStorage.removeItem('userId');
-      this.token = null;
+      this.token = '';
+      this.refreshToken = ''; // Xóa refreshToken
+      this.userId = '';
       this.isAuthenticated = false;
     },
-    signUp(token) {
-      this.token = token;
-      this.isAuthenticated = true;
-    },
+    async refreshToken() {
+      const refreshToken = localStorage.getItem('refreshToken');
+      if (!refreshToken) {
+        this.logout();
+        return null;
+      }
+
+      const nuxtApp = useNuxtApp(); // Lấy instance của Nuxt
+      try {
+        const response = await nuxtApp.$api.post('/auth/refresh-token', { refreshToken });
+        const newToken = response.data.accessToken;
+        this.login(newToken, refreshToken); // Gọi login với token mới và refreshToken cũ
+        localStorage.setItem('token', newToken);
+        return newToken;
+      } catch (error) {
+        console.error('Error refreshing token:', error);
+        this.logout();
+        return null;
+      }
+    }
   }
 });

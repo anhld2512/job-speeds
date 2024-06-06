@@ -12,17 +12,11 @@
       <FooterLayout></FooterLayout>
     </footer>
     <button v-if="showScrollButton" @click="scrollToTop"
-      class="fixed bottom-5 right-5 z-100 btn btn-circle btn-primary transition-opacity duration-300">
+      class="fixed bottom-5 right-5 z-100 btn btn-sm btn-circle btn-primary transition-opacity duration-300">
       <i class="bi bi-arrow-up-circle text-2xl"></i></button>
     <!-- Open the modal using ID.showModal() method -->
     <dialog ref="updateProfile" class="modal py-3" >
       <div class="modal-box w-11/12 max-w-4xl m-2 border border-2 rounded-xl ">
-        <!-- <div class="fixed top-0 right-5 modal-action">
-            <form method="dialog">
-                <button class="btn btn-circle btn-sm">
-                    <i class="bi bi-x text-2xl"></i></button>
-            </form>
-        </div> -->
         <ProfilePersonal v-model="profile" :enableEditMode="true" @valid="valid"></ProfilePersonal>
       </div>
     </dialog>
@@ -31,8 +25,10 @@
 </template>
 
 <script setup>
-const { $modelAPI, $_ } = useNuxtApp();
+const { $api ,$modelAPI, $_ } = useNuxtApp();
+
 const { token, logout,userId } = useAuth();
+const router = useRouter();
 const User =ref(null)
 const showScrollButton = ref(false);
 const toastRef = ref(null);
@@ -45,7 +41,7 @@ const scrollToTop = () => {
 };
 const profile = ref({
   userId:userId,
-  role: 'employer',
+  role: 'Employer',
   avatar: '',
   personalInfo: {
     fullName: '',
@@ -74,17 +70,26 @@ const triggerToast = (type, message) => {
     toastRef.value.show();
   }
 };
+const getProfileById = async (userId) => {
+  try {
+    const response = await $api.get(`/profiles/${userId}`);
+    return response;
+  } catch (error) {
+    console.error('Error fetching profile:', error);
+    return null;
+  }
+};
 onMounted(() => {
   nextTick().then(() => {
-    setTimeout(() => {
+    setTimeout(async () => {
       window.addEventListener('scroll', handleScroll);
       if (!!token) {
-        $modelAPI.profileAPI.getProfilById(userId).then(result =>{
-          if(!result.data.value.result){
-            updateProfile.value.show()
-          }
-          User.value = $_.cloneDeep($modelAPI.profileAPI.profileFormat(result.data.value.data))
-        })
+        const result = await getProfileById(userId);
+        if (result && result.data && result.data.result) {
+          User.value = result.data.data;
+        } else {
+          updateProfile.value.show();
+        }
       }
     }, 1);
   });

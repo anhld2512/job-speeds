@@ -1,12 +1,13 @@
 <template>
   <!-- Thanh lọc và nút tạo công việc -->
-  <div class="fixed w-full max-w-6xl flex-row md:flex bg-base-100 z-10 h-auto -mt-4 px-2 gap-3">
+  <div 
+    class="fixed right-0 left-0 w-full flex-row md:flex bg-base-100 z-10 h-auto -mt-4 mx-auto md:px-12">
     <!-- Nội dung bộ lọc -->
-    <div class="w-full md:w-1/2 flex py-3 items-center justify-start">
-      <FilterSearch :data="listJob" @actionBtnFilter="actionBtnFilter"></FilterSearch>
+    <div class="w-full md:w-1/2 flex py-3 items-center justify-start px-2">
+      <FilterSearch :data="listJob" :filter="filter" @actionFilter="actionFilter"></FilterSearch>
     </div>
-    <div class="w-full flex md:w-1/2 py-3 items-center justify-end">
-      <button class="btn btn-md btn-primary "><i class="bi bi-plus-circle"></i> Create</button>
+    <div class="w-full flex md:w-1/2 py-3 items-center justify-end px-2">
+      <button class="btn btn-sm btn-primary "><i class="bi bi-plus-circle"></i> Create</button>
     </div>
   </div>
 
@@ -24,15 +25,17 @@
             <h2 class="card-title text-primary" type="button" @click="detailJob(item._id)">{{ item.jobName }}</h2>
             <p>{{ item.companyName }}</p>
             <p>{{ item.jobCategory }}</p>
-            <p>{{ item.jobType }}</p>
+            <p>{{ item.jobTyped}}</p>
             <div class="card-actions justify-start flex-wrap">
               <!-- Hiển thị kỹ năng yêu cầu -->
-              <div v-for="(itemSkill, index) in item.jobSkills" :key="index" class="badge badge-outline">{{ itemSkill }}</div>
+              <div v-for="(itemSkill, index) in item.jobSkills" :key="index" class="badge badge-outline">{{ itemSkill }}
+              </div>
             </div>
             <div class="absolute top-0 right-0 mt-1 mr-1">
               <div class="dropdown dropdown-bottom dropdown-end text-primary">
                 <div tabindex="0" role="button" class="btn btn-sm m-1"><i class="bi bi-three-dots-vertical"></i></div>
-                <ul tabindex="0" class="border border-2 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-md w-52">
+                <ul tabindex="0"
+                  class="border border-2 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-md w-52">
                   <li><a @click="detailJob(item._id)"><i class="bi bi-eye"></i> Detail</a></li>
                   <!-- <li><a @click="deleteJob(item._id)"><i class="bi bi-trash3"></i> Delete</a></li> -->
                 </ul>
@@ -62,9 +65,17 @@
 const { $modelAPI, $_ } = useNuxtApp();
 const router = useRouter();
 
-const filter = ref(null);
 
-const actionBtnFilter = (value) => {
+
+const filter = ref({
+  search: '',
+  filter: {
+    jobName: '',
+    jobCategory: '',
+    jobTyped: ''
+  },
+});
+const actionFilter = (value) => {
   filter.value = value; // Cập nhật bộ lọc mới
   listJob.value = []; // Đặt lại danh sách công việc
   fetchJobs(); // Tải công việc mới dựa trên bộ lọc mới
@@ -151,6 +162,6 @@ const detailJob = (itemId) => {
 
 <style scoped>
 .container {
-    max-width: 1024px;
+  max-width: 1024px;
 }
 </style>

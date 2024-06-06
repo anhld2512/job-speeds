@@ -1,18 +1,10 @@
 export default (appConfig, $moment, $filters, $_) => {
-  const getListJob = async  (item,option = {}) => {
-    //Merge options.
-    const fetchOption = {
-      ...option,
-      method: "GET",
-    };
-    return await useFetch(`https://api.jobspeeds.com/job`, fetchOption);
-  };
   const getJobById = async (id,option = {}) =>{
     const fetchOption = {
       ...option,
       method: "GET",
     };
-    return await useFetch(`https://api.jobspeeds.com/job/${id}`, fetchOption);
+    return await useFetch(`http://localhost:2024/api/jobs/${id}`, fetchOption);
   }
   const filterJob = async  (itemInPage,filter,option = {}) => {
     //Merge options.
@@ -20,11 +12,11 @@ export default (appConfig, $moment, $filters, $_) => {
       ...option,
       method: "POST",
       body:{
-        filter:filter,
+        data:filter,
         skip:itemInPage
       }
     };
-    return await useFetch(`https://api.jobspeeds.com/job/filter`, fetchOption);
+    return await useFetch(`http://localhost:2024/api/jobs/filter`, fetchOption);
   };
   const deleteJob = async (itemId,option = {})=>{
       //Merge options.
@@ -38,7 +30,6 @@ export default (appConfig, $moment, $filters, $_) => {
     return await useFetch(`https://api.jobspeeds.com/job/delete`, fetchOption);
   }
   return {
-    getListJob,
     filterJob,
     deleteJob,
     getJobById

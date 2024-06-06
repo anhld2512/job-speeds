@@ -3,7 +3,7 @@
     <!-- Form Title -->
     <!-- Form -->
     <form @submit.prevent="updateProfile">
-      <div class="grid grid-cols-2 gap-2">
+      <div class="grid grid-cols-2 gap-1">
         <!-- Full Name -->
         <FormInPlaceEditor label="Full Name" :required="true" v-model="profile.personalInfo.fullName"
           cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">
@@ -93,7 +93,7 @@ const isEditMode = computed(() => {
 // Mock data
 const isValidateForm = ref(true)
 const uuidv4 = $uuidv4()
-const idProfile = ref($uuidToObjectId(uuidv4))
+const idProfile = ref(profile.value._id ?? $uuidToObjectId(uuidv4))
 watch(
   () => [
     profile.value.role,
