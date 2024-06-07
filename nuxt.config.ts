@@ -50,7 +50,7 @@ export default defineNuxtConfig({
         { name: "application-name", content: "Job Speeds" },
         { name: "theme-color", content: "#ffffff" }, // Màu nền của ứng dụng
         { name: "apple-mobile-web-app-capable", content: "yes" }, // Có thể mở ứng dụng trên thiết bị di động của Apple
-        { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" }, // Màu thanh trạng thái của ứng dụng trên thiết bị di động của Apple
+        { name: "apple-mobile-web-app-status-bar-style", content: "#ffffff" }, // Màu thanh trạng thái của ứng dụng trên thiết bị di động của Apple
         { name: "apple-mobile-web-app-title", content: "Job Speeds" }, // Tiêu đề cho ứng dụng trên thiết bị di động của Apple
         // Splash screens for different devices
         { name: "apple-touch-startup-image", content: "/logo/logo_500x500.png", media: "(device-width: 320px) and (device-height: 568px)" },
@@ -101,30 +101,4 @@ export default defineNuxtConfig({
     dirs: ['stores'],
   },
   appManifest:true,
-  pwa: {
-    manifest: {
-      name: 'Job Speeds',
-      short_name: 'Job Speeds',
-      lang: 'en',
-      display: 'fullscreen', // Thay đổi thành fullscreen để hiển thị toàn màn hình
-      background_color: '#ffffff',
-      theme_color: '#4DBA87',
-      icons: [
-        {
-          src: '/icon-192x192.png',
-          sizes: '192x192',
-          type: 'image/png'
-        },
-        {
-          src: '/icon-512x512.png',
-          sizes: '512x512',
-          type: 'image/png'
-        }
-      ]
-    },
-    registerType: 'autoUpdate',
-    workbox: {
-      // Configuration for workbox (if needed)
-    }
-  }
 })

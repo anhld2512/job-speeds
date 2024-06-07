@@ -5,7 +5,7 @@
         <span class="loading loading-spinner text-accent w-20 h-20"></span>
       </div>
     </div>
-    <NuxtLayout v-if="!loading">
+    <NuxtLayout v-show="!loading">
       <NuxtPage />
     </NuxtLayout>
   </div>
@@ -32,9 +32,13 @@ const applyTheme = (theme) => {
     document.getElementById('loading').style.backgroundColor = '#ffffff';
   }
 };
+
 onMounted(() => {
   const originalTheme = localStorage.getItem('theme') || 'light';
   applyTheme(originalTheme);
+
+  console.log(originalTheme);
+
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/app.js').then(function(registration) {
       console.log('Service Worker registered with scope:', registration.scope);
@@ -42,14 +46,17 @@ onMounted(() => {
       console.log('Service Worker registration failed:', error);
     });
   }
+
+  // Handle loading timeout
   const loadingTimeout = setTimeout(() => {
     if (loading.value) {
       document.getElementById('loading').style.display = 'none';
       loading.value = false;
+
       // Revert to the original theme color
       applyTheme(originalTheme);
     }
-  }, 500); // 3 seconds timeout
+  }, 3000); // 3 seconds timeout
 
   window.addEventListener('load', () => {
     clearTimeout(loadingTimeout); // Clear the timeout if page loads within 3 seconds
@@ -71,24 +78,19 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #ffffff; /* Đảm bảo nền trắng */
+  background: #ffffff; /* Default background */
   z-index: 9999;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: env(safe-area-inset-top); /* Đảm bảo rằng vùng notch có nền */
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
 }
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: #ffffff; /* Đảm bảo nền trắng */
 }
 body {
-  background: #ffffff; /* Đảm bảo nền trắng */
+  background: #ffffff; /* Default background */
 }
 </style>
