@@ -52,10 +52,6 @@ export default defineNuxtConfig({
         { name: "apple-mobile-web-app-capable", content: "yes" }, // Có thể mở ứng dụng trên thiết bị di động của Apple
         { name: "apple-mobile-web-app-status-bar-style", content: "#ffffff" }, // Màu thanh trạng thái của ứng dụng trên thiết bị di động của Apple
         { name: "apple-mobile-web-app-title", content: "Job Speeds" }, // Tiêu đề cho ứng dụng trên thiết bị di động của Apple
-        // Splash screens for different devices
-        { name: "apple-touch-startup-image", content: "/logo/logo_500x500.png", media: "(device-width: 320px) and (device-height: 568px)" },
-        { name: "apple-touch-startup-image", content: "/logo/logo_500x500.png", media: "(device-width: 375px) and (device-height: 667px)" },
-        // Add more splash screens with specific media queries as needed
       ]
     }
   },
@@ -76,7 +72,7 @@ export default defineNuxtConfig({
     '~/assets/scss/style.scss',
   ],
   modules: [
-    '@pinia/nuxt',"@nuxtjs/tailwindcss",'@nuxtjs/sitemap','@nuxt/image','@vite-pwa/nuxt'
+    '@pinia/nuxt',"@nuxtjs/tailwindcss",'@nuxtjs/sitemap','@nuxt/image'
   ],
   sitemap: {
     // Cấu hình cho sitemap
