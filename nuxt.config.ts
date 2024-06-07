@@ -3,10 +3,7 @@ export default defineNuxtConfig({
   ssr: false,
   appConfig: {
     apiURL: {
-      API: (process.env.API_URL || '').replace(/^\/+|\/+$/g, ''),
-    },
-    key:{
-      secret:(process.env.SECRET_KEY || '').replace(/^\/+|\/+$/g, ''),
+      API: (process.env.API_URL || 'https://api.jobspeeds.com').replace(/^\/+|\/+$/g, '')
     }
   },
   app: {
