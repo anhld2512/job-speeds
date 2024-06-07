@@ -32,13 +32,9 @@ const applyTheme = (theme) => {
     document.getElementById('loading').style.backgroundColor = '#ffffff';
   }
 };
-
 onMounted(() => {
   const originalTheme = localStorage.getItem('theme') || 'light';
   applyTheme(originalTheme);
-
-  console.log(originalTheme);
-
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/app.js').then(function(registration) {
       console.log('Service Worker registered with scope:', registration.scope);
@@ -46,28 +42,14 @@ onMounted(() => {
       console.log('Service Worker registration failed:', error);
     });
   }
-
-  // Handle loading timeout
   const loadingTimeout = setTimeout(() => {
     if (loading.value) {
       document.getElementById('loading').style.display = 'none';
       loading.value = false;
-
       // Revert to the original theme color
       applyTheme(originalTheme);
     }
-  }, 3000); // 3 seconds timeout
-
-  window.addEventListener('load', () => {
-    clearTimeout(loadingTimeout); // Clear the timeout if page loads within 3 seconds
-    if (loading.value) {
-      document.getElementById('loading').style.display = 'none';
-      loading.value = false;
-
-      // Revert to the original theme color
-      applyTheme(originalTheme);
-    }
-  });
+  }, 1000); // 3 seconds timeout
 });
 </script>
 
