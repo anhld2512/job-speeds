@@ -47,9 +47,9 @@ export default defineNuxtConfig({
         { name: "og:url", content: "https://jobspeeds.com" },
         // Các thẻ schema.org có thể giúp công cụ tìm kiếm hiểu được thông tin cụ thể trên trang web của bạn
         { name: "application-name", content: "Job Speeds" },
-        { name: "theme-color", content: "#RRGGBB" }, // Màu nền của ứng dụng
+        { name: "theme-color", content: "#ffffff" }, // Màu nền của ứng dụng
         { name: "apple-mobile-web-app-capable", content: "yes" }, // Có thể mở ứng dụng trên thiết bị di động của Apple
-        { name: "apple-mobile-web-app-status-bar-style", content: "black" }, // Màu thanh trạng thái của ứng dụng trên thiết bị di động của Apple
+        { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" }, // Màu thanh trạng thái của ứng dụng trên thiết bị di động của Apple
         { name: "apple-mobile-web-app-title", content: "Job Speeds" }, // Tiêu đề cho ứng dụng trên thiết bị di động của Apple
       ]
     }
@@ -71,7 +71,7 @@ export default defineNuxtConfig({
     '~/assets/scss/style.scss',
   ],
   modules: [
-    '@pinia/nuxt',"@nuxtjs/tailwindcss",'@nuxtjs/sitemap','@nuxt/image'
+    '@pinia/nuxt',"@nuxtjs/tailwindcss",'@nuxtjs/sitemap','@nuxt/image','@vite-pwa/nuxt'
   ],
   sitemap: {
     // Cấu hình cho sitemap
@@ -95,5 +95,30 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['stores'],
   },
- 
+  pwa: {
+    manifest: {
+      name: 'My App',
+      short_name: 'App',
+      lang: 'en',
+      display: 'standalone', // Thay đổi thành fullscreen để hiển thị toàn màn hình
+      background_color: '#ffffff',
+      theme_color: '#4DBA87',
+      icons: [
+        {
+          src: '/icon-192x192.png',
+          sizes: '192x192',
+          type: 'image/png'
+        },
+        {
+          src: '/icon-512x512.png',
+          sizes: '512x512',
+          type: 'image/png'
+        }
+      ]
+    },
+    registerType: 'autoUpdate',
+    workbox: {
+      // Configuration for workbox (if needed)
+    }
+  }
 })
