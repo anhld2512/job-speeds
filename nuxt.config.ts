@@ -1,5 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  server: {
+    port: 3000, // Cổng mà ứng dụng của bạn sẽ lắng nghe
+    host: '0.0.0.0' // Lắng nghe trên tất cả các địa chỉ IP (IPv4 và IPv6)
+  },
   ssr: false,
   appConfig: {
     apiURL: {
