@@ -1,8 +1,8 @@
 {
   "name": "Job Speeds",
-  "short_name": "JP",
+  "short_name": "Job Speeds",
   "start_url": "/",
-  "display": "standalone",
+  "display": "fullscreen",
   "background_color": "#ffffff",
   "theme_color": "#4DBA87",
   "icons": [

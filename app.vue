@@ -5,7 +5,7 @@
         <span class="loading loading-spinner text-accent w-20 h-20"></span>
       </div>
     </div>
-    <NuxtLayout v-show="!loading">
+    <NuxtLayout v-if="!loading">
       <NuxtPage />
     </NuxtLayout>
   </div>
@@ -49,7 +49,18 @@ onMounted(() => {
       // Revert to the original theme color
       applyTheme(originalTheme);
     }
-  }, 1000); // 3 seconds timeout
+  }, 500); // 3 seconds timeout
+
+  window.addEventListener('load', () => {
+    clearTimeout(loadingTimeout); // Clear the timeout if page loads within 3 seconds
+    if (loading.value) {
+      document.getElementById('loading').style.display = 'none';
+      loading.value = false;
+
+      // Revert to the original theme color
+      applyTheme(originalTheme);
+    }
+  });
 });
 </script>
 
@@ -60,19 +71,24 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #ffffff; /* Default background */
+  background: #ffffff; /* Đảm bảo nền trắng */
   z-index: 9999;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: env(safe-area-inset-top); /* Đảm bảo rằng vùng notch có nền */
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
+  background: #ffffff; /* Đảm bảo nền trắng */
 }
 body {
-  background: #ffffff; /* Default background */
+  background: #ffffff; /* Đảm bảo nền trắng */
 }
 </style>

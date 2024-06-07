@@ -103,10 +103,10 @@ export default defineNuxtConfig({
   appManifest:true,
   pwa: {
     manifest: {
-      name: 'My App',
-      short_name: 'App',
+      name: 'Job Speeds',
+      short_name: 'Job Speeds',
       lang: 'en',
-      display: 'standalone', // Thay đổi thành fullscreen để hiển thị toàn màn hình
+      display: 'fullscreen', // Thay đổi thành fullscreen để hiển thị toàn màn hình
       background_color: '#ffffff',
       theme_color: '#4DBA87',
       icons: [
