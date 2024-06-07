@@ -22,6 +22,7 @@ export default defineNuxtConfig({
         { rel: 'apple-touch-icon', sizes: '144x144', href: '/logo/logo_250x250.png' },
         { rel: 'apple-touch-icon', sizes: '120x120', href: '/logo/logo_250x250.png' },
         { rel: 'apple-touch-icon', sizes: '76x76', href: '/logo/logo_250x250.png'},
+        { rel: 'manifest', href: '/manifest.json' }
       ],
       meta: [
         { charset: "utf-8" },
@@ -95,6 +96,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['stores'],
   },
+  appManifest:true,
   pwa: {
     manifest: {
       name: 'My App',
