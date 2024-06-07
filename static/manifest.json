@@ -2,7 +2,7 @@
     "name": "Job Speeds",
     "short_name": "Job Speeds",
     "start_url": "/",
-    "display": "minimal-ui",
+    "display": "fullscreen",
     "background_color": "#ffffff",
     "theme_color": "#4DBA87",
     "icons": [
