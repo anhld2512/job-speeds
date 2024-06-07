@@ -28,6 +28,11 @@
       </a>
     </li>
     <li>
+      <a href="/notifications" class="py-2 px-4 text-lg flex font-extrabold">
+        <i class="bi bi-bell"></i><span>Notification</span>
+      </a>
+    </li>
+    <li>
       <a href="/contact" class="py-2 px-4 text-lg flex font-extrabold">
         <i class="bi bi-telephone"></i><span>Contact</span>
       </a>
