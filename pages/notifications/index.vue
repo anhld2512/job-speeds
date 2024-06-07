@@ -15,9 +15,9 @@
       if (swReg) {
         const subscription = await swReg.pushManager.subscribe({
           userVisibleOnly: true,
-          applicationServerKey: urlBase64ToUint8Array('YOUR_PUBLIC_VAPID_KEY')
+          applicationServerKey: urlBase64ToUint8Array('BN3yNCATt4zRMU-e5nFIjwMfJ5Gfp3fub6_DcDzphhFu3jbUh2J0QveqBeEVShj5D7afzAHehWx1RQsF9pDjaMU')
         });
-        await $api.post('/save-subscription', subscription);
+        await $api.post('/notifications/save-subscription', subscription);
         alert('Subscribed to push notifications');
       } else {
         alert('Service Worker registration not found');
