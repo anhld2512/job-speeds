@@ -3,8 +3,10 @@
     <header class="fixed top-0 z-50 w-full">
       <HeaderNavbar v-model="User"></HeaderNavbar>
     </header>
+ 
     <main>
       <div class="container-auto overflow-hidden mt-20 max-w-7xl mx-auto">
+    
         <slot />
       </div>
     </main>
@@ -12,7 +14,7 @@
       <FooterLayout></FooterLayout>
     </footer>
     <button v-if="showScrollButton" @click="scrollToTop"
-      class="fixed bottom-5 right-5 z-100 btn btn-sm btn-circle btn-primary transition-opacity duration-300">
+      class="fixed bottom-5 right-5 z-100 btn btn-md btn-circle btn-primary transition-opacity duration-300">
       <i class="bi bi-arrow-up-circle text-2xl"></i></button>
     <!-- Open the modal using ID.showModal() method -->
     <dialog ref="updateProfile" class="modal py-3" >

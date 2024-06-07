@@ -15,25 +15,27 @@
     <div v-else class="absolute right-2 top-1"><i class="bi bi-search"></i></div>
     <ul
       v-show="showDropdown"
-      class="absolute z-10 w-full bg-white border border-gray-300 rounded mt-1 py-1 shadow-lg max-h-60 overflow-auto"
+      :class="{'absolute':useAbsolute}"
+      class="z-20 w-full bg-base-100 border border-2 border-gray-300 rounded-xl mt-2 py-1 shadow-lg max-h-60 overflow-auto"
     >
-      <li v-for="(item,index) in dataScrouce"
+      <li v-for="(item, index) in dataScrouce"
         :key="index"
         @click="selectItem($event, item)"
-        class="cursor-pointer px-4 py-2 hover:bg-gray-100 mt-1 rounded-x"
+        class="cursor-pointer px-2 py-1 hover:bg-gray-100 mt-1 rounded-xl text-sm"
       >
         {{ item }}
       </li>
-     
       <li v-if="isLoadingData">
         <LoadingPage />
+      </li>
+      <li v-if="!isLoadingData && dataScrouce.length === 0" class="px-2 py-1 text-sm text-gray-500">
+        No item
       </li>
     </ul>
   </div>
 </template>
+
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
-import { useNuxtApp } from '#app';
 const { $_ } = useNuxtApp();
 
 const props = defineProps({
@@ -52,10 +54,14 @@ const props = defineProps({
   fieldFilter: {
     type: String,
     default: 'name'
+  },
+  useAbsolute:{
+    type:Boolean,
+    default: false
   }
 });
 
-const { data, fieldFilter, label, modelValue } = toRefs(props);
+const { data, fieldFilter, label, modelValue ,useAbsolute} = toRefs(props);
 const emit = defineEmits(['update:modelValue']);
 
 const itemSelected = computed({
@@ -73,7 +79,6 @@ const isLoadingData = ref(true);
 const showDropdown = ref(false);
 const valueInput = ref(null);
 const pressedKey = ref('');
-const keyRefesh= ref(0)
 const isSearching = computed(() => {
   return itemSelected.value?.length > 0;
 });

@@ -1,6 +1,6 @@
 export default (appConfig, $moment, $filters, $_) => {
     const { token, logout, userId } = useAuth();
-    const uploadLocal = async  (image,filter,option = {}) => {
+    const uploadLocal = async  (image,option = {}) => {
         const formData = new FormData();
         formData.append("file", image)
         //Merge options.
@@ -12,7 +12,7 @@ export default (appConfig, $moment, $filters, $_) => {
             Authorization: `Bearer ${token}`
           }
         };
-        return await useFetch(`http://localhost:2024/api/files/upload`, fetchOption);
+        return await useFetch(`${appConfig.apiURL.API}/api/files/upload`, fetchOption);
       };
       return {
         uploadLocal,

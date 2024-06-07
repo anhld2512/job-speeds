@@ -11,7 +11,6 @@
     />
     <!-- sun icon -->
     <svg
-      
       class="swap-off fill-current w-8 h-8"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
@@ -34,27 +33,41 @@
 </template>
 
 <script setup>
-const { $util, payload: nuxtPayload } = useNuxtApp();
-const currentTheme = ref(localStorage.getItem("theme") || "light");
-const selectedTheme = ref(currentTheme.value === "dark" ? true : false);
+
+const darkThemeColor = '#1d232a'; // Set your dark mode color here
+const lightThemeColor = '#ffffff'; // Set your light mode color here
+
+const currentTheme = ref(localStorage.getItem('theme') || 'light');
+const selectedTheme = ref(currentTheme.value === 'dark');
+
+const setThemeColorMeta = (theme) => {
+  let themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  if (!themeColorMeta) {
+    themeColorMeta = document.createElement('meta');
+    themeColorMeta.name = 'theme-color';
+    document.head.appendChild(themeColorMeta);
+  }
+  themeColorMeta.setAttribute('content', theme === 'dark' ? darkThemeColor : lightThemeColor);
+};
 
 const changeTheme = () => {
-  currentTheme.value = selectedTheme.value ? "dark" : "light";
-  document
-    .getElementById("job-speed")
-    .setAttribute("data-theme", currentTheme.value);
-  localStorage.setItem("theme", currentTheme.value);
+  currentTheme.value = selectedTheme.value ? 'dark' : 'light';
+  document.getElementById('job-speed').setAttribute('data-theme', currentTheme.value);
+  localStorage.setItem('theme', currentTheme.value);
+  setThemeColorMeta(currentTheme.value);
 };
+
 onMounted(() => {
   nextTick().then(() => {
     setTimeout(() => {
-      document
-        .getElementById("job-speed")
-        .setAttribute("data-theme", localStorage.getItem("theme"));
+      const theme = localStorage.getItem('theme');
+      document.getElementById('job-speed').setAttribute('data-theme', theme);
+      setThemeColorMeta(theme);
     }, 1);
   });
 });
+
 watch(selectedTheme, changeTheme);
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

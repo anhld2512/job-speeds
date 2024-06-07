@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { useAuthStore } from '@/stores/auth'; // Điều chỉnh đường dẫn tùy theo cấu trúc dự án của bạn
 
+
 export default defineNuxtPlugin((nuxtApp) => {
+  const appConfig = useAppConfig();
   const api = axios.create({
-    baseURL: 'http://localhost:2024/api/',
+    baseURL: `${appConfig.apiURL.API}/api/`,
     withCredentials: true
   });
 
