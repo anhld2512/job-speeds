@@ -50,13 +50,13 @@
         </div>
         <!-- Kết thúc thẻ công việc -->
       </div>
-      <div v-else class="mt-3 w-full">
+      <div v-else class="mt-3 w-full p-3">
         <!-- Component Start -->
-        <div  class="container  w-full flex flex-wrap justify-between items-center mx-auto bg-white rounded-md dark:bg-slate-500">
-          <div class="text-center border-dashed border-2 border-slate-200 dark:border-slate-100 rounded-md w-full p-20">
+        <div  class="container  w-full flex flex-wrap justify-between items-center mx-auto bg-base-100 rounded-md dark:bg-slate-500">
+          <div class="text-center border-dashed border-2 border-primary rounded-xl w-full p-20">
             <i class='bx bxs-contact bx-lg mb-5 dark:text-white'></i>
             <p class="text-xl mb-2 uppercase font-bold dark:text-white"> <i>No item to display</i></p>
-            <spam class="text-m text-slate-400 block mb-10 dark:text-slate-50">Get started by creating a new Job</spam>
+            <spam class="text-m text-slate-400 block mb-10 dark:text-slate-50">Get started by a new Job</spam>
             <button class="rounded-full px-5 py-3 btn btn-md w-auto btn-accent" @click="CreateFormApplicantion.show()"><i
                 class="bi bi-plus-circle"> </i>Create</button>
           </div>
