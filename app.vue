@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="loading" class="flex justify-center items-center h-screen">
+    <div v-if="loading" id="loading" class="fixed inset-0 flex justify-center items-center bg-white z-50">
       <div class="text-center">
         <span class="loading loading-spinner text-accent w-20 h-20"></span>
       </div>
@@ -14,15 +14,7 @@
 <script setup>
 
 const loading = ref(true);
-if (process.client) {
-  document.addEventListener('click', function(event) {
-    const target = event.target;
-    if (target.tagName === 'A' && target.href) {
-      event.preventDefault();
-      window.location.href = target.href;
-    }
-  });
-}
+
 const applyTheme = (theme) => {
   if (theme === 'dark') {
     document.body.style.backgroundColor = '#1d232a';
@@ -33,11 +25,34 @@ const applyTheme = (theme) => {
   }
 };
 
+const setFirstVisitFlag = () => {
+  const currentTime = new Date().getTime();
+  localStorage.setItem('firstVisit', currentTime);
+};
+
+const isFirstVisit = () => {
+  const firstVisit = localStorage.getItem('firstVisit');
+  if (!firstVisit) {
+    setFirstVisitFlag();
+    return true;
+  }
+  
+  const currentTime = new Date().getTime();
+  const timeElapsed = currentTime - firstVisit;
+  
+  // 30 minutes in milliseconds
+  const thirtyMinutes = 30 * 60 * 1000;
+  if (timeElapsed > thirtyMinutes) {
+    setFirstVisitFlag();
+    return true;
+  }
+  
+  return false;
+};
+
 onMounted(() => {
   const originalTheme = localStorage.getItem('theme') || 'light';
   applyTheme(originalTheme);
-
-  console.log(originalTheme);
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/app.js').then(function(registration) {
@@ -47,27 +62,13 @@ onMounted(() => {
     });
   }
 
-  // Handle loading timeout
-  const loadingTimeout = setTimeout(() => {
-    if (loading.value) {
-      document.getElementById('loading').style.display = 'none';
+  if (isFirstVisit()) {
+    setTimeout(() => {
       loading.value = false;
-
-      // Revert to the original theme color
-      applyTheme(originalTheme);
-    }
-  }, 3000); // 3 seconds timeout
-
-  window.addEventListener('load', () => {
-    clearTimeout(loadingTimeout); // Clear the timeout if page loads within 3 seconds
-    if (loading.value) {
-      document.getElementById('loading').style.display = 'none';
-      loading.value = false;
-
-      // Revert to the original theme color
-      applyTheme(originalTheme);
-    }
-  });
+    }, 3000); // 3 seconds timeout
+  } else {
+    loading.value = false;
+  }
 });
 </script>
 
