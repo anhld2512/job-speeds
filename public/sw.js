@@ -1,11 +1,24 @@
 self.addEventListener('push', function(event) {
-    const options = {
-      body: event.data ? event.data.text() : 'Push message with no payload',
+  let title = 'Title no payload';
+  let options = {
+      body: 'Push message with no payload',
       icon: './favicon.ico',
       badge: './favicon.ico'
-    };
-  
-    event.waitUntil(
-      self.registration.showNotification('Push Notification', options)
-    );
-  });
+  };
+
+  if (event.data) {
+      try {
+          const data = event.data.json();
+          title = data.title || title;
+          options.body = data.body || options.body;
+          options.icon = data.icon || options.icon;
+          options.badge = data.badge || options.badge;
+      } catch (e) {
+          console.error('Error parsing push notification data', e);
+      }
+  }
+
+  event.waitUntil(
+      self.registration.showNotification(title, options)
+  );
+});

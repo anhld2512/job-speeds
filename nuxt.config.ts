@@ -16,6 +16,13 @@ export default defineNuxtConfig({
         lang: "en"
       },
       title: "Job Speeds",
+      link: [
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/logo/logo_250x250.png' },
+        { rel: 'apple-touch-icon', sizes: '152x152', href: '/logo/logo_250x250.png' },
+        { rel: 'apple-touch-icon', sizes: '144x144', href: '/logo/logo_250x250.png' },
+        { rel: 'apple-touch-icon', sizes: '120x120', href: '/logo/logo_250x250.png' },
+        { rel: 'apple-touch-icon', sizes: '76x76', href: '/logo/logo_250x250.png'},
+      ],
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
