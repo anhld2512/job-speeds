@@ -35,7 +35,7 @@ const registerForPushNotifications = async () => {
       }
 
       // Gửi đăng ký lên server
-      await $api.post('/notifications/save-subscription', subscription);
+      await $api.post('notifications/save-subscription', subscription);
       alert('Subscribed to push notifications');
     } catch (error) {
       console.error('Failed to subscribe the user: ', error);
