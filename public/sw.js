@@ -1,7 +1,7 @@
 self.addEventListener('push', function(event) {
-  let title = '';
+  let title = 'New';
   let options = {
-    message: 'Push message with no payload',
+    message: 'You have a new message.',
       icon: './favicon.ico',
       badge: './favicon.ico'
   };
