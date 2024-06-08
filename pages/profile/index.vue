@@ -109,7 +109,7 @@
         </div>
 
     </div>
-    <LoadingBasic ref="loading" :isClose="false"></LoadingBasic>
+    <ModalDialogLoadingBasic ref="loading" :isClose="false"></ModalDialogLoadingBasic>
     <ToastMessage ref="toastRef" :typeToast="currentToastType" :message="toastMessage" :show="showToast" />
 
    

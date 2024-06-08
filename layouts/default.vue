@@ -1,12 +1,10 @@
 <template>
-  <div id="job-speed" class="w-full overflow-hidden flex-row min-h-screen relative">
+  <div id="job-speed" class="w-full h-full overflow-hidden flex-row min-h-screen relative">
     <header class="fixed top-0 z-50 w-full">
       <HeaderNavbar v-model="User"></HeaderNavbar>
     </header>
- 
     <main>
-      <div class="container-auto overflow-hidden mt-20 max-w-7xl mx-auto">
-    
+      <div class="container-auto h-full overflow-hidden mt-20 max-w-7xl mx-auto">
         <slot />
       </div>
     </main>

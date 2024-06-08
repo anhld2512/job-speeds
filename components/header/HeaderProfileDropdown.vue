@@ -30,7 +30,8 @@
         </ul>
     </div>
     <div v-else>
-        <NuxtLink href="/login"><button class="btn btn-sm btn-primary">Login</button></NuxtLink>
+        <NuxtLink href="/login"><button class="btn btn-sm btn-ghost btn-circle"><i class="bi bi-person-circle text-3xl"></i>
+        </button></NuxtLink>
     </div>
 </template>
 

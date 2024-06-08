@@ -3,9 +3,9 @@
     <h1 class="text-2xl font-bold mb-4">{{ isCreate ? 'Post New Job' : job.jobName }}</h1>
     <form @submit.prevent="submitForm" class="grid grid-cols-1 gap-3 md:grid-cols-2">
       <FormInPlaceEditor label="Company Name" :required="true"
-        v-model="job.contact.company" cssClass="block text-lg" :showButtonEditMode="false"
+        v-model="job.company" cssClass="block text-lg" :showButtonEditMode="false"
         :enableEditMode="isEditMode">
-        <input type="text" v-model="job.contact.company" class="input input-primary input-sm input-bordered w-full"
+        <input type="text" v-model="job.company" class="input input-primary input-sm input-bordered w-full"
           placeholder="Company Name" />
       </FormInPlaceEditor>
       <FormInPlaceEditor label="Job Name" :required="true" v-model="job.jobName" cssClass="block text-lg"
@@ -67,7 +67,7 @@
     </form>
   </div>
   <ToastMessage ref="toastRef" :typeToast="currentToastType" :message="toastMessage" :show="showToast" />
-  <LoadingBasic ref="loading" :isClose="false"></LoadingBasic>
+  <ModalDialogLoadingBasic ref="loading" :isClose="false"></ModalDialogLoadingBasic>
 </template>
 <script setup>
 const { $modelAPI, $_, $filters, $uuidToObjectId, $uuidv4 } = useNuxtApp();

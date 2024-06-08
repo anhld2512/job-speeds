@@ -20,30 +20,33 @@
         <!-- Input for notification body -->
         <input v-model="notificationMessage" type="text" placeholder="Notification Body"
           class="input input-bordered mb-3 w-full">
+          <input v-model="notificationUrl" placeholder="Enter notification URL" class="input input-bordered mb-3 w-full"/>
+
       </div>
     </div>
   </div>
+  <ModalDialogMessage ref="modalMessage" />
 </template>
 
 <script setup>
 
-const { $api, $urlBase64ToUint8Array } = useNuxtApp();
+const { $api, $urlBase64ToUint8Array, $sendNotification} = useNuxtApp();
 const notificationTitle = ref('');
 const notificationMessage = ref('');
+const notificationUrl = ref('');
+const modalMessage = ref(null)
 const registerForPushNotifications = async () => {
   if ('serviceWorker' in navigator && 'PushManager' in window) {
     try {
       // Đăng ký hoặc lấy Service Worker hiện tại
       const swReg = await navigator.serviceWorker.register('/sw.js');
-      console.log('Service Worker registered:', swReg);
 
       // Yêu cầu quyền hiển thị thông báo
       const permission = await Notification.requestPermission();
       if (permission !== 'granted') {
-        alert('Permission not granted for Notification');
+        registerForPushNotifications()
         return;
       }
-
       // Kiểm tra nếu đã có đăng ký
       let subscription = await swReg.pushManager.getSubscription();
       if (!subscription) {
@@ -53,26 +56,22 @@ const registerForPushNotifications = async () => {
           applicationServerKey: $urlBase64ToUint8Array('BA5xnicrkH0hO5H0Y3cK5AAik0G_j62c8mukA0eYjhQ9ShDxDvh9gksXEL-VRMoZaeT2bDh2y_1Wi2C3ro9d_9E')
         });
       }
-
       // Gửi đăng ký lên server
       await $api.post('notifications/save-subscription', subscription);
-      alert('Subscribed to push notifications');
     } catch (error) {
       console.error('Failed to subscribe the user: ', error);
-      alert('Failed to subscribe the user');
+      modalMessage.value.openDialog('Failed', 'Failed to subscribe the user.');
     }
   } else {
-    alert('Push messaging is not supported');
+    modalMessage.value.openDialog('Warning', 'Push messaging is not supported.');
   }
 };
 
 const sendNotification = async () => {
-  const notificationPayload = {
-    title: notificationTitle.value,
-    message: notificationMessage.value,
-  };
-
-  await $api.post('notifications/send-notification', notificationPayload);
+  const title = notificationTitle.value.trim() || 'JobSpeed';
+  const message = notificationMessage.value.trim() || 'You have a new notification from JobSpeed';
+  const url = notificationUrl.value.trim() || 'https://default.url';
+  $sendNotification(title, message, url);
 };
 
 onMounted(() => {

@@ -32,7 +32,7 @@
     </div>
   </div>
   <ToastMessage ref="toastRef" :typeToast="currentToastType" :message="toastMessage" :show="showToast" />
-  <LoadingBasic ref="loading" :isClose="false"></LoadingBasic>
+  <ModalDialogLoadingBasic ref="loading" :isClose="false"></ModalDialogLoadingBasic>
 </template>
 
 <script setup>

@@ -1,22 +1,26 @@
+
 self.addEventListener('push', function(event) {
-  let title = 'New';
-  let options = {
-    message: 'You have a new message.',
+    console.log('[Service Worker] Push Received.');
+    const data = event.data.json();
+  
+    const title = data.title || 'Default Title';
+    const options = {
+      body: data.message || 'Default message body',
       icon: './favicon.ico',
-      badge: './favicon.ico'
-  };
-  if (event.data) {
-      try {
-          const data = event.data.json();
-          title = data.title || title;
-          options.message = data.message || options.message;
-          options.icon = data.icon || options.icon;
-          options.badge = data.badge || options.badge;
-      } catch (e) {
-          console.error('Error parsing push notification data', e);
+      badge: './favicon.ico',
+      data: {
+        url: data.url || 'https://default.url' // Include the URL in the notification data
       }
-  }
-  event.waitUntil(
+    };
+  
+    event.waitUntil(
       self.registration.showNotification(title, options)
-  );
-});
+    );
+  });
+  
+  self.addEventListener('notificationclick', function(event) {
+    event.notification.close(); // Close the notification
+    event.waitUntil(
+      clients.openWindow(event.notification.data.url) // Open the URL when the notification is clicked
+    );
+  });

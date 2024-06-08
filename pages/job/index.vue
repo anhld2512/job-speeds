@@ -43,8 +43,8 @@
             </div>
           </div>
           <div class="card-footer p-1">
-            <figure class="h-44 w-full">
-              <img class="h-full w-full object-contain bg-black rounded-xl" :src="item.jobImageUrl" alt="jobs" />
+            <figure class="h-44 w-full skeleton">
+              <div class="h-full w-full object-contain rounded-lg" :style="{ backgroundImage: `url(${item.jobImageUrl})`, backgroundSize: 'contain', backgroundPosition: 'center' }"></div>
             </figure>
           </div>
         </div>
@@ -81,7 +81,7 @@
   </dialog>
   <ToastMessage ref="toastRef" :typeToast="currentToastType" :message="toastMessage" :show="showToast" />
 
-  <LoadingBasic ref="loading" :isClose="true"></LoadingBasic>
+  <ModalDialogLoadingBasic ref="loading" :isClose="true"></ModalDialogLoadingBasic>
 </template>
 
 <script setup>
