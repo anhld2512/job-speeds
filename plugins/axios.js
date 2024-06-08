@@ -80,7 +80,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     return outputArray;
   }
   function sendNotification(title, message) {
-    return api.post('/send-notification', { title, message })
+    return api.post('/notifications/send-notification', { title, message })
       .then(response => console.log('Notification sent successfully'))
       .catch(error => console.error('Failed to send notification', error));
   }
