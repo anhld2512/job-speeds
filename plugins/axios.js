@@ -55,12 +55,9 @@ export default defineNuxtPlugin((nuxtApp) => {
   }
 
   function subscribeUser(swReg) {
-    const applicationServerPublicKey = 'BN3yNCATt4zRMU-e5nFIjwMfJ5Gfp3fub6_DcDzphhFu3jbUh2J0QveqBeEVShj5D7afzAHehWx1RQsF9pDjaMU';
-    const applicationServerKey = urlBase64ToUint8Array(applicationServerPublicKey);
-  
     swReg.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: applicationServerKey
+      applicationServerKey: urlBase64ToUint8Array('BA5xnicrkH0hO5H0Y3cK5AAik0G_j62c8mukA0eYjhQ9ShDxDvh9gksXEL-VRMoZaeT2bDh2y_1Wi2C3ro9d_9E')
     }).then(subscription => {
       console.log('User is subscribed:', subscription);
   
@@ -82,7 +79,11 @@ export default defineNuxtPlugin((nuxtApp) => {
     }
     return outputArray;
   }
-
+  function sendNotification(title, message) {
+    return api.post('/send-notification', { title, message })
+      .then(response => console.log('Notification sent successfully'))
+      .catch(error => console.error('Failed to send notification', error));
+  }
   function saveSubscription(subscription) {
     api.post('/notifications/save-subscription', subscription)
       .then(() => console.log('Subscription saved successfully'))
@@ -90,4 +91,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   }
 
   nuxtApp.provide('api', api); // Cung cấp api cho toàn bộ ứng dụng
+  nuxtApp.provide('sendNotification', sendNotification);
+  nuxtApp.provide('urlBase64ToUint8Array', urlBase64ToUint8Array);
 });
