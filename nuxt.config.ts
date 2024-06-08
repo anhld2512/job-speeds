@@ -90,11 +90,10 @@ export default defineNuxtConfig({
     },
   },
   experimental: {
-    appManifest: false
+    appManifest: true
   },
   
   imports: {
     dirs: ['stores'],
   },
-  appManifest:true,
 })

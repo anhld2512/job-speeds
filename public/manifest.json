@@ -16,18 +16,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "splash_screens": [
-  {
-    "src": "/logo/logo_500x500.png",
-    "sizes": "640x1136",
-    "type": "image/png",
-    "density": 1.0
-  },
-  {
-    "src": "/logo/logo_500x500.png",
-    "sizes": "750x1334",
-    "type": "image/png",
-    "density": 2.0
-  }]
+  ]
 }

@@ -37,10 +37,10 @@ export default defineNuxtPlugin((nuxtApp) => {
   );
   // Đăng ký Service Worker và xử lý đăng ký thông báo đẩy
   if ('serviceWorker' in navigator && 'PushManager' in window) {
-    navigator.serviceWorker.register('./sw.js')
+    navigator.serviceWorker.register('/sw.js')
       .then(swReg => {
         console.log('Service Worker is registered', swReg);
-
+  
         // Yêu cầu quyền hiển thị thông báo
         Notification.requestPermission().then(permission => {
           if (permission === 'granted') {
@@ -57,13 +57,13 @@ export default defineNuxtPlugin((nuxtApp) => {
   function subscribeUser(swReg) {
     const applicationServerPublicKey = 'BN3yNCATt4zRMU-e5nFIjwMfJ5Gfp3fub6_DcDzphhFu3jbUh2J0QveqBeEVShj5D7afzAHehWx1RQsF9pDjaMU';
     const applicationServerKey = urlBase64ToUint8Array(applicationServerPublicKey);
-
+  
     swReg.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: applicationServerKey
     }).then(subscription => {
       console.log('User is subscribed:', subscription);
-
+  
       // Gửi đăng ký đến máy chủ backend
       saveSubscription(subscription);
     }).catch(err => {
@@ -76,9 +76,9 @@ export default defineNuxtPlugin((nuxtApp) => {
     const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
     const rawData = window.atob(base64);
     const outputArray = new Uint8Array(rawData.length);
-
+  
     for (let i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i);
+      outputArray[i] = rawData.charCodeAt(i); // Sửa lỗi ở đây, đổi I thành i
     }
     return outputArray;
   }
