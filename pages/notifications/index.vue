@@ -72,7 +72,7 @@ const registerForPushNotifications = async () => {
 const sendNotification = async () => {
     const notificationPayload = {
         title: notificationTitle.value,
-        body: notificationMessage.value,
+        message: notificationMessage.value,
     };
 
     await $api.post('notifications/send-notification', notificationPayload);

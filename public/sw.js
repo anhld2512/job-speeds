@@ -1,7 +1,7 @@
 self.addEventListener('push', function(event) {
   let title = '';
   let options = {
-      body: 'Push message with no payload',
+    message: 'Push message with no payload',
       icon: './favicon.ico',
       badge: './favicon.ico'
   };
@@ -9,7 +9,7 @@ self.addEventListener('push', function(event) {
       try {
           const data = event.data.json();
           title = data.title || title;
-          options.body = data.body || options.body;
+          options.message = data.message || options.message;
           options.icon = data.icon || options.icon;
           options.badge = data.badge || options.badge;
       } catch (e) {
