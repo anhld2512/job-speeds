@@ -84,8 +84,8 @@ export default defineNuxtPlugin((nuxtApp) => {
       .then(() => console.log('Subscription saved successfully'))
       .catch(error => console.error('Failed to save subscription', error));
   }
-  function sendNotification(title, message) {
-    return api.post('/notifications/send-notification', { title, message })
+  function sendNotification(title, message,url) {
+    return api.post('/notifications/send-notification', { title, message ,url})
       .then(response => console.log('Notification sent successfully'))
       .catch(error => console.error('Failed to send notification', error));
   }
