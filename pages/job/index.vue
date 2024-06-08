@@ -3,7 +3,7 @@
   <div class="fixed -mt-4 w-full flex-wa bg-base-100 z-10 px-2 h-12 py-1">
     <!-- Nội dung bộ lọc -->
     <div class="flex w-full md:w-1/2 items-center mb-2 gap-1">
-      <button @click="CreateFormApplicantion.show()" class="flex btn btn-sm btn-accent items-center"><i
+      <button @click="ActionCreate" class="flex btn btn-sm btn-accent items-center"><i
           class="bi bi-plus-circle"></i> New</button>
       <FilterSearch :data="listJob" :filter="filter" @actionFilter="actionFilter"></FilterSearch>
     </div>
@@ -22,7 +22,7 @@
           <div class="card-header"></div>
           <div class="card-body flex-grow p-1">
             <h2 class="card-title text-primary" type="button" @click="detailJob(item._id)">{{ item.jobName }}</h2>
-            <p>{{ item.companyName }}</p>
+            <p>{{ item.contact.company }}</p>
             <p>{{ item.jobCategory }}</p>
             <p>{{ item.jobTyped }}</p>
             <div class="card-actions justify-start flex-wrap">
@@ -69,7 +69,7 @@
     <LoadingPage v-if="isLoadingDataPush" />
   </div>
   <dialog ref="CreateFormApplicantion" class="modal">
-    <div class="modal-box w-11/12 max-w-5xl border border-2 shadow-xl">
+    <div class="modal-box max-w-4xl border border-2 shadow-xl p-1">
       <div class="fixed top-0 right-5 modal-action">
         <form method="dialog">
           <button class="btn btn-circle btn-sm border border-1 border-primary">
@@ -214,7 +214,7 @@ const job = ref({
   Responsibilities: '',
   Requirements: '',
   contact: {
-    companyName: '',
+    company: '',
   },
 });
 const onSubmit = (isVal) => {
@@ -233,6 +233,13 @@ const onSubmit = (isVal) => {
     }).finally(() => {
       loading.value.close()
     })
+  }
+}
+const ActionCreate = ()=>{
+  if(userId){
+    CreateFormApplicantion.show()
+  }else{
+    router.push(`/login`)
   }
 }
 </script>

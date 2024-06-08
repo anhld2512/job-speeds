@@ -1,14 +1,14 @@
 <template>
-    <div class="container mx-auto p-3">
+    <div class="container mx-auto">
         <div class="fixed top-0 right-5 modal-action">
             <form method="dialog">
                 <button class="btn btn-circle btn-sm border border-1 border-primary">
                     <i class="bi bi-x text-2xl"></i></button>
             </form>
         </div>
-        <form @submit.prevent="submitForm" class="p-3 space-y-6 lg:border lg:border-2 lg:border-primary rounded-xl">
+        <form @submit.prevent="submitForm" class="space-y-6 lg:border lg:border-2 lg:border-primary rounded-xl">
             <h1 class="text-3xl font-bold mb-6 text-center text-primary">Application</h1>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <label class="input input-primary input-bordered flex items-center gap-2">
                     <i class="bi bi-person text-primary"></i>
                     <input type="text" class="grow text-primary" id="name" v-model="formData.name"

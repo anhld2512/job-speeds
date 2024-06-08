@@ -7,7 +7,7 @@
                     class="btn w-1/2 md:w-1/4 md:flex text-center btn-sm btn-primary font-bold py-2 px-4 rounded transition duration-300">
                     Apply Now
                 </button>
-                <div v-if="!isAuthor" class="relative mt-2 md:mt-0 md:w-1/4 text-center md:text-right dropdown dropdown-bottom dropdown-end">
+                <div v-if="isAuthor" class="relative mt-2 md:mt-0 md:w-1/4 text-center md:text-right dropdown dropdown-bottom dropdown-end">
                     <div tabindex="0" role="button" class="btn btn-sm btn-accent m-1">
                         <i class="bi bi-gear text-md font-bold"></i>
                     </div>
@@ -68,33 +68,28 @@
                     <h2 class="text-2xl font-semibold mb-2">Requirements</h2>
                     <div v-html="$textAreaFormatText(currentJob?.Requirements)"></div>
                 </div>
-                <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
-                    <div class="col-span-1 md:col-span-1/3 p-4 flex flex-col">
+                <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+                    <div class="col-span-1 p-4 flex flex-col">
                         <h2 class="text-2xl font-semibold mb-2">Company Information</h2>
-                        <div class="mb-3 flex items-center">
+                        <div class="mb-3 flex items-start gap-1">
                             <i class="bi bi-person-fill text-xl mr-2"></i>
-                            <span class="fw-bold">Name:</span>
                             <span>{{ currentJob?.contact?.name }}</span>
                         </div>
-                        <div class="mb-3 flex items-center">
+                        <div class="mb-3 flex items-start gap-1">
                             <i class="bi bi-envelope-fill text-xl mr-2"></i>
-                            <span class="fw-bold">Email:</span>
                             <span>{{ currentJob?.contact?.email }}</span>
                         </div>
-                        <div class="mb-3 flex items-center">
+                        <div class="mb-3 flex items-start gap-1">
                             <i class="bi bi-phone-fill text-xl mr-2"></i>
-                            <span class="fw-bold">Phone:</span>
                             <span>{{ currentJob?.contact?.phone }}</span>
                         </div>
-                        <div class="mb-3 flex items-center">
+                        <div class="mb-3 flex items-start gap-1">
                             <i class="bi bi-building text-xl mr-2"></i>
-                            <span class="fw-bold">Company:</span>
-                            <span>{{ currentJob?.contact?.companyName }}</span>
+                            <span>{{ currentJob?.contact?.company }}{{ currentJob?.contact?.address }}</span>
                         </div>
-                        <div class="mb-3 flex items-center">
+                        <div class="mb-3 flex items-start gap-1">
                             <i class="bi bi-geo-alt-fill text-xl mr-2"></i>
-                            <span class="fw-bold">Address:</span>
-                            <span>{{ currentJob?.contact?.companyAddress }}</span>
+                            <span>{{ currentJob?.contact?.address }}{{ currentJob?.contact?.address }}</span>
                         </div>
                     </div>
                     <div class="col-span-1 md:col-span-2/3 p-4">
@@ -116,14 +111,14 @@
     </dialog>
     <dialog ref="EditFormApplicantion" class="modal">
 
-        <div class="modal-box w-11/12 max-w-5xl">
+        <div v-if="isRenderModel" class="modal-box w-11/12 max-w-5xl">
             <div class="fixed top-0 right-5 modal-action">
                 <form method="dialog">
                     <button class="btn btn-circle btn-sm border border-1 border-primary">
                         <i class="bi bi-x text-2xl"></i></button>
                 </form>
             </div>
-            <JobForm v-model="job" @onSubmit="onSubmit"></JobForm>
+            <JobForm  v-model="currentJob" @onSubmit="onSubmit"></JobForm>
         </div>
     </dialog>
     <LoadingBasic ref="loading" :isClose="false"></LoadingBasic>
@@ -155,6 +150,9 @@ const currentJob = ref(null)
 const loading = ref(false)
 const isAuthor = computed(() => {
     return userId === currentJob?.value?.userId ? true : false
+})
+const isRenderModel = computed(()=>{
+    return currentJob?.value?.length > 0 ? true : false
 })
 onMounted(() => {
     nextTick().then(() => {
