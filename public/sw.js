@@ -5,7 +5,6 @@ self.addEventListener('push', function(event) {
       icon: './favicon.ico',
       badge: './favicon.ico'
   };
-
   if (event.data) {
       try {
           const data = event.data.json();
@@ -17,7 +16,6 @@ self.addEventListener('push', function(event) {
           console.error('Error parsing push notification data', e);
       }
   }
-
   event.waitUntil(
       self.registration.showNotification(title, options)
   );
