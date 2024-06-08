@@ -79,16 +79,17 @@ export default defineNuxtPlugin((nuxtApp) => {
     }
     return outputArray;
   }
-  function sendNotification(title, message) {
-    return api.post('/notifications/send-notification', { title, message })
-      .then(response => console.log('Notification sent successfully'))
-      .catch(error => console.error('Failed to send notification', error));
-  }
   function saveSubscription(subscription) {
     api.post('/notifications/save-subscription', subscription)
       .then(() => console.log('Subscription saved successfully'))
       .catch(error => console.error('Failed to save subscription', error));
   }
+  function sendNotification(title, message) {
+    return api.post('/notifications/send-notification', { title, message })
+      .then(response => console.log('Notification sent successfully'))
+      .catch(error => console.error('Failed to send notification', error));
+  }
+  
 
   nuxtApp.provide('api', api); // Cung cấp api cho toàn bộ ứng dụng
   nuxtApp.provide('sendNotification', sendNotification);
