@@ -1,5 +1,6 @@
 /* Import Module Crop Image */
 @import "~/node_modules/vue-advanced-cropper/dist/style.css";
+
 /* Import Module */
 /* In Place Edit */
 .job-speed-in-place-editor {
@@ -47,10 +48,16 @@
 a.cursor-pointer {
   cursor: pointer;
 }
-#job-speed{
+
+#job-speed {
+  .container {
+    max-width: 1024px;
+  }
+
   .modal-box {
     max-height: calc(100vh - 8em) !important;
   }
+
   .custom-file-input {
     position: relative;
     display: inline-block;
@@ -78,8 +85,12 @@ a.cursor-pointer {
   .custom-file-input .btn i {
     margin-right: 8px;
   }
-  input, textarea, select {
+
+  input,
+  textarea,
+  select {
     font-size: 16px;
   }
 }
+
 /* In Place Edit */

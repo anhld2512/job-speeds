@@ -4,11 +4,11 @@
       <HeaderNavbar v-model="User"></HeaderNavbar>
     </header>
     <main>
-      <div class="container-auto h-full overflow-hidden mt-20 max-w-7xl mx-auto">
+      <div class="container-auto h-full overflow-hidden mt-20 max-w-full mx-auto">
         <slot />
       </div>
     </main>
-    <footer class="flex-grow-1 footer p-5 mb-10 bg-base-100 text-base-content flex-row text-base-content">
+    <footer class="p-5 bg-base-100 text-base-content flex-row text-base-content">
       <FooterLayout></FooterLayout>
     </footer>
     <button v-if="showScrollButton" @click="scrollToTop"

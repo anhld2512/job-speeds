@@ -1,73 +1,94 @@
 <template>
-  <!-- Thanh lọc và nút tạo công việc -->
-  <div class="fixed -mt-4 w-full flex-wa bg-base-100 z-10 px-2 h-12 py-1">
-    <!-- Nội dung bộ lọc -->
-    <div class="flex w-full md:w-1/2 items-center mb-2 gap-1">
-      <button @click="ActionCreate" class="flex btn btn-sm btn-accent items-center"><i
-          class="bi bi-plus-circle"></i> New</button>
+  <div class="container h-full overflow-hidden mx-auto top-20">
+    <div
+      class="fixed z-10 container mx-auto px-2 md:px-0 right-0 left-0 -mt-4 flex w-full items-center justify-start bg-base-100">
+      <button @click="ActionCreate" class="flex btn btn-sm btn-accent items-center"><i class="bi bi-plus-circle"></i>
+        New</button>
       <FilterSearch :data="listJob" :filter="filter" @actionFilter="actionFilter"></FilterSearch>
     </div>
-
-  </div>
-
-  <!-- Khu vực hiển thị danh sách công việc -->
-  <div class="overflow-auto gap-3 mt-10">
-    <!-- Hiển thị trang tải dữ liệu -->
-    <LoadingPage class="h-screen" v-if="isLoadingData" />
-    <div v-else class="flex flex-wrap">
-      <!-- Hiển thị danh sách công việc -->
-      <div v-if="listJob.length > 0" v-for="(item, index) in listJob" :key="index" class="w-full p-2 sm:w-1/2 md:w-1/3">
-        <!-- Thẻ công việc -->
-        <div class="card flex flex-col h-full bg-base-100 shadow-xl p-3 border-2 rounded-xl">
-          <div class="card-header"></div>
-          <div class="card-body flex-grow p-1">
-            <h2 class="card-title text-primary" type="button" @click="detailJob(item._id)">{{ item.jobName }}</h2>
-            <p>{{ item.contact.company }}</p>
-            <p>{{ item.jobCategory }}</p>
-            <p>{{ item.jobTyped }}</p>
-            <div class="card-actions justify-start flex-wrap">
-              <!-- Hiển thị kỹ năng yêu cầu -->
-              <div v-for="(itemSkill, index) in item.jobSkills" :key="index" class="badge badge-outline">{{ itemSkill }}
-              </div>
-            </div>
-            <div class="absolute top-0 right-0 mt-1 mr-1">
-              <div class="dropdown dropdown-bottom dropdown-end text-primary">
-                <div tabindex="0" role="button" class="btn btn-sm m-1 btn-accent"><i class="bi bi-gear text-xl"></i>
+    <div class="w-full mt-5 md:mt-8 md:shadow-md rounded rounded-xl h-full overflow-auto">
+      <!-- Hiển thị trang tải dữ liệu -->
+      <LoadingPage class="h-screen" v-if="isLoadingData" />
+      <div v-else class="flex flex-wrap">
+        <!-- Hiển thị danh sách công việc -->
+        <div v-if="listJob.length > 0" v-for="(item, index) in listJob" :key="index"
+          class="w-full p-2 md:w-1/2 lg:w-1/3">
+          <!-- Thẻ công việc -->
+          <div class="card flex flex-col h-full bg-base-100 shadow border-2 rounded-xl items-center px-3 py-2">
+            <div class="card-header w-full">
+              <div class="flex w-full items-center">
+                <div class="flex w-4/5">
+                  <div @click="myFormApplicantion.showModal()"
+                    class="btn btn-sm m-1 text-start btn-primary rounded w-full">
+                    <i class="bi bi-heart text-xl"></i> Apply
+                  </div>
                 </div>
-                <ul tabindex="0"
-                  class="border border-2 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-md w-52">
-                  <li><a @click="detailJob(item._id)"><i class="bi bi-eye"></i> Detail</a></li>
-                  <!-- <li><a @click="deleteJob(item._id)"><i class="bi bi-trash3"></i> Delete</a></li> -->
-                </ul>
+                <div class="flex w-1/5 justify-end">
+                  <div
+                    class="btn btn-sm btn-circle btn-accent dropdown dropdown-bottom dropdown-end text-primary items-center">
+                    <button tabindex="0" class="text-black"><i class="bi bi-gear text-xl"></i>
+                    </button>
+                    <ul tabindex="0"
+                      class="border border-2 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-md w-40 mt-2">
+                      <li><a @click="detailJob(item._id)"><i class="bi bi-eye"></i> Detail</a></li>
+                      <!-- <li><a @click="deleteJob(item._id)"><i class="bi bi-trash3"></i> Delete</a></li> -->
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="card-footer p-1">
-            <figure class="h-44 w-full skeleton">
-              <div class="h-full w-full object-contain rounded-lg" :style="{ backgroundImage: `url(${item.jobImageUrl})`, backgroundSize: 'contain', backgroundPosition: 'center' }"></div>
-            </figure>
-          </div>
-        </div>
-        <!-- Kết thúc thẻ công việc -->
-      </div>
-      <div v-else class="mt-3 w-full p-3">
-        <!-- Component Start -->
-        <div  class="container  w-full flex flex-wrap justify-between items-center mx-auto bg-base-100 rounded-md dark:bg-slate-500">
-          <div class="text-center border-dashed border-2 border-primary rounded-xl w-full p-20">
-            <i class='bx bxs-contact bx-lg mb-5 dark:text-white'></i>
-            <p class="text-xl mb-2 uppercase font-bold dark:text-white"> <i>No item to display</i></p>
-            <spam class="text-m text-slate-400 block mb-10 dark:text-slate-50">Get started by a new Job</spam>
-            <button class="rounded-full px-5 py-3 btn btn-md w-auto btn-accent" @click="CreateFormApplicantion.show()"><i
-                class="bi bi-plus-circle"> </i>Create</button>
-          </div>
-        </div>
-        <!-- Component End  -->
 
+            <div class="card-body p-1">
+              <h3 class="card-title text-lg text-primary w-full max-w-lg cursor-pointer" @click="detailJob(item._id)">{{
+                item.jobName }}</h3>
+              <div class="flex flex-col gap-2 w-full">
+                <p class="w-full mb-1 text-sm">{{ item.contact.company }}</p>
+                <div class="flex flex-wrap mb-2 gap-2">
+                  <span class="badge badge-lg badge-neutral"><i class="bi bi-award mr-1"></i> {{ item.jobCategory }}
+                  </span>
+                  <span class="badge badge-lg badge-error"><i class="bi bi-clock-history mr-1"></i> {{ item.jobTyped
+                    }}
+                  </span>
+                </div>
+                <i class="text-sm front-semibold text-gray-500 underline"><i class="bi bi-award text-md"></i> Skill list</i>
+                <div class="card-actions justify-start flex-wrap mb-2">
+                  <!-- Hiển thị kỹ năng yêu cầu -->
+                  <div v-for="(itemSkill, index) in item.jobSkills" :key="index" class="badge badge-accent">{{ itemSkill
+                    }}
+                  </div>
+                </div>
+                <figure class="h-44 w-full skeleton">
+                  <div class="h-full w-full object-contain rounded-lg"
+                    :style="{ backgroundImage: `url(${item.jobImageUrl})`, backgroundSize: 'contain', backgroundPosition: 'center' }">
+                  </div>
+                </figure>
+              </div>
+
+            </div>
+          </div>
+          <!-- Kết thúc thẻ công việc -->
+        </div>
+        <div v-else class="mt-3 w-full p-3">
+          <!-- Component Start -->
+          <div
+            class="container  w-full flex flex-wrap justify-between items-center mx-auto bg-base-100 rounded-md dark:bg-slate-500">
+            <div class="text-center border-dashed border-2 border-primary rounded-xl w-full p-20">
+              <i class='bx bxs-contact bx-lg mb-5 dark:text-white'></i>
+              <p class="text-xl mb-2 uppercase font-bold dark:text-white"> <i>No item to display</i></p>
+              <spam class="text-m text-slate-400 block mb-10 dark:text-slate-50">Get started by a new Job</spam>
+              <button class="rounded-full px-5 py-3 btn btn-md w-auto btn-accent"
+                @click="CreateFormApplicantion.show()"><i class="bi bi-plus-circle"> </i>Create</button>
+            </div>
+          </div>
+          <!-- Component End  -->
+
+        </div>
       </div>
+      <LoadingPage v-if="isLoadingDataPush" />
     </div>
-
-    <LoadingPage v-if="isLoadingDataPush" />
   </div>
+  <!-- Khu vực hiển thị danh sách công việc -->
+
   <dialog ref="CreateFormApplicantion" class="modal">
     <div class="modal-box max-w-4xl border border-2 shadow-xl p-1">
       <div class="fixed top-0 right-5 modal-action">
@@ -77,6 +98,11 @@
         </form>
       </div>
       <JobForm v-model="job" @onSubmit="onSubmit" :isCreate="true"></JobForm>
+    </div>
+  </dialog>
+  <dialog ref="myFormApplicantion" class="modal">
+    <div class="modal-box w-11/12 max-w-5xl">
+      <ApplyForm></ApplyForm>
     </div>
   </dialog>
   <ToastMessage ref="toastRef" :typeToast="currentToastType" :message="toastMessage" :show="showToast" />
@@ -105,7 +131,7 @@ const actionFilter = (value) => {
 };
 
 const loading = ref(null);
-
+const myFormApplicantion = ref(null)
 const isLoadingData = ref(true);
 const isLoadingDataPush = ref(false);
 const listJob = ref([]);
@@ -235,17 +261,13 @@ const onSubmit = (isVal) => {
     })
   }
 }
-const ActionCreate = ()=>{
-  if(userId){
+const ActionCreate = () => {
+  if (userId) {
     CreateFormApplicantion.show()
-  }else{
+  } else {
     router.push(`/login`)
   }
 }
 </script>
 
-<style scoped>
-.container {
-  max-width: 1024px;
-}
-</style>
+<style scoped></style>

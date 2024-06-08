@@ -19,7 +19,7 @@ export function textAreaFormatText(text) {
         const listItems = safeText.split('\n').map(line => `<li>${line.trim()}</li>`).join('');
     
         // Wrap the list items in <ul> tags
-        return `<ul class="list-disc list-inside mb-4">${listItems}</ul>`;
+        return `<ul class="list-disc list-inside mb-4 leading-6	">${listItems}</ul>`;
     }else{
         return ''
     }

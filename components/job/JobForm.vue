@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 max-w-4xl mx-auto">
+  <div class="p-2 mt-6">
     <h1 class="text-2xl font-bold mb-4">{{ isCreate ? 'Post New Job' : job.jobName }}</h1>
     <form @submit.prevent="submitForm" class="grid grid-cols-1 gap-3 md:grid-cols-2">
       <FormInPlaceEditor label="Company Name" :required="true"

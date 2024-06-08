@@ -1,99 +1,91 @@
 <template>
-
-    <div class="container h-full overflow-hidden mx-auto md:p-3">
-        <div class="w-full md:shadow-md rounded p-6 md:border md:border-2 rounded-xl h-full overflow-hidden">
-            <div class="flex md:flex-row items-center justify-between gap-2">
-                <button @click="myFormApplicantion.showModal()"
-                    class="btn w-1/2 md:w-1/4 md:flex text-center btn-sm btn-primary font-bold py-2 px-4 rounded transition duration-300">
-                    Apply Now
+    <div class="container h-full overflow-hidden mx-auto top-20">
+        <div
+            class="fixed container mx-auto px-5 md:px-0 right-0 left-0 -mt-4 flex w-full items-center justify-between bg-base-100">
+            <div @click="myFormApplicantion.showModal()" :class="{ 'w-full': !isAuthor }"
+                class="btn btn-sm m-1 text-start btn-primary rounded">
+                <i class="bi bi-heart text-xl"></i> Apply Now
+            </div>
+            <div v-if="isAuthor"
+                class="btn btn-sm btn-circle btn-accent dropdown dropdown-bottom dropdown-end text-primary  items-center">
+                <button tabindex="0" class="text-black"><i class="bi bi-gear text-xl"></i>
                 </button>
-                <div v-if="isAuthor"
-                    class="relative mt-2 md:mt-0 md:w-1/4 text-center md:text-right dropdown dropdown-bottom dropdown-end">
-                    <div tabindex="0" role="button" class="btn btn-sm btn-accent m-1">
-                        <i class="bi bi-gear text-md font-bold"></i>
-                    </div>
-                    <ul tabindex="0"
-                        class="absolute right-0 border border-2 dropdown-content z-[1] menu mt-1 mx-2 shadow bg-base-100 rounded-md w-44">
-                        <li>
-                            <a @click="actionEditJob">
-                                <i class="bi bi-pen text-lg text-accent font-extrabold"></i> Edit
-                            </a>
-                        </li>
-                        <hr class="border-t-2 border-gray-300 my-1">
-                        <li>
-                            <a @click="deleteJob(currentJob?._id)">
-                                <i class="bi bi-trash3"></i> Delete
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <ul tabindex="0"
+                    class="absolute right-0 border border-2 dropdown-content z-[1] menu mt-1 mx-2 shadow bg-base-100 rounded-md w-44">
+                    <li>
+                        <a @click="actionEditJob">
+                            <i class="bi bi-pen text-lg font-extrabold"></i> Edit
+                        </a>
+                    </li>
+                    <hr class="border-t-2 border-gray-300 my-1">
+                    <li>
+                        <a @click="deleteJob(currentJob?._id)">
+                            <i class="bi bi-trash3"></i> Delete
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <hr class="border-1 my-1">
+        </div>
+        <div class="w-full mt-3 md:mt-8 md:shadow-md rounded p-6 md:border md:border-2 rounded-xl h-full overflow-auto">
             <h3 class="text-2xl md:text-3xl font-bold my-4">{{ currentJob?.jobName }}</h3>
-            <div class="flex justify-between items-center">
-                <div class="w-1/3 text-star">
-                    <h2 class="text-xl font-semibold">Date Expired</h2>
-                    <p class="mb-2">{{ $filters.dateStringFormat(currentJob?.dateExpired, "DD/MM/YYYY") }}</p>
-                </div>
-                <div class="w-1/3 text-center">
-                    <h2 class="text-xl font-semibold">Category</h2>
-                    <p class="mb-2">{{ currentJob?.jobCategory }}</p>
-                </div>
-                <div class="w-1/3 text-center">
-                    <h2 class="text-xl font-semibold">Type</h2>
-                    <p class="mb-2">{{ currentJob?.jobTyped }}</p>
-                </div>
+            <div class="flex flex-wrap items-center gap-2">
+                <span class="badge badge-lg badge-outline mb-2"><i class="bi bi-calendar3 mr-1"></i> {{
+                    $filters.dateStringFormat(currentJob?.dateExpired, "DD/MM/YYYY") }}</span>
+                <span class="badge badge-lg badge-neutral mb-2"><i class="bi bi-award mr-1"></i> {{
+                    currentJob?.jobCategory }}</span>
+                <span class="badge badge-lg badge-error mb-2"><i class="bi bi-clock-history mr-1"></i>
+                    {{ currentJob?.jobTyped }}</span>
             </div>
 
-            <div class="flex flex-wrap w-full items-center">
+            <div class="flex flex-wrap w-full items-center my-1">
                 <div class="w-full text-star">
                     <h2 class="text-xl font-semibold">Skill</h2>
-                    <div class="card-actions justify-start flex-wrap mb-2">
+                    <div class="card-actions justify-start flex-wrap mb-2 ml-1">
                         <div v-for="(itemSkill, index) in currentJob?.jobSkills" :key="index"
-                            class="badge badge-primary">{{ itemSkill }}</div>
+                            class="badge badge-lg badge-primary">{{ itemSkill }}</div>
                     </div>
                 </div>
-                <div class="w-full text-star">
+                <div class="w-full text-star my-1">
                     <h2 class="text-xl font-semibold">Job Description</h2>
-                    <div v-html="$textAreaFormatText(currentJob?.jobDescription)" class="mb-2"></div>
+                    <div v-html="$textAreaFormatText(currentJob?.jobDescription)" class="mb-2 ml-1"></div>
                 </div>
-                <div class="w-full text-star">
+                <div class="w-full text-star my-1">
                     <h2 class="text-xl font-semibold">Requirements</h2>
-                    <div v-html="$textAreaFormatText(currentJob?.Requirements)" class="mb-2"></div>
+                    <div v-html="$textAreaFormatText(currentJob?.Requirements)" class="mb-2 ml-1"></div>
                 </div>
-                <div class="w-full text-star">
+                <div class="w-full text-star my-1">
                     <h2 class="text-xl font-semibold">Responsibilities</h2>
-                    <div v-html="$textAreaFormatText(currentJob?.Responsibilities)" class="mb-2"></div>
+                    <div v-html="$textAreaFormatText(currentJob?.Responsibilities)" class="mb-2 ml-1"></div>
                 </div>
             </div>
             <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
                 <div class="col-span-1 flex flex-col">
                     <h2 class="text-xl font-semibold mb-2">Contact</h2>
-                    <div class="mb-3 flex items-start gap-1">
+                    <div class="mb-1 flex items-start gap-1">
                         <i class="bi bi-person-fill text-xl mr-2"></i>
                         <span>{{ currentJob?.contact?.name }}</span>
                     </div>
-                    <div class="mb-3 flex items-start gap-1">
+                    <div class="mb-1 flex items-start gap-1">
                         <i class="bi bi-envelope-fill text-xl mr-2"></i>
                         <span>{{ currentJob?.contact?.email }}</span>
                     </div>
-                    <div class="mb-3 flex items-start gap-1">
+                    <div class="mb-1 flex items-start gap-1">
                         <i class="bi bi-phone-fill text-xl mr-2"></i>
                         <span>{{ currentJob?.contact?.phone }}</span>
                     </div>
-                    <div class="mb-3 flex items-start gap-1">
+                    <div class="mb-1 flex items-start gap-1">
                         <i class="bi bi-building text-xl mr-2"></i>
-                        <span>{{ currentJob?.contact?.company }}{{ currentJob?.contact?.address }}</span>
+                        <span>{{ currentJob?.contact?.company }}</span>
                     </div>
-                    <div class="mb-3 flex items-start gap-1">
+                    <div class="mb-1 flex items-start gap-1">
                         <i class="bi bi-geo-alt-fill text-xl mr-2"></i>
-                        <span>{{ currentJob?.contact?.address }}{{ currentJob?.contact?.address }}</span>
+                        <span>{{ currentJob?.contact?.address }}</span>
                     </div>
                 </div>
                 <div class="col-span-1 md:col-span-2/3">
-                    <figure class="w-full h-full  skeleton">
-                        <div class="h-full w-full object-contain rounded-lg"
-                            :style="{ backgroundImage: `url(${currentJob?.jobImageUrl})`, backgroundSize: 'contain', backgroundPosition: 'center' }">
+                    <figure class="w-full h-60 md:h-full skeleton">
+                        <div class="h-full w-full bg-cover bg-center rounded-lg"
+                            :style="{ backgroundImage: `url(${currentJob?.jobImageUrl})` }">
                         </div>
                     </figure>
                 </div>
@@ -108,7 +100,7 @@
     </dialog>
 
     <dialog ref="EditFormApplicantion" class="modal">
-        <div class="modal-box w-11/12 max-w-5xl">
+        <div class="modal-box max-w-3xl border border-2 shadow-xl">
             <div class="fixed top-0 right-5 modal-action">
                 <form method="dialog">
                     <button class="btn btn-circle btn-sm border border-1 border-primary">
@@ -214,8 +206,4 @@ const deleteJob = (id) => {
 }
 </script>
 
-<style scoped>
-.container {
-    max-width: 1024px;
-}
-</style>
+<style scoped></style>
