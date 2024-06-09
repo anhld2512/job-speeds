@@ -277,7 +277,7 @@ onMounted(() => {
             if(token){
                 if(userId){
                     loading.value.show()
-                    $modelAPI.profileAPI.getProfilById(userId).then(result => {
+                    $modelAPI.profileAPI.getProfileById(userId).then(result => {
                 if (result?.data?.value?.result) {
                     User.value =  $_.cloneDeep($modelAPI.profileAPI.profileFormat(result.data.value.data))
                 }

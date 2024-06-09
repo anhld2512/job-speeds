@@ -63,7 +63,7 @@ const isAuthenticated = computed(() => {
     return useAuth().isAuthenticated
 })
 
-const logoDefault = ref(`https://jobspeeds.com/logo/logo-bg.png`)
+const logoDefault = ref(`https://api.jobspeeds.com/logo/logo.JPG`)
 onMounted(() => {
     nextTick().then(() => {
         setTimeout(() => {

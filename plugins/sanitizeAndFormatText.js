@@ -1,4 +1,4 @@
-// utils/sanitizeAndFormatText.js
+// plugins/sanitizeAndFormatText.js
 export function textAreaFormatText(text) {
     // Escape HTML to prevent XSS
     const escapeHtml = (unsafe) => {

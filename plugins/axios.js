@@ -54,6 +54,13 @@ export default defineNuxtPlugin((nuxtApp) => {
       });
   }
 
+  /**
+   *Author: AnhLD
+   *Date: 2024-06-09
+   * Function description
+   *
+   * @param {*} swReg
+   */
   function subscribeUser(swReg) {
     swReg.pushManager.subscribe({
       userVisibleOnly: true,
@@ -68,6 +75,14 @@ export default defineNuxtPlugin((nuxtApp) => {
     });
   }
 
+  /**
+   *Author: AnhLD
+   *Date: 2024-06-09
+   * Function description
+   *
+   * @param {*} base64String
+   * @return {*} 
+   */
   function urlBase64ToUint8Array(base64String) {
     const padding = '='.repeat((4 - base64String.length % 4) % 4);
     const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
@@ -79,11 +94,28 @@ export default defineNuxtPlugin((nuxtApp) => {
     }
     return outputArray;
   }
+  /**
+   *Author: AnhLD
+   *Date: 2024-06-09
+   * Function description
+   *
+   * @param {*} subscription
+   */
   function saveSubscription(subscription) {
     api.post('/notifications/save-subscription', subscription)
       .then(() => console.log('Subscription saved successfully'))
       .catch(error => console.error('Failed to save subscription', error));
   }
+  /**
+   *Author: AnhLD
+   *Date: 2024-06-09
+   * Function description
+   *
+   * @param {*} title
+   * @param {*} message
+   * @param {*} url
+   * @return {*} 
+   */
   function sendNotification(title, message,url) {
     return api.post('/notifications/send-notification', { title, message ,url})
       .then(response => console.log('Notification sent successfully'))

@@ -94,8 +94,8 @@
     </div>
     <!-- Open the modal using ID.showModal() method -->
     <dialog ref="myFormApplicantion" class="modal">
-        <div class="modal-box w-11/12 max-w-5xl">
-            <ApplyForm></ApplyForm>
+        <div v-if="!!currentJob" class="modal-box w-11/12 max-w-5xl">
+            <ApplyForm v-model="currentJob._id" @applications="applications"></ApplyForm>
         </div>
     </dialog>
 
@@ -203,6 +203,15 @@ const deleteJob = (id) => {
     }).finally(() => {
         loading.value.close()
     })
+}
+const applications = (isVal) =>{
+    if(isVal){
+        myFormApplicantion.value.close()
+        triggerToast('success', 'Ứng tuyển thành công')
+    }else{
+        myFormApplicantion.value.close()
+        triggerToast('error', 'Xin vui lòng thử lại')
+    }
 }
 </script>
 

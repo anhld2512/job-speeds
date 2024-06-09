@@ -34,7 +34,7 @@ const cdnURL = `${nuxtPayload.config.app.cdnURL || ""}`.trim();
 //     url: url,
 //   }
 // })
-const logoDefault = ref(`https://jobspeeds.com/logo/logo-bg.png`)
+const logoDefault = ref(`https://api.jobspeeds.com/logo/logo.JPG`)
 
 </script>
 

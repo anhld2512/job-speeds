@@ -1,6 +1,6 @@
 <template>
     <div class="card card-compact w-96 bg-base-100 shadow-xl">
-        <figure><NuxtImg src="https://jobspeeds.com/logo/logo-bg.png" alt="Shoes" />
+        <figure><NuxtImg src="https://api.jobspeeds.com/logo/logo.JPG" alt="Shoes" />
         </figure>
         <div class="card-body">
             <h2 class="card-title">Shoes!</h2>

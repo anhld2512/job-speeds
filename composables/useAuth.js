@@ -2,6 +2,15 @@ export const useAuth = () => {
   const authStore = useAuthStore();
   const { $api } = useNuxtApp();
 
+  /**
+   *Author: AnhLD
+   *Date: 2024-06-09
+   * Function description
+   *
+   * @param {*} username
+   * @param {*} password
+   * @return {*} 
+   */
   const login = async (username, password) => {
     try {
       const response = await $api.post('/auth/login', { username, password });
@@ -19,6 +28,15 @@ export const useAuth = () => {
     }
   };
 
+  /**
+   *Author: AnhLD
+   *Date: 2024-06-09
+   * Function description
+   *
+   * @param {*} username
+   * @param {*} password
+   * @return {*} 
+   */
   const signup = async (username, password) => {
     try {
       const response = await $api.post('/auth/signup', { username, password });
@@ -39,6 +57,12 @@ export const useAuth = () => {
     }
   };
 
+  /**
+   *Author: AnhLD
+   *Date: 2024-06-09
+   * Function description
+   *
+   */
   const logout = () => {
     authStore.logout();
     localStorage.removeItem('token');

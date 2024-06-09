@@ -1,7 +1,7 @@
 <template>
   <div class="container h-full overflow-hidden mx-auto top-20">
     <div
-      class="fixed z-10 container mx-auto px-2 md:px-0 right-0 left-0 -mt-4 flex w-full items-center justify-start bg-base-100">
+      class="fixed z-10 container mx-auto px-2 md:px-1  lg:px-0 right-0 left-0 -mt-4 flex w-full items-center justify-start bg-base-100">
       <button @click="ActionCreate" class="flex btn btn-sm btn-accent items-center"><i class="bi bi-plus-circle"></i>
         New</button>
       <FilterSearch :data="listJob" :filter="filter" @actionFilter="actionFilter"></FilterSearch>
@@ -18,7 +18,7 @@
             <div class="card-header w-full">
               <div class="flex w-full items-center">
                 <div class="flex w-4/5">
-                  <div @click="myFormApplicantion.showModal()"
+                  <div @click="actionApplication(item._id)"
                     class="btn btn-sm m-1 text-start btn-primary rounded w-full">
                     <i class="bi bi-heart text-xl"></i> Apply
                   </div>
@@ -50,13 +50,19 @@
                     }}
                   </span>
                 </div>
-                <i class="text-sm front-semibold text-gray-500 underline"><i class="bi bi-award text-md"></i> Skill list</i>
-                <div class="card-actions justify-start flex-wrap mb-2">
+                <i class="text-sm front-semibold text-gray-500 underline"><i class="bi bi-award text-md"></i> Skill
+                  list</i>
+                <div class="card-actions flex flex-col justify-between min-h-[8rem] max-h-[10rem] overflow-hidden p-2">
                   <!-- Hiển thị kỹ năng yêu cầu -->
-                  <div v-for="(itemSkill, index) in item.jobSkills" :key="index" class="badge badge-accent">{{ itemSkill
-                    }}
+                  <div class="flex flex-wrap">
+                    <div v-for="(itemSkill, index) in item.jobSkills" :key="index"
+                      class="badge badge-accent whitespace-nowrap overflow-hidden text-ellipsis mr-1 mb-1">
+                      {{ itemSkill }}
+                    </div>
                   </div>
+                  <!-- Nội dung khác (nếu có) -->
                 </div>
+
                 <figure class="h-44 w-full skeleton">
                   <div class="h-full w-full object-contain rounded-lg"
                     :style="{ backgroundImage: `url(${item.jobImageUrl})`, backgroundSize: 'contain', backgroundPosition: 'center' }">
@@ -77,7 +83,7 @@
               <p class="text-xl mb-2 uppercase font-bold dark:text-white"> <i>No item to display</i></p>
               <spam class="text-m text-slate-400 block mb-10 dark:text-slate-50">Get started by a new Job</spam>
               <button class="rounded-full px-5 py-3 btn btn-md w-auto btn-accent"
-                @click="CreateFormApplicantion.show()"><i class="bi bi-plus-circle"> </i>Create</button>
+                @click="onCreateFormApplicantion"><i class="bi bi-plus-circle"> </i>Create</button>
             </div>
           </div>
           <!-- Component End  -->
@@ -101,13 +107,13 @@
     </div>
   </dialog>
   <dialog ref="myFormApplicantion" class="modal">
-    <div class="modal-box w-11/12 max-w-5xl">
-      <ApplyForm></ApplyForm>
+    <div class="modal-box w-11/12 max-w-5xl" :key="keyApply">
+      <ApplyForm v-model="curentJobApply" @applications="applications"></ApplyForm>
     </div>
   </dialog>
   <ToastMessage ref="toastRef" :typeToast="currentToastType" :message="toastMessage" :show="showToast" />
 
-  <ModalDialogLoadingBasic ref="loading" :isClose="true"></ModalDialogLoadingBasic>
+<ModalDialogLoadingBasic ref="loading" :isClose="true"></ModalDialogLoadingBasic>
 </template>
 
 <script setup>
@@ -115,7 +121,7 @@ const { $modelAPI, $_, $filters, $uuidToObjectId, $uuidv4 } = useNuxtApp();
 const { token, logout, userId } = useAuth();
 
 const router = useRouter();
-
+const curentJobApply = ref(null)
 const filter = ref({
   search: '',
   filter: {
@@ -189,7 +195,12 @@ onMounted(() => {
   fetchJobs();
   window.addEventListener("scroll", onScroll);
 });
-
+const keyApply= ref(0)
+const actionApplication = (itemId) => {
+  keyApply.value++
+  myFormApplicantion.value.showModal()
+  curentJobApply.value = itemId
+}
 const deleteJob = async (itemId) => {
   loading.value.show();
   try {
@@ -223,6 +234,9 @@ const triggerToast = (type, message) => {
 
 
 const CreateFormApplicantion = ref(null)
+const onCreateFormApplicantion = ()=>{
+  CreateFormApplicantion.value.showModal()
+}
 const uuidv4 = $uuidv4()
 const idJob = ref($uuidToObjectId(uuidv4))
 const job = ref({
@@ -263,10 +277,21 @@ const onSubmit = (isVal) => {
 }
 const ActionCreate = () => {
   if (userId) {
-    CreateFormApplicantion.show()
+    CreateFormApplicantion.value.showModal()
   } else {
     router.push(`/login`)
   }
+}
+const applications = (isVal) =>{
+    if(isVal){
+        myFormApplicantion.value.close()
+        triggerToast('success', 'Ứng tuyển thành công')
+    }else{
+      setTimeout(() => {
+        myFormApplicantion.value.close()
+      }, 1);
+        triggerToast('error', 'Xin vui lòng thử lại')
+    }
 }
 </script>
 

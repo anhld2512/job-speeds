@@ -1,6 +1,6 @@
 <template>
-  <div class="navbar bg-base-100 fixed top-0 z-50">
-    <div class="navbar-start gap-5">
+  <div class="navbar w-full justify-between bg-base-100 max-w-full">
+    <div v-if="!isServiceError" class="navbar-start gap-5">
       <div class="drawer">
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content flex items-center justify-start">
@@ -24,11 +24,11 @@
     </div>
     <div class="navbar-end">
       <div class="flex gap-3 items-center justify-center">
-        <button @click="registerForPushNotifications" class="btn btn-sm btn-circle btn-error mx-1">
+        <button v-if="modelValue && isPWA && !isServiceError" @click="registerForPushNotifications" class="btn btn-sm btn-circle btn-error mx-1">
           <i class="bi bi-bell text-lg"></i>
         </button>
         <HeaderMode />
-        <div class="dropdown dropdown-end w-full">
+        <div v-if="User && !isServiceError" class="dropdown dropdown-end w-full">
           <HeaderProfileDropdown  v-model="User"/>
         </div>
       </div>
@@ -48,8 +48,12 @@ const props = defineProps({
     type: Object,
     default: () => {}
   },
+  isServiceError:{
+    type: Boolean,
+    default: () => {}
+  }
 });
-const { modelValue } = toRefs(props);
+const { modelValue,isServiceError } = toRefs(props);
 const emit = defineEmits(["update:modelValue"]);
 const User = computed({
   get() {
@@ -61,10 +65,11 @@ const User = computed({
     }
   }
 });
-
+const isPWA = ref(false)
 const registerForPushNotifications = async () => {
   if ('serviceWorker' in navigator && 'PushManager' in window) {
     try {
+      isPWA.value = true
       // Đăng ký hoặc lấy Service Worker hiện tại
       const swReg = await navigator.serviceWorker.register('/sw.js');
       console.log('Service Worker registered:', swReg);

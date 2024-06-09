@@ -17,11 +17,11 @@ export default defineNuxtConfig({
       },
       title: "Job Speeds",
       link: [
-        { rel: 'apple-touch-icon', sizes: '180x180', href: '/logo/logo_250x250.png' },
-        { rel: 'apple-touch-icon', sizes: '152x152', href: '/logo/logo_250x250.png' },
-        { rel: 'apple-touch-icon', sizes: '144x144', href: '/logo/logo_250x250.png' },
-        { rel: 'apple-touch-icon', sizes: '120x120', href: '/logo/logo_250x250.png' },
-        { rel: 'apple-touch-icon', sizes: '76x76', href: '/logo/logo_250x250.png'},
+        { rel: 'apple-touch-icon', sizes: '180x180', href: 'https://api.jobspeeds.com/logo/logo.JPG' },
+        { rel: 'apple-touch-icon', sizes: '152x152', href: 'https://api.jobspeeds.com/logo/logo.JPG' },
+        { rel: 'apple-touch-icon', sizes: '144x144', href: 'https://api.jobspeeds.com/logo/logo.JPG' },
+        { rel: 'apple-touch-icon', sizes: '120x120', href: 'https://api.jobspeeds.com/logo/logo.JPG' },
+        { rel: 'apple-touch-icon', sizes: '76x76', href: 'https://api.jobspeeds.com/logo/logo.JPG'},
         { rel: 'manifest', href: '/manifest.json' }
       ],
       meta: [
@@ -44,7 +44,7 @@ export default defineNuxtConfig({
           name: "og:description", 
           content: "Kết nối người tìm việc và nhà tuyển dụng với Job Speeds." 
         },
-        { name: "og:image", content: "https://api.jobspeeds.com/file-manager/files/1HRK-1cwNy660RxETKsXNznb66uxbA87H" },
+        { name: "og:image", content: "https://api.jobspeeds.com/logo/logo-bg.png" },
         { name: "og:url", content: "https://jobspeeds.com" },
         // Các thẻ schema.org có thể giúp công cụ tìm kiếm hiểu được thông tin cụ thể trên trang web của bạn
         { name: "application-name", content: "Job Speeds" },

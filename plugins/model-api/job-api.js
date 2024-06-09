@@ -1,5 +1,14 @@
 export default (appConfig, $moment, $filters, $_) => {
   const { token, logout, userId } = useAuth();
+  /**
+   *Author: AnhLD
+   *Date: 2024-06-09
+   * Function description
+   *
+   * @param {*} job
+   * @param {*} [option={}]
+   * @return {*} 
+   */
   const createJob = async (job,option = {}) =>{
     const sanitizedJob = sanitizeJobData(job);
     const fetchOption = {
@@ -12,6 +21,15 @@ export default (appConfig, $moment, $filters, $_) => {
     };
     return await useFetch(`${appConfig.apiURL.API}/api/jobs`, fetchOption);
   }
+  /**
+   *Author: AnhLD
+   *Date: 2024-06-09
+   * Function description
+   *
+   * @param {*} id
+   * @param {*} [option={}]
+   * @return {*} 
+   */
   const getJobById = async (id,option = {}) =>{
     const fetchOption = {
       ...option,
@@ -22,6 +40,16 @@ export default (appConfig, $moment, $filters, $_) => {
     };
     return await useFetch(`${appConfig.apiURL.API}/api/jobs/${id}`, fetchOption);
   }
+  /**
+   *Author: AnhLD
+   *Date: 2024-06-09
+   * Function description
+   *
+   * @param {*} id
+   * @param {*} job
+   * @param {*} [option={}]
+   * @return {*} 
+   */
   const updateJobById = async (id,job,option = {}) =>{
     const sanitizedJob = sanitizeJobData(job);
     const fetchOption = {
@@ -34,6 +62,16 @@ export default (appConfig, $moment, $filters, $_) => {
     };
     return await useFetch(`${appConfig.apiURL.API}/api/jobs/${id}`, fetchOption);
   }
+  /**
+   *Author: AnhLD
+   *Date: 2024-06-09
+   * Function description
+   *
+   * @param {*} itemInPage
+   * @param {*} filter
+   * @param {*} [option={}]
+   * @return {*} 
+   */
   const filterJob = async  (itemInPage,filter,option = {}) => {
     //Merge options.
     const fetchOption = {
@@ -47,6 +85,15 @@ export default (appConfig, $moment, $filters, $_) => {
     };
     return await useFetch(`${appConfig.apiURL.API}/api/jobs/filter`, fetchOption);
   };
+  /**
+   *Author: AnhLD
+   *Date: 2024-06-09
+   * Function description
+   *
+   * @param {*} itemId
+   * @param {*} [option={}]
+   * @return {*} 
+   */
   const deleteJob = async (itemId,option = {})=>{
       //Merge options.
     const fetchOption = {
@@ -58,6 +105,14 @@ export default (appConfig, $moment, $filters, $_) => {
     };
     return await useFetch(`${appConfig.apiURL.API}/api/jobs/${itemId}`, fetchOption);
   }
+  /**
+   *Author: AnhLD
+   *Date: 2024-06-09
+   * Function description
+   *
+   * @param {*} job
+   * @return {*} 
+   */
   function sanitizeJobData(job) {
     const escapeHtml = (unsafe) => {
         return unsafe

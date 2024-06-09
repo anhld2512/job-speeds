@@ -3,89 +3,108 @@
         <div class="fixed top-0 right-5 modal-action">
             <form method="dialog">
                 <button class="btn btn-circle btn-sm border border-1 border-primary">
-                    <i class="bi bi-x text-2xl"></i></button>
+                    <i class="bi bi-x text-2xl"></i>
+                </button>
             </form>
         </div>
         <form @submit.prevent="submitForm" class="space-y-6 rounded-xl p-3">
             <h1 class="text-3xl font-bold mb-6 text-center text-primary">Application</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <label class="input input-primary input-bordered flex items-center gap-2">
-                    <i class="bi bi-person text-primary"></i>
-                    <input type="text" class="grow text-primary" id="name" v-model="formData.name"
-                        placeholder="Full Name" />
-                </label>
-                <label class="input input-primary input-bordered flex items-center gap-2">
-                    <i class="bi bi-envelope-at text-primary"></i>
-                    <input type="email" class="grow text-primary" v-model="formData.email" placeholder="Email" />
-                </label>
-                <label class="input input-primary input-bordered flex items-center gap-2">
-                    <i class="bi bi-telephone text-primary"></i>
-                    <input type="text" class="grow text-primary" id="name" v-model="formData.phone"
-                        placeholder="Phone" />
-                </label>
-                <label class="input input-primary input-bordered flex items-center gap-2">
-                    <i class="bi bi-geo-alt text-primary"></i>
-                    <input type="text" class="grow text-primary" id="name" v-model="formData.address"
-                        placeholder="Address" />
-                </label>
-                <div class="md:col-span-2">
-                    <label for="coverLetter" class="block text-primary font-semibold mb-2">Cover Letter</label>
-                    <textarea class="textarea textarea-primary w-full h-20" placeholder="Bio"></textarea>
-                </div>
-                <div class="md:col-span-2 w-full text-primary">
-                    <input type="file" class="file-input w-full text-primary border border-1 border-primary rounded-lg" />
-                </div>
+                <FormInPlaceEditor label="Full Name" :required="true" v-model="formData.fullName"
+                    cssClass="block text-lg" :showButtonEditMode="false" :enableEditMode="isEditMode">
+                    <input type="text" v-model="formData.fullName"
+                        class="input input-primary input-sm input-bordered w-full" />
+                </FormInPlaceEditor>
+
+                <FormInPlaceEditor label="Email" :required="true" v-model="formData.email" cssClass="block text-lg"
+                    :showButtonEditMode="false" :enableEditMode="isEditMode">
+                    <input type="email" v-model="formData.email"
+                        class="input input-primary input-sm input-bordered w-full" />
+                </FormInPlaceEditor>
+
+                <FormInPlaceEditor label="Phone" :required="true" v-model="formData.phone" cssClass="block text-lg"
+                    :showButtonEditMode="false" :enableEditMode="isEditMode">
+                    <input type="text" v-model="formData.phone"
+                        class="input input-primary input-sm input-bordered w-full" />
+                </FormInPlaceEditor>
+
+                <FormInPlaceEditor label="Address" :required="false" v-model="formData.address" cssClass="block text-lg"
+                    :showButtonEditMode="false" :enableEditMode="isEditMode">
+                    <ComboboxDropdown label="" fieldFilter="Name" v-model="formData.address" :data="Provinces"
+                        :useAbsolute="true" />
+                </FormInPlaceEditor>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormInPlaceEditor label="Cover Letter" :required="false" v-model="formData.coverLetter"
+                    cssClass="block text-lg" :showButtonEditMode="false" :enableEditMode="isEditMode">
+                    <textarea v-model="formData.coverLetter" class="textarea textarea-primary w-full h-52 max-h-52"
+                        placeholder="Cover Letter"></textarea>
+                </FormInPlaceEditor>
+                <InputFile v-model="formData.urlCV" label="Resume" :isEditMode="isEditMode" />
             </div>
             <div class="text-end">
-                <button type="submit" class="w-full btn btn-md btn-primary border border-1">
-                    Submit
-                </button>
+                <button :disabled="isValidateForm" type="submit" class="w-full btn btn-md btn-primary border border-1">Submit</button>
             </div>
-
         </form>
     </div>
 </template>
-
 <script setup>
-import { ref } from 'vue';
+import Provinces from '../../composables/Province';
+
+const { $modelAPI, $sanitizeData } = useNuxtApp();
+const { token, logout, userId } = useAuth();
+
+const props = defineProps({
+    modelValue: {
+        type: String,
+        default: ''
+    }
+});
+const { modelValue } = toRefs(props);
 
 const formData = ref({
-    name: '',
+    fullName: '',
     email: '',
     phone: '',
     address: '',
-    resume: null,
-    photo: null,
     coverLetter: '',
-    linkedin: '',
+    urlCV: null,
+    jobId: modelValue.value,
+    userId: userId
 });
 
-const handleFileUpload = (event) => {
-    formData.value.resume = event.target.files[0];
-};
-
-const handleImageUpload = (event) => {
-    formData.value.photo = event.target.files[0];
-};
-
-const submitForm = () => {
-    const form = new FormData();
-    form.append('name', formData.value.name);
-    form.append('email', formData.value.email);
-    form.append('phone', formData.value.phone);
-    form.append('address', formData.value.address);
-    form.append('resume', formData.value.resume);
-    form.append('photo', formData.value.photo);
-    form.append('coverLetter', formData.value.coverLetter);
-    form.append('linkedin', formData.value.linkedin);
-
-    // Here you can handle the form submission, e.g., sending the data to a server.
-    console.log('Form submitted:', formData.value);
+const isEditMode = ref(true);
+const emits = defineEmits(['applications']);
+const isValidateForm = ref(true)
+watch(
+  () => [
+  formData.value.fullName,
+  formData.value.email,
+  formData.value.phone
+  ],
+  (newValue) => {
+    const isValidFields =
+      (newValue || []).length > 0 &&
+      !newValue.some((v) => `${v || ""}`.trim().length < 1);
+      isValidateForm.value = !isValidFields
+    },
+  { immediate: true, deep: true }
+);
+const submitForm = async () => {
+    const sanitizedData = $sanitizeData(formData.value);
+    try {
+        const result = await $modelAPI.applyAPI.createApply(sanitizedData);
+        if (result.data.value.result) {
+            emits('applications',true)
+            console.log('Form submitted successfully:', formData.value);
+        } else {
+            emits('applications',false)
+            console.error('Error submitting form');
+        }
+    } catch (error) {
+        emits('applications',false)
+        console.error('Error submitting form:', error);
+    }
 };
 </script>
-
-<style scoped>
-.container {
-    max-width: 1024px;
-}
-</style>
+<style></style>
