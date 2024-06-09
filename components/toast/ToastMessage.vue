@@ -1,5 +1,5 @@
 <template>
-  <div v-if="visible" :class="toastClass" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-1/2 max-w-lg">
+  <div v-if="visible" :class="toastClass" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-5 w-full md:w-1/2 lg:w-1/3 max-w-2xl">
     <div role="alert" :class="alertClass" class="flex">
       <svg @click="closeToast" v-if="typeToast === 'success'" xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

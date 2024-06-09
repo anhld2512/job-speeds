@@ -90,7 +90,7 @@ onMounted(() => {
   nextTick().then(() => {
     setTimeout(async () => {
       window.addEventListener('scroll', handleScroll);
-      if(token){
+      if (token && userId) {
         $modelAPI.profileAPI.getProfileById(userId).then(result => {
           if (result.data.value.result) {
             User.value = result.data.data;
@@ -109,15 +109,17 @@ onMounted(() => {
           } else if (error.request) {
             // No response received
             isServiceError.value = true
-            triggerToast('error', 'Server is not responding. Please try again later.');
+            triggerToast('error', `Server error. Please try again.`);
           } else {
             isServiceError.value = true
             // Error setting up the request
-            triggerToast('error', 'An error occurred. Please try again.');
+            triggerToast('error', `Server error. Please try again.`);
           }
         });
       }
-      
+
+
+
     }, 1);
   });
 })
