@@ -119,7 +119,7 @@ const job = computed({
 const isValidateForm = ref(true)
 watch(
   () => [
-    job.value?.contact?.company,
+    job.value?.company,
     job.value?.jobName,
     job.value?.jobSalary,
     job.value?.jobLocation,

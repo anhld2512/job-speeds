@@ -52,11 +52,11 @@
                 </div>
                 <i class="text-sm front-semibold text-gray-500 underline"><i class="bi bi-award text-md"></i> Skill
                   list</i>
-                <div class="card-actions flex flex-col justify-between min-h-[8rem] max-h-[10rem] overflow-hidden p-2">
+                <div class="card-actions flex flex-col justify-between min-h-[6rem] max-h-[8rem] overflow-hidden p-2">
                   <!-- Hiển thị kỹ năng yêu cầu -->
                   <div class="flex flex-wrap">
                     <div v-for="(itemSkill, index) in item.jobSkills" :key="index"
-                      class="badge badge-accent whitespace-nowrap overflow-hidden text-ellipsis mr-1 mb-1">
+                      class="badge badge-outline whitespace-nowrap overflow-hidden text-ellipsis mr-1 mb-1">
                       {{ itemSkill }}
                     </div>
                   </div>

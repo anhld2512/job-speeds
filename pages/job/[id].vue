@@ -29,7 +29,7 @@
         <div class="w-full mt-3 md:mt-8 md:shadow-md rounded p-6 md:border md:border-2 rounded-xl h-full overflow-auto">
             <h3 class="text-2xl md:text-3xl font-bold my-4">{{ currentJob?.jobName }}</h3>
             <div class="flex flex-wrap items-center gap-2">
-                <span class="badge badge-lg badge-outline mb-2"><i class="bi bi-calendar3 mr-1"></i> {{
+                <span class="badge badge-lg badge-accent mb-2"><i class="bi bi-calendar3 mr-1"></i> {{
                     $filters.dateStringFormat(currentJob?.dateExpired, "DD/MM/YYYY") }}</span>
                 <span class="badge badge-lg badge-neutral mb-2"><i class="bi bi-award mr-1"></i> {{
                     currentJob?.jobCategory }}</span>
@@ -42,7 +42,7 @@
                     <h2 class="text-xl font-semibold">Skill</h2>
                     <div class="card-actions justify-start flex-wrap mb-2 ml-1">
                         <div v-for="(itemSkill, index) in currentJob?.jobSkills" :key="index"
-                            class="badge badge-lg badge-primary">{{ itemSkill }}</div>
+                            class="badge badge-lg badge-outline">{{ itemSkill }}</div>
                     </div>
                 </div>
                 <div class="w-full text-star my-1">
@@ -190,10 +190,10 @@ const onSubmit = (isVal) => {
     }
 }
 const deleteJob = (id) => {
-    $modelAPI.jobAPI.deleteJob(id).then(result => {
+    setTimeout(() => {
+        $modelAPI.jobAPI.deleteJob(id).then(result => {
         if (result.data.value.result) {
             triggerToast('success', 'Job is Deleted')
-            router.push("/job")
         }
         else {
             triggerToast('error', 'Delete is failed')
@@ -202,7 +202,12 @@ const deleteJob = (id) => {
         triggerToast('error', error)
     }).finally(() => {
         loading.value.close()
+        router.replace({ path: '/job' })
+        triggerToast('success', 'Job is Deleted')
     })
+    }, 1);
+    
+   
 }
 const applications = (isVal) =>{
     if(isVal){
