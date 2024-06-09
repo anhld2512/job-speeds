@@ -90,7 +90,7 @@ onMounted(() => {
   nextTick().then(() => {
     setTimeout(async () => {
       window.addEventListener('scroll', handleScroll);
-      if (token && userId) {
+      if (token) {
         $modelAPI.profileAPI.getProfileById(userId).then(result => {
           if (result.data.value.result) {
             User.value = result.data.data;

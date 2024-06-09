@@ -3,7 +3,7 @@
     <!-- Form Title -->
     <!-- Form -->
     <form @submit.prevent="updateProfile">
-      <div class="grid grid-cols-2 gap-1">
+      <div class="grid grid-cols-2 gap-2">
         <!-- Full Name -->
         <FormInPlaceEditor label="Full Name" :required="true" v-model="profile.personalInfo.fullName"
           cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">

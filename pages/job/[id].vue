@@ -3,7 +3,7 @@
         <div
             class="fixed container mx-auto px-5 md:px-0 right-0 left-0 -mt-4 flex w-full items-center justify-between bg-base-100">
             <div @click="myFormApplicantion.showModal()" :class="{ 'w-full': !isAuthor }"
-                class="btn btn-sm m-1 text-start btn-primary rounded">
+                class="btn btn-md m-1 text-start btn-primary rounded">
                 <i class="bi bi-heart text-xl"></i> Apply Now
             </div>
             <div v-if="isAuthor"
