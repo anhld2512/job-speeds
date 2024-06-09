@@ -68,8 +68,8 @@ const User = computed({
 const isPWA = ref(false)
 const registerForPushNotifications = async () => {
   if ('serviceWorker' in navigator && 'PushManager' in window) {
+    isPWA.value = true
     try {
-      isPWA.value = true
       // Đăng ký hoặc lấy Service Worker hiện tại
       const swReg = await navigator.serviceWorker.register('/sw.js');
       console.log('Service Worker registered:', swReg);
