@@ -24,7 +24,7 @@
     </div>
     <div class="navbar-end">
       <div class="flex gap-3 items-center justify-center">
-        <button v-if="modelValue && isPWA && !isServiceError" @click="registerForPushNotifications" class="btn btn-sm btn-circle btn-error mx-1">
+        <button v-if="User && isPWA && !isServiceError" @click="registerForPushNotifications" class="btn btn-sm btn-circle btn-error mx-1">
           <i class="bi bi-bell text-lg"></i>
         </button>
         <HeaderMode />
