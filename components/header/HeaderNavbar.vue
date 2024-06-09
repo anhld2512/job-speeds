@@ -24,7 +24,7 @@
     </div>
     <div class="navbar-end">
       <div class="flex gap-3 items-center justify-center">
-        <button v-if="User && isMobile && !isServiceError" @click="registerForPushNotifications" class="btn btn-sm btn-circle btn-error mx-1">
+        <button v-if="token && isMobile && !isServiceError" @click="registerForPushNotifications" class="btn btn-sm btn-circle btn-error mx-1">
           <i class="bi bi-bell text-lg"></i>
         </button>
         <HeaderMode />
@@ -43,6 +43,8 @@
 
 <script setup>
 const { $util, payload: nuxtPayload , $_,$api, $urlBase64ToUint8Array } = useNuxtApp();
+const { token, logout, userId } = useAuth();
+
 const props = defineProps({
   modelValue: {
     type: Object,

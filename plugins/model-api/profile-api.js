@@ -99,7 +99,7 @@ export default (appConfig, $moment, $filters, $_) => {
     const fetchOption = {
       ...option,
       method: "PUT",
-      body: sanitizeData(data.value),
+      body: sanitizeData(data),
       headers: {
         Authorization: `Bearer ${token}`,
       },

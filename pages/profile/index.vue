@@ -28,10 +28,10 @@
                             <FormInPlaceEditor label="Avatar" :required="false" v-model="User.avatar"
                                 cssClass="block text-xl" :showButtonEditMode="false" :enableEditMode="false">
                                 <template #displayValue>
-                                    <div class="avatar items-center justify-center">
+                                    <div class="avatar items-center justify-center w-full">
                                         <div class="skeleton w-full min-h-32 max-h-40 h-auto rounded">
-                                            <img
-                                                :src="User?.avatar || 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg'" />
+                                            <img v-if="User.avatar" :src="User.avatar" />
+                                            <img v-else src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                                         </div>
                                     </div>
                                     <div class="custom-file-input">

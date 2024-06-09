@@ -12,7 +12,7 @@
         </FormInPlaceEditor>
         <!-- Email -->
         <FormInPlaceEditor label="Email" :required="true" v-model="profile.personalInfo.email"
-          cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">
+          cssClass="block text-xl truncate max-w-xs" :showButtonEditMode="false" :enableEditMode="isEditMode">
           <input type="email" id="email" v-model="profile.personalInfo.email" class="input input-bordered w-full" />
         </FormInPlaceEditor>
 
@@ -24,7 +24,7 @@
 
         <!-- Address -->
         <FormInPlaceEditor label="Address" :required="true" v-model="profile.personalInfo.address"
-          cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">
+          cssClass="block text-xl" :showButtonEditMode="false" :enableEditMode="isEditMode">
           <input type="text" id="address" v-model="profile.personalInfo.address" class="input input-bordered w-full" />
         </FormInPlaceEditor>
 
