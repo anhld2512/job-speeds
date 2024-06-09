@@ -2,7 +2,7 @@
     <div class="container h-full overflow-hidden mx-auto top-20">
         <div
             class="fixed container mx-auto px-5 md:px-0 right-0 left-0 -mt-4 flex w-full items-center justify-between bg-base-100">
-            <div @click="myFormApplicantion.showModal()" :class="{ 'w-full': !isAuthor }"
+            <div @click="myFormApplicantion.showModal()" :class="{ 'w-full md:w-1/2 lg:w-1/3': !isAuthor,}"
                 class="btn btn-md m-1 text-start btn-primary rounded">
                 <i class="bi bi-heart text-xl"></i> Apply Now
             </div>
@@ -26,7 +26,7 @@
                 </ul>
             </div>
         </div>
-        <div class="w-full mt-3 md:mt-8 md:shadow-md rounded p-6 md:border md:border-2 rounded-xl h-full overflow-auto">
+        <div class="w-full mt-3 md:mt-12 md:shadow-md rounded p-6 md:border md:border-2 rounded-xl h-full overflow-auto">
             <h3 class="text-2xl md:text-3xl font-bold my-4">{{ currentJob?.jobName }}</h3>
             <div class="flex flex-wrap items-center gap-2">
                 <span class="badge badge-lg badge-accent mb-2"><i class="bi bi-calendar3 mr-1"></i> {{

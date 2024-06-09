@@ -24,7 +24,7 @@
     </div>
     <div class="navbar-end">
       <div class="flex gap-3 items-center justify-center">
-        <button v-if="User && isPWA && !isServiceError" @click="registerForPushNotifications" class="btn btn-sm btn-circle btn-error mx-1">
+        <button v-if="User && isMobile && !isServiceError" @click="registerForPushNotifications" class="btn btn-sm btn-circle btn-error mx-1">
           <i class="bi bi-bell text-lg"></i>
         </button>
         <HeaderMode />
@@ -65,10 +65,17 @@ const User = computed({
     }
   }
 });
-const isPWA = ref(false)
+const isMobile = computed(() => {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  return /iPhone|Android/i.test(userAgent) && !window.MSStream;
+});
+
+const isLaptop = computed(() => {
+  const userAgent = navigator.userAgent.toLowerCase();
+  return /macintosh|windows|linux/i.test(userAgent) && !/mobile|android|iphone|ipad|tablet/i.test(userAgent);
+});
 const registerForPushNotifications = async () => {
   if ('serviceWorker' in navigator && 'PushManager' in window) {
-    isPWA.value = true
     try {
       // Đăng ký hoặc lấy Service Worker hiện tại
       const swReg = await navigator.serviceWorker.register('/sw.js');
