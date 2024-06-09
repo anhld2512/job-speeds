@@ -90,32 +90,34 @@ onMounted(() => {
   nextTick().then(() => {
     setTimeout(async () => {
       window.addEventListener('scroll', handleScroll);
-      $modelAPI.profileAPI.getProfileById(userId).then(result => {
-        if (result.data.value.result) {
-          User.value = result.data.data;
-        } else {
-          updateProfile.value.show();
-        }
-      }).catch(error => {
-        console.error(error); // Log error for debugging
-        if (error.response) {
-          // Server responded with a status code out of range of 2xx
-          if (error.response.status === 401) {
-            router.push('/login');
+      if(token){
+        $modelAPI.profileAPI.getProfileById(userId).then(result => {
+          if (result.data.value.result) {
+            User.value = result.data.data;
           } else {
-            triggerToast('error', 'An error occurred: ' + error.response.status);
+            updateProfile.value.show();
           }
-        } else if (error.request) {
-          // No response received
-          isServiceError.value = true
-          triggerToast('error', 'Server is not responding. Please try again later.');
-        } else {
-          isServiceError.value = true
-          // Error setting up the request
-          triggerToast('error', 'An error occurred. Please try again.');
-        }
-      });
-
+        }).catch(error => {
+          console.error(error); // Log error for debugging
+          if (error.response) {
+            // Server responded with a status code out of range of 2xx
+            if (error.response.status === 401) {
+              router.push('/login');
+            } else {
+              triggerToast('error', 'An error occurred: ' + error.response.status);
+            }
+          } else if (error.request) {
+            // No response received
+            isServiceError.value = true
+            triggerToast('error', 'Server is not responding. Please try again later.');
+          } else {
+            isServiceError.value = true
+            // Error setting up the request
+            triggerToast('error', 'An error occurred. Please try again.');
+          }
+        });
+      }
+      
     }, 1);
   });
 })
