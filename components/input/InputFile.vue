@@ -91,7 +91,7 @@ const uploadFile = async (file) => {
       emits('update:modelValue', fileUrl.value);
     }
   } catch (error) {
-    triggerToast('error', error.message);
+   console.error(error)
   } finally {
     loading.value.close();
   }
