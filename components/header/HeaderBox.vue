@@ -1,21 +1,5 @@
 <template>
-  <div class="hero bg-base-200">
-    <div class="hero-content flex flex-col lg:flex-row items-center">
-      <NuxtImg
-        :src="logoDefault"
-        class="skeleton rounded-lg shadow-2xl hidden lg:block w-full max-w-xs max-h-64 object-cover"
-        format="webp"
-        alt="logo"
-      />
-      <div class="text-center lg:text-left lg:ml-8">
-        <h1 class="text-5xl font-bold">Job Speed!</h1>
-        <p class="py-6">
-          Job Speeds là trang web tuyển dụng hỗ trợ công việc tuyển dụng, tối ưu hóa thời gian làm việc và kết nối người tìm việc với nhà tuyển dụng một cách hiệu quả.
-        </p>
-        <TimeCountDown />
-      </div>
-    </div>
-  </div>
+  <JobHot />
 </template>
 
 <script setup>
