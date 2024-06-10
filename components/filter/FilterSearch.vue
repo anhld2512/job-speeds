@@ -23,15 +23,15 @@
       </div>
       <div class="flex flex-col gap-2 p-3 relative overflow-hidden">
         <div class="w-full">
-          <ComboboxDropdown label="Name" fieldFilter="jobName" v-model="filter.jobName" :data="dataJobName"
+          <ComboboxDropdown label="Name"  fieldFilter="jobName" v-model="filter.jobName" :data="dataJobName"
             :useAbsolute="false" />
         </div>
         <div class="w-full">
-          <ComboboxDropdown label="Category" fieldFilter="jobCategory" v-model="filter.jobCategory" :data="dataCategory"
+          <ComboboxDropdown label="Category"  fieldFilter="jobCategory" v-model="filter.jobCategory" :data="dataCategory"
             :useAbsolute="false" />
         </div>
         <div class="w-full">
-          <ComboboxDropdown label="Type" fieldFilter="jobTyped" v-model="filter.jobTyped" :data="dataTyped"
+          <ComboboxDropdown label="Type"  fieldFilter="jobTyped" v-model="filter.jobTyped" :data="dataTyped"
             :useAbsolute="false" />
         </div>
         <div class="w-full">

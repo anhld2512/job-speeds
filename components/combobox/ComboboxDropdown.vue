@@ -1,28 +1,15 @@
 <template>
   <div class="relative w-full gap-3 mb-3" :class="`relative-${fieldFilter}`">
-    <input
-      ref="valueInput"
-      class="input input-sm input-bordered input-primary w-full"
-      type="text"
-      v-model="itemSelected"
-      @input="logValue"
-      :placeholder="label"
-      @focus="focusInput"
-    />
+    <input ref="valueInput" class="input input-sm input-bordered input-primary w-full" type="text"
+      v-model="itemSelected" @input="logValue" :placeholder="label" @focus="focusInput" />
     <button v-if="isSearching" @click="clearValue" class="absolute right-2 top-1">
       <i class="bi bi-trash"></i>
     </button>
     <div v-else class="absolute right-2 top-1"><i class="bi bi-search"></i></div>
-    <ul
-      v-show="showDropdown"
-      :class="{'absolute':useAbsolute}"
-      class="z-20 w-full bg-base-100 border border-2 border-gray-300 rounded-xl mt-2 py-1 shadow-lg max-h-60 overflow-auto"
-    >
-      <li v-for="(item, index) in dataScrouce"
-        :key="index"
-        @click="selectItem($event, item)"
-        class="cursor-pointer px-2 py-1 hover:bg-gray-100 mt-1 rounded-xl text-sm"
-      >
+    <ul v-show="showDropdown" :class="{ 'absolute': useAbsolute }"
+      class="z-20 w-full bg-base-100 border border-2 border-gray-300 rounded-xl mt-2 py-1 shadow-lg max-h-60 overflow-auto">
+      <li v-for="(item, index) in dataScrouce" :key="index" @click="selectItem($event, item)"
+        class="cursor-pointer px-2 py-1 hover:bg-gray-100 mt-1 rounded-xl text-sm">
         {{ item }}
       </li>
       <li v-if="isLoadingData">
@@ -55,13 +42,13 @@ const props = defineProps({
     type: String,
     default: 'name'
   },
-  useAbsolute:{
-    type:Boolean,
+  useAbsolute: {
+    type: Boolean,
     default: false
   }
 });
 
-const { data, fieldFilter, label, modelValue ,useAbsolute} = toRefs(props);
+const { data, fieldFilter, label, modelValue, useAbsolute } = toRefs(props);
 const emit = defineEmits(['update:modelValue']);
 
 const itemSelected = computed({
@@ -96,11 +83,20 @@ const focusInput = () => {
 };
 
 const dataScrouce = computed(() => {
-  if (pressedKey.value.trim() === '') {
-    return data.value.data?.data
+  if (data.value.length > 0) {
+    const newArray = data.value.map(item => item[fieldFilter.value]);
+    const uniqueArray = newArray.filter((item, index, self) => self.indexOf(item) === index);
+    isLoadingData.value = uniqueArray.length === 0;
+
+    if (pressedKey.value.trim() === '') {
+      return uniqueArray;
+    } else {
+      return uniqueArray.filter(item => item.toLowerCase().includes(pressedKey.value.toLowerCase()));
+    }
   } else {
-    return data.value.data.data.filter(item => item.toLowerCase().includes(pressedKey.value.toLowerCase()));
+    return []
   }
+
 });
 
 const handleClickOutside = (event) => {
@@ -110,11 +106,11 @@ const handleClickOutside = (event) => {
 };
 
 const clearValue = (event) => {
-  if(event) {
+  if (event) {
     event.preventDefault();
   }
   itemSelected.value = '';
-  pressedKey.value= ''
+  pressedKey.value = ''
   showDropdown.value = true;
 };
 
