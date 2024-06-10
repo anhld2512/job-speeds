@@ -150,47 +150,18 @@ onMounted(() => {
                     const custormData = result.data.value.data
                     custormData.company = result.data.value.data.contact.company
                     currentJob.value = $_.cloneDeep(custormData)
-                    useHead({
+                    useSeoMeta({
                         title: currentJob.value.jobName || 'Job Detail',
-                        meta: [
-                            {
-                                name: 'description',
-                                content: currentJob.value.jobDescription || 'Job detail page description'
-                            },
-                            {
-                                name: 'og:title',
-                                property: 'og:title',
-                                content: currentJob.value.jobName || 'Job Detail'
-                            },
-                            {
-                                name: 'og:description',
-                                property: 'og:description',
-                                content: currentJob.value.jobDescription || 'Job detail page description'
-                            },
-                            {
-                                name: 'og:image',
-                                property: 'og:image',
-                                content: currentJob.value.jobImageUrl || 'default-image-url.jpg'
-                            },
-                            {
-                                name: 'og:url',
-                                property: 'og:url',
-                                content: window.location.href
-                            },
-                            {
-                                name: 'twitter:title',
-                                content: currentJob.value.jobName || 'Job Detail'
-                            },
-                            {
-                                name: 'twitter:description',
-                                content: currentJob.value.jobDescription || 'Job detail page description'
-                            },
-                            {
-                                name: 'twitter:image',
-                                content: currentJob.value.jobImageUrl || 'default-image-url.jpg'
-                            }
-                        ]
-                    })
+                        ogTitle: currentJob.value.jobName || 'Job Detail',
+                        description: currentJob.value.jobDescription || 'Job detail page description',
+                        ogDescription: currentJob.value.jobDescription || 'Job detail page description',
+                        ogImage: currentJob.value.jobImageUrl || 'https://example.com/default-image.jpg',
+                        twitterCard: 'summary_large_image',
+                        twitterTitle: currentJob.value.jobName || 'Job Detail',
+                        twitterDescription: currentJob.value.jobDescription || 'Job detail page description',
+                        twitterImage: currentJob.value.jobImageUrl || 'https://example.com/default-image.jpg',
+                        ogUrl: window.location.href
+                    });
                 }
             }).catch(error => {
                 router.push("/job")
