@@ -6,12 +6,12 @@
           <div class="text-gray-600">{{ unit }}</div>
         </div>
       </div>
-      <div class="text-gray-500 text-small mt-3">Ngày dự kiến: 10/06/2024.</div>
+      <div class="text-gray-500 text-small mt-3">Ngày dự kiến: 11/06/2024.</div>
     </div>
   </template>
   
   <script setup>  
-  const targetDateString = '2024-06-10';
+  const targetDateString = '2024-06-11';
   const targetDate = new Date(targetDateString).getTime();
   
   const time = ref({
