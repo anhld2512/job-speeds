@@ -56,8 +56,8 @@ const { token, logout, userId } = useAuth();
 
 const props = defineProps({
     modelValue: {
-        type: String,
-        default: ''
+        type: Object,
+        default: () =>{}
     }
 });
 const { modelValue } = toRefs(props);
@@ -69,8 +69,8 @@ const formData = ref({
     address: '',
     coverLetter: '',
     urlCV: null,
-    jobId: modelValue.value,
-    userId: userId
+    jobId: modelValue.value._id,
+    userId: modelValue.value.userId
 });
 
 const isEditMode = ref(true);

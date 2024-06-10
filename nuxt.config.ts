@@ -27,7 +27,7 @@ export default defineNuxtConfig({
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
-        {name:"google-adsense-account",content:"ca-pub-4065642758618862"},
+        { name:"google-adsense-account",content:"ca-pub-4065642758618862"},
         { name: "Access-Control-Allow-Origin", content: "*" },
         { name: "Access-Control-Allow-Methods", content: "GET, POST, OPTIONS" },
         { name: "Access-Control-Allow-Credentials", content: "true" },

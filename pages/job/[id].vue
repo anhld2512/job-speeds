@@ -96,7 +96,7 @@
     <!-- Open the modal using ID.showModal() method -->
     <dialog ref="myFormApplicantion" class="modal">
         <div v-if="!!currentJob" class="modal-box w-11/12 max-w-5xl">
-            <ApplyForm v-model="currentJob._id" @applications="applications"></ApplyForm>
+            <ApplyForm v-model="currentJob" @applications="applications"></ApplyForm>
         </div>
     </dialog>
 
@@ -141,22 +141,22 @@ const loading = ref(false)
 const isAuthor = computed(() => {
     return userId === currentJob?.value?.userId ? true : false
 })
-watch(currentJob, (newValue) => {
-  if (newValue) {
-    useSeoMeta({
-      title: newValue.jobName || 'Job Detail',
-      ogTitle: newValue.jobName || 'Job Detail',
-      description: newValue.jobDescription || 'Job detail page description',
-      ogDescription: newValue.jobDescription || 'Job detail page description',
-      ogImage: newValue.jobImageUrl || 'https://example.com/default-image.jpg',
-      twitterCard: 'summary_large_image',
-      twitterTitle: newValue.jobName || 'Job Detail',
-      twitterDescription: newValue.jobDescription || 'Job detail page description',
-      twitterImage: newValue.jobImageUrl || 'https://example.com/default-image.jpg',
-      ogUrl: window.location.href
-    });
-  }
-}, { immediate: true });
+// watch(currentJob, (newValue) => {
+//   if (newValue) {
+//     useSeoMeta({
+//       title: newValue.jobName || 'Job Detail',
+//       ogTitle: newValue.jobName || 'Job Detail',
+//       description: newValue.jobDescription || 'Job detail page description',
+//       ogDescription: newValue.jobDescription || 'Job detail page description',
+//       ogImage: newValue.jobImageUrl || 'https://example.com/default-image.jpg',
+//       twitterCard: 'summary_large_image',
+//       twitterTitle: newValue.jobName || 'Job Detail',
+//       twitterDescription: newValue.jobDescription || 'Job detail page description',
+//       twitterImage: newValue.jobImageUrl || 'https://example.com/default-image.jpg',
+//       ogUrl: window.location.href
+//     });
+//   }
+// }, { immediate: true });
 
 onMounted(() => {
     nextTick().then(() => {
