@@ -3,59 +3,65 @@
     <!-- Form Title -->
     <!-- Form -->
     <form @submit.prevent="updateProfile">
-      <div class="grid grid-cols-2 gap-2">
-        <!-- Full Name -->
-        <FormInPlaceEditor label="Full Name" :required="true" v-model="profile.personalInfo.fullName"
-          cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">
-          <input type="text" id="fullName" v-model="profile.personalInfo.fullName"
-            class="input input-bordered w-full" />
-        </FormInPlaceEditor>
-        <!-- Email -->
-        <FormInPlaceEditor label="Email" :required="true" v-model="profile.personalInfo.email"
-          cssClass="block text-xl truncate max-w-xs" :showButtonEditMode="false" :enableEditMode="isEditMode">
-          <input type="email" id="email" v-model="profile.personalInfo.email" class="input input-bordered w-full" />
-        </FormInPlaceEditor>
+  <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+    <!-- Full Name -->
+    <div class="col-span-1">
+      <FormInPlaceEditor label="Full Name" :required="true" v-model="profile.personalInfo.fullName"
+        cssClass="block text-xl" :showButtonEditMode="false" :enableEditMode="isEditMode">
+        <input type="text" id="fullName" v-model="profile.personalInfo.fullName"
+          class="input input-bordered w-full" />
+      </FormInPlaceEditor>
+    </div>
+    <!-- Email -->
+    <div class="col-span-1">
+      <FormInPlaceEditor label="Email" :required="true" v-model="profile.personalInfo.email"
+        cssClass="block text-xl truncate max-w-full" :showButtonEditMode="false" :enableEditMode="isEditMode">
+        <input type="email" id="email" v-model="profile.personalInfo.email" class="input input-bordered w-full" />
+      </FormInPlaceEditor>
+    </div>
+    <!-- Phone -->
+    <div class="col-span-1">
+      <FormInPlaceEditor label="Phone" :required="true" v-model="profile.personalInfo.phone"
+        cssClass="block text-xl" :showButtonEditMode="false" :enableEditMode="isEditMode">
+        <input type="text" id="phone" v-model="profile.personalInfo.phone" class="input input-bordered w-full" />
+      </FormInPlaceEditor>
+    </div>
+    <!-- Address -->
+    <div class="col-span-1">
+      <FormInPlaceEditor label="Address" :required="true" v-model="profile.personalInfo.address"
+        cssClass="block text-xl" :showButtonEditMode="false" :enableEditMode="isEditMode">
+        <input type="text" id="address" v-model="profile.personalInfo.address" class="input input-bordered w-full" />
+      </FormInPlaceEditor>
+    </div>
+    <!-- Date of Birth -->
+    <div class="col-span-1">
+      <FormInPlaceEditor label="Date of Birth" :required="true" v-model="profile.personalInfo.dateOfBirth"
+        cssClass="block text-xl" :showButtonEditMode="false" :enableEditMode="isEditMode">
+        <input type="date" id="dateOfBirth" v-model="profile.personalInfo.dateOfBirth"
+          class="input input-bordered w-full" />
+        <template #displayValue>
+          <span>{{ profile?.personalInfo?.dateOfBirth ? $filters.dateStringFormat(profile?.personalInfo?.dateOfBirth, "DD/MM/YYYY") : '' }}</span>
+        </template>
+      </FormInPlaceEditor>
+    </div>
+    <!-- Gender -->
+    <div class="col-span-1">
+      <FormInPlaceEditor label="Gender" :required="true" v-model="profile.personalInfo.gender"
+        cssClass="block text-xl" :showButtonEditMode="false" :enableEditMode="isEditMode">
+        <select id="gender" v-model="profile.personalInfo.gender" class="select select-bordered w-full">
+          <option value="Male" selected>Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </FormInPlaceEditor>
+    </div>
+  </div>
 
-        <!-- Phone -->
-        <FormInPlaceEditor label="Phone" :required="true" v-model="profile.personalInfo.phone"
-          cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">
-          <input type="text" id="phone" v-model="profile.personalInfo.phone" class="input input-bordered w-full" />
-        </FormInPlaceEditor>
-
-        <!-- Address -->
-        <FormInPlaceEditor label="Address" :required="true" v-model="profile.personalInfo.address"
-          cssClass="block text-xl" :showButtonEditMode="false" :enableEditMode="isEditMode">
-          <input type="text" id="address" v-model="profile.personalInfo.address" class="input input-bordered w-full" />
-        </FormInPlaceEditor>
-
-
-        <!-- Date of Birth -->
-        <FormInPlaceEditor label="Date of Birth" :required="true" v-model="profile.personalInfo.dateOfBirth"
-          cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">
-         
-          <input type="date" id="dateOfBirth" v-model="profile.personalInfo.dateOfBirth" 
-            class="input input-bordered w-full" />
-          <template #displayValue>
-            <span> {{ profile?.personalInfo?.dateOfBirth ? $filters.dateStringFormat(profile?.personalInfo?.dateOfBirth, "DD/MM/YYYY") : ''}}</span>
-          </template>
-        </FormInPlaceEditor>
-
-        <!-- Gender -->
-        <FormInPlaceEditor label="Gender" :required="true" v-model="profile.personalInfo.gender"
-          cssClass="block text-xl " :showButtonEditMode="false" :enableEditMode="isEditMode">
-          <select id="gender" v-model="profile.personalInfo.gender" class="select select-bordered w-full">
-            <option value="Male" selected>Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </select>
-        </FormInPlaceEditor>
-      </div>
-
-      <!-- Submit Button -->
-      <div v-if="enableEditMode" class="flex justify-end mt-3">
-        <button type="submit" :disabled="isValidateForm" class="btn btn-primary">Save</button>
-      </div>
-    </form>
+  <!-- Submit Button -->
+  <div v-if="enableEditMode" class="flex justify-end mt-3">
+    <button type="submit" :disabled="isValidateForm" class="btn btn-primary">Save</button>
+  </div>
+</form>
   </div>
 </template>
 
