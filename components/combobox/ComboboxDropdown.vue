@@ -97,9 +97,9 @@ const focusInput = () => {
 
 const dataScrouce = computed(() => {
   if (pressedKey.value.trim() === '') {
-    return data.value;
+    return data.value.data.data
   } else {
-    return data.value.filter(item => item.toLowerCase().includes(pressedKey.value.toLowerCase()));
+    return data.value.data.data.filter(item => item.toLowerCase().includes(pressedKey.value.toLowerCase()));
   }
 });
 
