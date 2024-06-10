@@ -57,12 +57,9 @@ export default defineNuxtConfig({
   },
   proxy: {
     '/api': {
-      target: 'https://api.jobspeeds.com', // URL của máy chủ backend
+      target: 'https://api.jobspeeds.com',
       pathRewrite: { '^/api': '/' },
       changeOrigin: true,
-      headers: {
-        'Access-Control-Allow-Origin': '*' // Thêm tiêu đề vào yêu cầu tới máy chủ backend
-      }
     }
   },
   devtools: { enabled: true },
