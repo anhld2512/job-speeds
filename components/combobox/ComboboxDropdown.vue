@@ -96,14 +96,10 @@ const focusInput = () => {
 };
 
 const dataScrouce = computed(() => {
-  const newArray = data.value.map(item => item[fieldFilter.value]);
-  const uniqueArray = newArray.filter((item, index, self) => self.indexOf(item) === index);
-  isLoadingData.value = uniqueArray.length === 0;
-
   if (pressedKey.value.trim() === '') {
-    return uniqueArray;
+    return data.value;
   } else {
-    return uniqueArray.filter(item => item.toLowerCase().includes(pressedKey.value.toLowerCase()));
+    return data.value.filter(item => item.toLowerCase().includes(pressedKey.value.toLowerCase()));
   }
 });
 

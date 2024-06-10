@@ -23,13 +23,16 @@
       </div>
       <div class="flex flex-col gap-2 p-3 relative overflow-hidden">
         <div class="w-full">
-          <ComboboxDropdown label="Name" fieldFilter="jobName" v-model="filter.jobName" :data="data" :useAbsolute="false"/>
+          <ComboboxDropdown label="Name" fieldFilter="jobName" v-model="filter.jobName" :data="dataJobName"
+            :useAbsolute="false" />
         </div>
         <div class="w-full">
-          <ComboboxDropdown label="Category" fieldFilter="jobCategory" v-model="filter.jobCategory" :data="data" :useAbsolute="false"/>
+          <ComboboxDropdown label="Category" fieldFilter="jobCategory" v-model="filter.jobCategory" :data="dataCategory"
+            :useAbsolute="false" />
         </div>
         <div class="w-full">
-          <ComboboxDropdown label="Type" fieldFilter="jobTyped" v-model="filter.jobTyped" :data="data" :useAbsolute="false"/>
+          <ComboboxDropdown label="Type" fieldFilter="jobTyped" v-model="filter.jobTyped" :data="dataTyped"
+            :useAbsolute="false" />
         </div>
         <div class="w-full">
           <button @click="btnActionSearch" class="w-full btn btn-sm btn-primary flex items-center justify-center">
@@ -42,7 +45,7 @@
 </template>
 
 <script setup>
-const { $_ } = useNuxtApp();
+const { $modelAPI, $_ } = useNuxtApp();
 
 const props = defineProps({
   data: {
@@ -70,7 +73,19 @@ const refeshFilter = ref(0);
 const focusInputSearch = () => {
   showFilter.value = true;
 };
+const dataCategory = ref([]);
+const dataTyped = ref([]);
+const dataJobName = ref([]);
 
+const fetchData = async (nameField, dataRef) => {
+  try {
+    const response = await $modelAPI.jobAPI.getDistinctValues(nameField);
+    dataRef.value = response;
+  } catch (error) {
+    console.error(`Error fetching ${nameField}:`, error);
+    dataRef.value = [];
+  }
+};
 const clearSearch = () => {
   refeshFilter.value++;
   search.value = '';
@@ -154,13 +169,21 @@ const logValue = $_.debounce((event) => {
 
 }, 500);
 onMounted(() => {
-  // Khởi tạo giá trị filter và search nếu có giá trị ban đầu
-  if (initialFilter.value.search) {
-    search.value = initialFilter.value.search;
-  } else if (initialFilter.value.filter) {
-    filter.value = { ...initialFilter.value.filter };
-  }
-});
+  nextTick().then(() => {
+    setTimeout(() => {
+      fetchData('jobCategory', dataCategory);
+      fetchData('jobType', dataTyped);
+      fetchData('jobName', dataJobName);
+      // Khởi tạo giá trị filter và search nếu có giá trị ban đầu
+      if (initialFilter.value.search) {
+        search.value = initialFilter.value.search;
+      } else if (initialFilter.value.filter) {
+        filter.value = { ...initialFilter.value.filter };
+      }
+    }, 1);
+  });
+})
+
 </script>
 
 <style lang="scss" scoped></style>
