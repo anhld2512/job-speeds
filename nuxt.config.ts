@@ -39,13 +39,13 @@ export default defineNuxtConfig({
         },
         { name: "author", content: "Anhld" },
         { name: "robots", content: "index, follow" }, // Chỉ định cách bot của công cụ tìm kiếm phải xử lý trang
-        { name: "og:title", content: "Job Speeds" }, // Tiêu đề cho các liên kết mạng xã hội
-        { 
-          name: "og:description", 
-          content: "Kết nối người tìm việc và nhà tuyển dụng với Job Speeds." 
-        },
-        { name: "og:image", content: "https://api.jobspeeds.com/logo/logo-bg.png" },
-        { name: "og:url", content: "https://jobspeeds.com" },
+        // { name: "og:title", content: "Job Speeds" }, // Tiêu đề cho các liên kết mạng xã hội
+        // { 
+        //   name: "og:description", 
+        //   content: "Kết nối người tìm việc và nhà tuyển dụng với Job Speeds." 
+        // },
+        // { name: "og:image", content: "https://api.jobspeeds.com/logo/logo-bg.png" },
+        // { name: "og:url", content: "https://jobspeeds.com" },
         // Các thẻ schema.org có thể giúp công cụ tìm kiếm hiểu được thông tin cụ thể trên trang web của bạn
         { name: "application-name", content: "Job Speeds" },
         { name: "theme-color", content: "#ffffff" }, // Màu nền của ứng dụng
