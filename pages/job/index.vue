@@ -11,35 +11,22 @@
       <LoadingPage class="h-screen" v-if="isLoadingData" />
       <div v-else class="flex flex-wrap">
         <!-- Hiển thị danh sách công việc -->
-        <div v-if="listJob.length > 0" v-for="(item, index) in listJob" :key="index"
-          class="w-full p-2 md:w-1/2 lg:w-1/3">
+        <div v-if="listJob.length > 0" v-for="(item, index) in listJob" :key="index" 
+          class="w-full p-2 md:w-1/2 lg:w-1/3" >
           <!-- Thẻ công việc -->
           <div class="card flex flex-col h-full bg-base-100 shadow border-2 rounded-xl items-center px-3 py-2">
             <div class="card-header w-full">
               <div class="flex w-full items-center">
-                <div class="flex w-4/5">
                   <div @click="actionApplication(item)"
                     class="btn btn-sm m-1 text-start btn-primary rounded w-full">
                     <i class="bi bi-heart text-xl"></i> Apply
                   </div>
-                </div>
-                <div class="flex w-1/5 justify-end">
-                  <div
-                    class="btn btn-sm btn-circle btn-accent dropdown dropdown-bottom dropdown-end text-primary items-center">
-                    <button tabindex="0" class="text-black"><i class="bi bi-gear text-xl"></i>
-                    </button>
-                    <ul tabindex="0"
-                      class="border border-2 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-md w-40 mt-2">
-                      <li><a @click="detailJob(item._id)"><i class="bi bi-eye"></i> Detail</a></li>
-                    </ul>
-                  </div>
-                </div>
               </div>
             </div>
 
             <div class="card-body p-1">
-              <h3 class="card-title text-lg text-primary w-full max-w-lg cursor-pointer" @click="detailJob(item._id)">{{
-                item.jobName }}</h3>
+              <a :href="`job/${item._id}`"><h3 class="card-title text-lg text-primary w-full max-w-lg cursor-pointer" >{{
+                item.jobName }}</h3></a>
               <div class="flex flex-col gap-2 w-full">
                 <p class="w-full mb-1 text-sm">{{ item.contact?.company }}</p>
                 <div class="flex flex-wrap mb-2 gap-2">

@@ -1,13 +1,13 @@
 <template>
-  <div :key="refeshFilter" class="flex relative w-full md:w-1/2">
+  <div v-if="isDataLoaded" :key="refeshFilter" class="flex relative w-full md:w-1/2">
     <div class="w-full px-1">
       <input v-model="search" type="text" :readonly="isFilterAdvanced" :placeholder="!isFilterAdvanced ? 'Search' : ''"
         @input="logValue" class="input input-sm input-bordered w-full" :class="{ 'input-accent': isFilterAdvanced }"
         @focus="focusInputSearch" />
       <button v-if="isSearching" @click="clearSearch" class="absolute right-2 top-1">
-        <i class="bi bi-trash"></i>
+        <I class="bi bi-trash"></I>
       </button>
-      <div v-else class="absolute right-2 top-1"><i class="bi bi-search"></i></div>
+      <div v-else class="absolute right-2 top-1"><I class="bi bi-search"></I></div>
       <div v-if="isFilterAdvanced" :class="{ 'hidden': !isFilterAdvanced }"
         class="absolute left-2 top-1 bg-accent rounded-xl items-center justify-center"><span
           class="px-2 text-xs items-center justify-center">Advanced <i @click="clearSearch"
@@ -23,15 +23,15 @@
       </div>
       <div class="flex flex-col gap-2 p-3 relative overflow-hidden">
         <div class="w-full">
-          <ComboboxDropdown label="Name"  fieldFilter="jobName" v-model="filter.jobName" :data="dataJobName"
+          <ComboboxDropdown label="Name" fieldFilter="jobName" v-model="filter.jobName" :data="dataJobName"
             :useAbsolute="false" />
         </div>
         <div class="w-full">
-          <ComboboxDropdown label="Category"  fieldFilter="jobCategory" v-model="filter.jobCategory" :data="dataCategory"
+          <ComboboxDropdown label="Category" fieldFilter="jobCategory" v-model="filter.jobCategory" :data="dataCategory"
             :useAbsolute="false" />
         </div>
         <div class="w-full">
-          <ComboboxDropdown label="Type"  fieldFilter="jobTyped" v-model="filter.jobTyped" :data="dataTyped"
+          <ComboboxDropdown label="Type" fieldFilter="jobTyped" v-model="filter.jobTyped" :data="dataTyped"
             :useAbsolute="false" />
         </div>
         <div class="w-full">
@@ -42,9 +42,13 @@
       </div>
     </div>
   </div>
+  <div v-else class="w-full flex justify-center items-center">
+    <span>Loading...</span>
+  </div>
 </template>
-
 <script setup>
+
+
 const { $modelAPI, $_ } = useNuxtApp();
 
 const props = defineProps({
@@ -59,7 +63,7 @@ const props = defineProps({
 });
 
 const { data, filter: initialFilter } = toRefs(props);
-const isFilterAdvanced = ref(false)
+const isFilterAdvanced = ref(false);
 const emit = defineEmits(['update:modelValue', 'actionFilter']);
 const search = ref(initialFilter.value.search ?? '');
 const filter = ref(initialFilter.value.filter ?? {
@@ -69,23 +73,42 @@ const filter = ref(initialFilter.value.filter ?? {
 });
 const showFilter = ref(false);
 const refeshFilter = ref(0);
+const isDataLoaded = ref(false);
 
 const focusInputSearch = () => {
   showFilter.value = true;
 };
+
 const dataCategory = ref([]);
 const dataTyped = ref([]);
 const dataJobName = ref([]);
 
+const loadingStates = ref({
+  jobCategory: false,
+  jobTyped: false,
+  jobName: false
+});
+
+const updateLoadingState = () => {
+  isDataLoaded.value = Object.values(loadingStates.value).every(state => state === true);
+};
+
 const fetchData = async (nameField, dataRef) => {
   try {
     const response = await $modelAPI.jobAPI.getDistinctValues(nameField);
-    dataRef.value = response;
+    dataRef.value = response.data.value.data.map(item => ({
+      [nameField]: item,
+      type: 'filter'
+    }));
   } catch (error) {
     console.error(`Error fetching ${nameField}:`, error);
     dataRef.value = [];
+  } finally {
+    loadingStates.value[nameField] = true;
+    updateLoadingState();
   }
 };
+
 const clearSearch = () => {
   refeshFilter.value++;
   search.value = '';
@@ -96,7 +119,7 @@ const clearSearch = () => {
   };
   emitFilter();
 };
-// Watcher cho search
+
 const isSearching = computed(() => {
   return search.value?.length > 0;
 });
@@ -110,13 +133,12 @@ watch(
         jobCategory: '',
         jobTyped: ''
       };
-      isFilterAdvanced.value = false
+      isFilterAdvanced.value = false;
     }
   },
   { immediate: true, deep: true }
 );
 
-// Watcher cho filter
 watch(
   () => [
     filter.value.jobName,
@@ -127,9 +149,9 @@ watch(
     const isChangeFilter = newValue.some((v) => `${v || ''}`.trim().length > 0);
     if (isChangeFilter) {
       search.value = '';
-      isFilterAdvanced.value = true
+      isFilterAdvanced.value = true;
     } else {
-      isFilterAdvanced.value = false
+      isFilterAdvanced.value = false;
     }
   },
   { immediate: true, deep: true }
@@ -166,24 +188,28 @@ const logValue = $_.debounce((event) => {
   } else {
     emit('actionFilter', { search: '' });
   }
-
 }, 500);
+
 onMounted(() => {
   nextTick().then(() => {
-    setTimeout(() => {
-      fetchData('jobCategory', dataCategory);
-      fetchData('jobTyped', dataTyped);
-      fetchData('jobName', dataJobName);
-      // Khởi tạo giá trị filter và search nếu có giá trị ban đầu
+    setTimeout(async () => {
+      await Promise.all([
+        fetchData('jobCategory', dataCategory),
+        fetchData('jobTyped', dataTyped),
+        fetchData('jobName', dataJobName)
+      ]);
+
       if (initialFilter.value.search) {
         search.value = initialFilter.value.search;
       } else if (initialFilter.value.filter) {
         filter.value = { ...initialFilter.value.filter };
       }
+
+      // Cập nhật trạng thái tải dữ liệu
+      isDataLoaded.value = true;
     }, 1);
   });
-})
-
+});
 </script>
 
 <style lang="scss" scoped></style>

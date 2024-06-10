@@ -83,20 +83,14 @@ const focusInput = () => {
 };
 
 const dataScrouce = computed(() => {
-  if (data.value.length > 0) {
-    const newArray = data.value.map(item => item[fieldFilter.value]);
-    const uniqueArray = newArray.filter((item, index, self) => self.indexOf(item) === index);
-    isLoadingData.value = uniqueArray.length === 0;
-
-    if (pressedKey.value.trim() === '') {
-      return uniqueArray;
-    } else {
-      return uniqueArray.filter(item => item.toLowerCase().includes(pressedKey.value.toLowerCase()));
-    }
+  const newArray = data.value.map(item => item[fieldFilter.value]);
+  const uniqueArray = newArray.filter((item, index, self) => self.indexOf(item) === index);
+  isLoadingData.value = uniqueArray.length === 0;
+  if (pressedKey.value.trim() === '') {
+    return uniqueArray;
   } else {
-    return []
+    return uniqueArray.filter(item => item.toLowerCase().includes(pressedKey.value.toLowerCase()));
   }
-
 });
 
 const handleClickOutside = (event) => {
