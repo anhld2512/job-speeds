@@ -1,4 +1,4 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+// nuxt.config.ts
 export default defineNuxtConfig({
   server: {
     port: 3000, // Cổng mà ứng dụng của bạn sẽ lắng nghe
@@ -27,11 +27,7 @@ export default defineNuxtConfig({
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { name:"google-adsense-account",content:"ca-pub-4065642758618862"},
-        { name: "Access-Control-Allow-Origin", content: "*" },
-        { name: "Access-Control-Allow-Methods", content: "GET, POST, OPTIONS" },
-        { name: "Access-Control-Allow-Credentials", content: "true" },
-        { name: "Access-Control-Allow-Headers", content: "DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization" },
+        { name:"google-adsense-account", content:"ca-pub-4065642758618862"},
         { name: "description", content: "Kết nối người tìm việc và nhà tuyển dụng với Job Speeds."  },
         { 
           name: "keywords", 
@@ -39,14 +35,8 @@ export default defineNuxtConfig({
         },
         { name: "author", content: "Anhld" },
         { name: "robots", content: "index, follow" }, // Chỉ định cách bot của công cụ tìm kiếm phải xử lý trang
-        // { name: "og:title", content: "Job Speeds" }, // Tiêu đề cho các liên kết mạng xã hội
-        // { 
-        //   name: "og:description", 
-        //   content: "Kết nối người tìm việc và nhà tuyển dụng với Job Speeds." 
-        // },
-        // { name: "og:image", content: "https://api.jobspeeds.com/logo/logo-bg.png" },
-        // { name: "og:url", content: "https://jobspeeds.com" },
-        // Các thẻ schema.org có thể giúp công cụ tìm kiếm hiểu được thông tin cụ thể trên trang web của bạn
+        { name: "og:image", content: "https://api.jobspeeds.com/logo/logo.JPG" },
+        { name: "og:url", content: "https://jobspeeds.com" },
         { name: "application-name", content: "Job Speeds" },
         { name: "theme-color", content: "#ffffff" }, // Màu nền của ứng dụng
         { name: "apple-mobile-web-app-capable", content: "yes" }, // Có thể mở ứng dụng trên thiết bị di động của Apple
@@ -69,7 +59,7 @@ export default defineNuxtConfig({
     '~/assets/scss/style.scss',
   ],
   modules: [
-    '@pinia/nuxt',"@nuxtjs/tailwindcss",'@nuxtjs/sitemap','@nuxt/image'
+    '@pinia/nuxt', "@nuxtjs/tailwindcss", '@nuxtjs/sitemap', '@nuxt/image'
   ],
   sitemap: {
     // Cấu hình cho sitemap
@@ -89,8 +79,25 @@ export default defineNuxtConfig({
   experimental: {
     appManifest: true
   },
-  
   imports: {
     dirs: ['stores'],
   },
-})
+  // Middleware CORS
+  serverMiddleware: [
+    {
+      path: '/api',
+      handler: (req, res, next) => {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
+        res.setHeader('Access-Control-Allow-Headers', 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization');
+        if (req.method === 'OPTIONS') {
+          res.writeHead(200);
+          res.end();
+        } else {
+          next();
+        }
+      }
+    }
+  ]
+});
