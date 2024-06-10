@@ -41,7 +41,7 @@
               <h3 class="card-title text-lg text-primary w-full max-w-lg cursor-pointer" @click="detailJob(item._id)">{{
                 item.jobName }}</h3>
               <div class="flex flex-col gap-2 w-full">
-                <p class="w-full mb-1 text-sm">{{ item.contact.company }}</p>
+                <p class="w-full mb-1 text-sm">{{ item.contact?.company }}</p>
                 <div class="flex flex-wrap mb-2 gap-2">
                   <span class="badge badge-lg badge-neutral"><i class="bi bi-award mr-1"></i> {{ item.jobCategory }}
                   </span>
