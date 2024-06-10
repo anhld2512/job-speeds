@@ -172,7 +172,7 @@ onMounted(() => {
   nextTick().then(() => {
     setTimeout(() => {
       fetchData('jobCategory', dataCategory);
-      fetchData('jobType', dataTyped);
+      fetchData('jobTyped', dataTyped);
       fetchData('jobName', dataJobName);
       // Khởi tạo giá trị filter và search nếu có giá trị ban đầu
       if (initialFilter.value.search) {
