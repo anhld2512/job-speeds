@@ -141,6 +141,23 @@ const loading = ref(false)
 const isAuthor = computed(() => {
     return userId === currentJob?.value?.userId ? true : false
 })
+watch(currentJob, (newValue) => {
+  if (newValue) {
+    useSeoMeta({
+      title: newValue.jobName || 'Job Detail',
+      ogTitle: newValue.jobName || 'Job Detail',
+      description: newValue.jobDescription || 'Job detail page description',
+      ogDescription: newValue.jobDescription || 'Job detail page description',
+      ogImage: newValue.jobImageUrl || 'https://example.com/default-image.jpg',
+      twitterCard: 'summary_large_image',
+      twitterTitle: newValue.jobName || 'Job Detail',
+      twitterDescription: newValue.jobDescription || 'Job detail page description',
+      twitterImage: newValue.jobImageUrl || 'https://example.com/default-image.jpg',
+      ogUrl: window.location.href
+    });
+  }
+}, { immediate: true });
+
 onMounted(() => {
     nextTick().then(() => {
         setTimeout(() => {
@@ -150,18 +167,7 @@ onMounted(() => {
                     const custormData = result.data.value.data
                     custormData.company = result.data.value.data.contact.company
                     currentJob.value = $_.cloneDeep(custormData)
-                    useSeoMeta({
-                        title: currentJob.value.jobName || 'Job Detail',
-                        ogTitle: currentJob.value.jobName || 'Job Detail',
-                        description: currentJob.value.jobDescription || 'Job detail page description',
-                        ogDescription: currentJob.value.jobDescription || 'Job detail page description',
-                        ogImage: currentJob.value.jobImageUrl || 'https://example.com/default-image.jpg',
-                        twitterCard: 'summary_large_image',
-                        twitterTitle: currentJob.value.jobName || 'Job Detail',
-                        twitterDescription: currentJob.value.jobDescription || 'Job detail page description',
-                        twitterImage: currentJob.value.jobImageUrl || 'https://example.com/default-image.jpg',
-                        ogUrl: window.location.href
-                    });
+
                 }
             }).catch(error => {
                 router.push("/job")
