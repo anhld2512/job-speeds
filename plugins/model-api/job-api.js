@@ -125,7 +125,7 @@ export default (appConfig, $moment, $filters, $_) => {
 
     // Construct the API URL with the nameField parameter
     return await useFetch(
-        `${appConfig.apiURL.API}/api/jobs/distinct-values?nameField=${encodeURIComponent(nameField)}`,
+        `${appConfig.apiURL.API}/api/jobs/distinct?nameField=${encodeURIComponent(nameField)}`,
         fetchOption
     );
 };
