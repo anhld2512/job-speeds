@@ -14,7 +14,7 @@
         <div v-if="listJob.length > 0" v-for="(item, index) in listJob" :key="index"
           class="w-full p-2 md:w-1/2 lg:w-1/3">
           <!-- Thẻ công việc -->
-          <div class="card flex flex-col h-full bg-base-100 shadow border-2 rounded-xl items-center px-3 py-2">
+          <!-- <div class="card flex flex-col h-full bg-base-100 shadow border-2 rounded-xl items-center px-3 py-2">
             <div class="card-header w-full">
               <div class="flex w-full items-center">
                 <div class="flex w-4/5">
@@ -31,7 +31,6 @@
                     <ul tabindex="0"
                       class="border border-2 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-md w-40 mt-2">
                       <li><a @click="detailJob(item._id)"><i class="bi bi-eye"></i> Detail</a></li>
-                      <!-- <li><a @click="deleteJob(item._id)"><i class="bi bi-trash3"></i> Delete</a></li> -->
                     </ul>
                   </div>
                 </div>
@@ -53,14 +52,12 @@
                 <i class="text-sm front-semibold text-gray-500 underline"><i class="bi bi-award text-md"></i> Skill
                   list</i>
                 <div class="card-actions flex flex-col justify-between min-h-[6rem] max-h-[8rem] overflow-hidden p-2">
-                  <!-- Hiển thị kỹ năng yêu cầu -->
                   <div class="flex flex-wrap">
                     <div v-for="(itemSkill, index) in item.jobSkills" :key="index"
                       class="badge badge-outline whitespace-nowrap overflow-hidden text-ellipsis mr-1 mb-1">
                       {{ itemSkill }}
                     </div>
                   </div>
-                  <!-- Nội dung khác (nếu có) -->
                 </div>
 
                 <figure class="h-44 w-full skeleton">
@@ -71,8 +68,9 @@
               </div>
 
             </div>
-          </div>
+          </div> -->
           <!-- Kết thúc thẻ công việc -->
+           <JobItem :modelValue="item" />
         </div>
         <div v-else class="mt-3 w-full p-3">
           <!-- Component Start -->
@@ -117,10 +115,16 @@
 </template>
 
 <script setup>
+// #region AnhLD Import dafault
 const { $modelAPI, $_, $filters, $uuidToObjectId, $uuidv4 } = useNuxtApp();
 const { token, logout, userId } = useAuth();
-
 const router = useRouter();
+const loading = ref(null);
+const myFormApplicantion = ref(null)
+const isLoadingData = ref(true);
+const isLoadingDataPush = ref(false);
+const listJob = ref([]);
+const itemMax = ref(null);
 const curentJobApply = ref(null)
 const filter = ref({
   search: '',
@@ -130,18 +134,15 @@ const filter = ref({
     jobTyped: ''
   },
 });
+// #endregion
+// #region Action filter &  search
 const actionFilter = (value) => {
   filter.value = value; // Cập nhật bộ lọc mới
   listJob.value = []; // Đặt lại danh sách công việc
   fetchJobs(); // Tải công việc mới dựa trên bộ lọc mới
 };
+// #endregion
 
-const loading = ref(null);
-const myFormApplicantion = ref(null)
-const isLoadingData = ref(true);
-const isLoadingDataPush = ref(false);
-const listJob = ref([]);
-const itemMax = ref(null);
 
 const fetchJobs = async () => {
   isLoadingData.value = true;
@@ -195,12 +196,7 @@ onMounted(() => {
   fetchJobs();
   window.addEventListener("scroll", onScroll);
 });
-const keyApply= ref(0)
-const actionApplication = (itemId) => {
-  keyApply.value++
-  myFormApplicantion.value.showModal()
-  curentJobApply.value = itemId
-}
+
 const deleteJob = async (itemId) => {
   loading.value.show();
   try {
@@ -232,7 +228,7 @@ const triggerToast = (type, message) => {
   }
 };
 
-
+// #region AnhLD Action create Job
 const CreateFormApplicantion = ref(null)
 const onCreateFormApplicantion = ()=>{
   CreateFormApplicantion.value.showModal()
@@ -282,6 +278,8 @@ const ActionCreate = () => {
     router.push(`/login`)
   }
 }
+// #endregion
+
 const applications = (isVal) =>{
     if(isVal){
         myFormApplicantion.value.close()

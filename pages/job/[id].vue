@@ -2,7 +2,7 @@
     <div class="container h-full overflow-hidden mx-auto top-20">
         <div
             class="fixed container mx-auto px-5 md:px-0 right-0 left-0 -mt-4 flex w-full items-center justify-between bg-base-100">
-            <div @click="myFormApplicantion.showModal()" :class="{ 'w-full md:w-1/2 lg:w-1/3': !isAuthor,}"
+            <div @click="myFormApplicantion.showModal()" :class="{ 'w-full md:w-1/2 lg:w-1/3': !isAuthor, }"
                 class="btn btn-md m-1 text-start btn-primary rounded">
                 <i class="bi bi-heart text-xl"></i> Apply Now
             </div>
@@ -26,7 +26,8 @@
                 </ul>
             </div>
         </div>
-        <div class="w-full mt-3 md:mt-12 md:shadow-md rounded p-6 md:border md:border-2 rounded-xl h-full overflow-auto">
+        <div
+            class="w-full mt-3 md:mt-12 md:shadow-md rounded p-6 md:border md:border-2 rounded-xl h-full overflow-auto">
             <h3 class="text-2xl md:text-3xl font-bold my-4">{{ currentJob?.jobName }}</h3>
             <div class="flex flex-wrap items-center gap-2">
                 <span class="badge badge-lg badge-accent mb-2"><i class="bi bi-calendar3 mr-1"></i> {{
@@ -149,6 +150,43 @@ onMounted(() => {
                     const custormData = result.data.value.data
                     custormData.company = result.data.value.data.contact.company
                     currentJob.value = $_.cloneDeep(custormData)
+                    useHead({
+                        title: currentJob.value.jobName || 'Job Detail',
+                        meta: [
+                            {
+                                name: 'description',
+                                content: currentJob.value.jobDescription || 'Job detail page description'
+                            },
+                            {
+                                property: 'og:title',
+                                content: currentJob.value.jobName || 'Job Detail'
+                            },
+                            {
+                                property: 'og:description',
+                                content: currentJob.value.jobDescription || 'Job detail page description'
+                            },
+                            {
+                                property: 'og:image',
+                                content: currentJob.value.jobImageUrl || 'default-image-url.jpg'
+                            },
+                            {
+                                property: 'og:url',
+                                content: window.location.href
+                            },
+                            {
+                                name: 'twitter:title',
+                                content: currentJob.value.jobName || 'Job Detail'
+                            },
+                            {
+                                name: 'twitter:description',
+                                content: currentJob.value.jobDescription || 'Job detail page description'
+                            },
+                            {
+                                name: 'twitter:image',
+                                content: currentJob.value.jobImageUrl || 'default-image-url.jpg'
+                            }
+                        ]
+                    })
                 }
             }).catch(error => {
                 router.push("/job")
@@ -192,28 +230,28 @@ const onSubmit = (isVal) => {
 const deleteJob = (id) => {
     setTimeout(() => {
         $modelAPI.jobAPI.deleteJob(id).then(result => {
-        if (result.data.value.result) {
+            if (result.data.value.result) {
+                triggerToast('success', 'Job is Deleted')
+            }
+            else {
+                triggerToast('error', 'Delete is failed')
+            }
+        }).catch(error => {
+            triggerToast('error', error)
+        }).finally(() => {
+            loading.value.close()
+            router.replace({ path: '/job' })
             triggerToast('success', 'Job is Deleted')
-        }
-        else {
-            triggerToast('error', 'Delete is failed')
-        }
-    }).catch(error => {
-        triggerToast('error', error)
-    }).finally(() => {
-        loading.value.close()
-        router.replace({ path: '/job' })
-        triggerToast('success', 'Job is Deleted')
-    })
+        })
     }, 1);
-    
-   
+
+
 }
-const applications = (isVal) =>{
-    if(isVal){
+const applications = (isVal) => {
+    if (isVal) {
         myFormApplicantion.value.close()
         triggerToast('success', 'Ứng tuyển thành công')
-    }else{
+    } else {
         myFormApplicantion.value.close()
         triggerToast('error', 'Xin vui lòng thử lại')
     }
