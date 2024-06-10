@@ -158,18 +158,22 @@ onMounted(() => {
                                 content: currentJob.value.jobDescription || 'Job detail page description'
                             },
                             {
+                                name: 'og:title',
                                 property: 'og:title',
                                 content: currentJob.value.jobName || 'Job Detail'
                             },
                             {
+                                name: 'og:description',
                                 property: 'og:description',
                                 content: currentJob.value.jobDescription || 'Job detail page description'
                             },
                             {
+                                name: 'og:image',
                                 property: 'og:image',
                                 content: currentJob.value.jobImageUrl || 'default-image-url.jpg'
                             },
                             {
+                                name: 'og:url',
                                 property: 'og:url',
                                 content: window.location.href
                             },
