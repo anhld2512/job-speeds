@@ -51,7 +51,7 @@
 <script setup>
 import Provinces from '../../composables/Province';
 
-const { $modelAPI, $sanitizeData } = useNuxtApp();
+const { $modelAPI, $sanitizeData, $_ } = useNuxtApp();
 const { token, logout, userId } = useAuth();
 
 const props = defineProps({
@@ -61,7 +61,17 @@ const props = defineProps({
     }
 });
 const { modelValue } = toRefs(props);
-
+const emits = defineEmits(["update:modelValue",'applications']);
+const job = computed({
+  get() {
+    return modelValue?.value ?? {};
+  },
+  set(value) {
+    if (!$_.isEqual(modelValue.value, value)) {
+        emits("update:modelValue", value)
+    }
+  }
+});
 const formData = ref({
     fullName: '',
     email: '',
@@ -69,12 +79,12 @@ const formData = ref({
     address: '',
     coverLetter: '',
     urlCV: null,
-    jobId: modelValue.value._id,
-    userId: modelValue.value.userId
+    jobId: job.value._id,
+    userId: job.value.userId
 });
-
+console.log(formData.value)
 const isEditMode = ref(true);
-const emits = defineEmits(['applications']);
+
 const isValidateForm = ref(true)
 watch(
   () => [

@@ -18,7 +18,7 @@
             <div class="card-header w-full">
               <div class="flex w-full items-center">
                 <div class="flex w-4/5">
-                  <div @click="actionApplication(item._id)"
+                  <div @click="actionApplication(item)"
                     class="btn btn-sm m-1 text-start btn-primary rounded w-full">
                     <i class="bi bi-heart text-xl"></i> Apply
                   </div>
@@ -94,7 +94,7 @@
   <!-- Khu vực hiển thị danh sách công việc -->
 
   <dialog ref="CreateFormApplicantion" class="modal">
-    <div class="modal-box max-w-4xl border border-2 shadow-xl p-1">
+    <div  class="modal-box max-w-4xl border border-2 shadow-xl p-1">
       <div class="fixed top-0 right-5 modal-action">
         <form method="dialog">
           <button class="btn btn-circle btn-sm border border-1 border-primary">
@@ -106,7 +106,8 @@
   </dialog>
   <dialog ref="myFormApplicantion" class="modal">
     <div class="modal-box w-11/12 max-w-5xl" :key="keyApply">
-      <ApplyForm v-model="curentJobApply" @applications="applications"></ApplyForm>
+   
+      <ApplyForm v-if="currentJob" v-model="currentJob" @applications="applications"></ApplyForm>
     </div>
   </dialog>
   <ToastMessage ref="toastRef" :typeToast="currentToastType" :message="toastMessage" :show="showToast" />
@@ -125,7 +126,6 @@ const isLoadingData = ref(true);
 const isLoadingDataPush = ref(false);
 const listJob = ref([]);
 const itemMax = ref(null);
-const curentJobApply = ref(null)
 const filter = ref({
   search: '',
   filter: {
@@ -190,7 +190,15 @@ const onScroll = () => {
     pushMoreJobs();
   }
 };
+const currentJob = ref(null)
+const actionApplication = (item) =>{
+  setTimeout(() => {
+    currentJob.value = item
+  }, 1);
 
+  myFormApplicantion.value.showModal()
+
+}
 // Thiết lập sự kiện cuộn trang và tải dữ liệu khi component được mount
 onMounted(() => {
   fetchJobs();
