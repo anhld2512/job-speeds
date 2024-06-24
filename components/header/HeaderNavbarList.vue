@@ -27,11 +27,11 @@
         <i class="bi bi-card-list"></i> <span>Application</span>
       </a>
     </li> -->
-    <!-- <li>
+    <li>
       <a href="/notifications" class="py-2 px-4 text-lg flex font-extrabold">
         <i class="bi bi-bell"></i><span>Notification</span>
       </a>
-    </li> -->
+    </li>
     <li>
       <a href="/contact" class="py-2 px-4 text-lg flex font-extrabold">
         <i class="bi bi-telephone"></i><span>Contact</span>

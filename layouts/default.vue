@@ -29,6 +29,8 @@
     <button v-if="showScrollButton" @click="scrollToTop"
       class="fixed bottom-5 right-5 z-100 btn btn-md btn-circle btn-primary transition-opacity duration-300">
       <i class="bi bi-arrow-up-circle text-2xl"></i></button>
+
+      
     <dialog ref="updateProfile" class="modal py-3">
       <div class="modal-box w-11/12 max-w-4xl m-2 border border-2 rounded-xl ">
         <ProfilePersonal v-model="profile" :enableEditMode="true" @valid="valid"></ProfilePersonal>

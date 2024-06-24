@@ -1,7 +1,7 @@
 <template>
   <div class="p-2 mt-6">
     <h1 class="text-2xl font-bold mb-4">{{ isCreate ? 'Post New Job' : job.jobName }}</h1>
-    <form @submit.prevent="submitForm" class="grid grid-cols-1 gap-3 md:grid-cols-2">
+    <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
       <FormInPlaceEditor label="Company Name" :required="true"
         v-model="job.company" cssClass="block text-lg" :showButtonEditMode="false"
         :enableEditMode="isEditMode">
@@ -62,7 +62,7 @@
       <button @click="onSubmit" :disabled="isValidateForm" class="btn btn-primary w-full col-span-1 md:col-span-2">
         <i class="bi bi-save text-lg"></i> Save
       </button>
-    </form>
+    </div>
   </div>
   <ToastMessage ref="toastRef" :typeToast="currentToastType" :message="toastMessage" :show="showToast" />
   <ModalDialogLoadingBasic ref="loading" :isClose="false"></ModalDialogLoadingBasic>
