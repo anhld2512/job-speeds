@@ -35,8 +35,8 @@ export default defineNuxtConfig({
         },
         { name: "author", content: "Anhld" },
         { name: "robots", content: "index, follow" }, // Chỉ định cách bot của công cụ tìm kiếm phải xử lý trang
-        { name: "og:image", content: "https://api.jobspeeds.com/logo/logo.JPG" },
-        { name: "og:url", content: "https://jobspeeds.com" },
+        // { name: "og:image", content: "https://api.jobspeeds.com/logo/logo.JPG" },
+        // { name: "og:url", content: "https://jobspeeds.com" },
         { name: "application-name", content: "Job Speeds" },
         { name: "theme-color", content: "#ffffff" }, // Màu nền của ứng dụng
         { name: "apple-mobile-web-app-capable", content: "yes" }, // Có thể mở ứng dụng trên thiết bị di động của Apple

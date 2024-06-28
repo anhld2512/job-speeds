@@ -119,6 +119,7 @@
 <script setup>
 const { $modelAPI, $_, $filters, $textAreaFormatText } = useNuxtApp();
 const { token, logout, userId } = useAuth();
+const { useSeoMeta } = useNuxtApp();
 
 const toastRef = ref(null);
 const showToast = ref(false);
@@ -141,22 +142,6 @@ const loading = ref(false)
 const isAuthor = computed(() => {
     return userId === currentJob?.value?.userId ? true : false
 })
-// watch(currentJob, (newValue) => {
-//   if (newValue) {
-//     useSeoMeta({
-//       title: newValue.jobName || 'Job Detail',
-//       ogTitle: newValue.jobName || 'Job Detail',
-//       description: newValue.jobDescription || 'Job detail page description',
-//       ogDescription: newValue.jobDescription || 'Job detail page description',
-//       ogImage: newValue.jobImageUrl || 'https://example.com/default-image.jpg',
-//       twitterCard: 'summary_large_image',
-//       twitterTitle: newValue.jobName || 'Job Detail',
-//       twitterDescription: newValue.jobDescription || 'Job detail page description',
-//       twitterImage: newValue.jobImageUrl || 'https://example.com/default-image.jpg',
-//       ogUrl: window.location.href
-//     });
-//   }
-// }, { immediate: true });
 
 onMounted(() => {
     nextTick().then(() => {
@@ -167,7 +152,20 @@ onMounted(() => {
                     const custormData = result.data.value.data
                     custormData.company = result.data.value.data.contact.company
                     currentJob.value = $_.cloneDeep(custormData)
-
+                    
+                    // Set SEO metadata
+                    useSeoMeta({
+                        title: currentJob.value.jobName || 'Job Detail',
+                        ogTitle: currentJob.value.jobName || 'Job Detail',
+                        description: currentJob.value.jobName || 'Job detail page description',
+                        ogDescription: currentJob.value.jobName || 'Job detail page description',
+                        ogImage: currentJob.value.jobImageUrl || 'https://api.jobspeeds.com/logo/logo.JPG',
+                        twitterCard: 'summary_large_image',
+                        twitterTitle: currentJob.value.jobName || 'Job Detail',
+                        twitterDescription: currentJob.value.jobDescription || 'Job detail page description',
+                        twitterImage: currentJob.value.jobImageUrl || 'https://api.jobspeeds.com/logo/logo.JPG',
+                        ogUrl: window.location.href
+                    });
                 }
             }).catch(error => {
                 router.push("/job")
@@ -178,6 +176,7 @@ onMounted(() => {
         }, 1);
     });
 });
+
 const EditFormApplicantion = ref(null)
 const actionEditJob = (event) => {
     if (event) {
@@ -225,9 +224,8 @@ const deleteJob = (id) => {
             triggerToast('success', 'Job is Deleted')
         })
     }, 1);
-
-
 }
+
 const applications = (isVal) => {
     if (isVal) {
         myFormApplicantion.value.close()
