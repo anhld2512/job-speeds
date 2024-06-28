@@ -117,7 +117,6 @@
 </template>
 
 <script setup>
-
 const { $modelAPI, $_, $filters, $textAreaFormatText } = useNuxtApp();
 const { token, logout, userId } = useAuth();
 
@@ -142,32 +141,40 @@ const loading = ref(false)
 const isAuthor = computed(() => {
     return userId === currentJob?.value?.userId ? true : false
 })
-
-onMounted(() => {
-    nextTick().then(() => {
-        setTimeout(() => {
-            loading.value.show()
-            $modelAPI.jobAPI.getJobById(JobID).then(result => {
+// watch(currentJob, (newValue) => {
+//   if (newValue) {
+//     useSeoMeta({
+//       title: newValue.jobName || 'Job Detail',
+//       ogTitle: newValue.jobName || 'Job Detail',
+//       description: newValue.jobDescription || 'Job detail page description',
+//       ogDescription: newValue.jobDescription || 'Job detail page description',
+//       ogImage: newValue.jobImageUrl || 'https://example.com/default-image.jpg',
+//       twitterCard: 'summary_large_image',
+//       twitterTitle: newValue.jobName || 'Job Detail',
+//       twitterDescription: newValue.jobDescription || 'Job detail page description',
+//       twitterImage: newValue.jobImageUrl || 'https://example.com/default-image.jpg',
+//       ogUrl: window.location.href
+//     });
+//   }
+// }, { immediate: true });
+const payload = async()=>{
+    $modelAPI.jobAPI.getJobById(JobID).then(result => {
                 if (result.data.value.result) {
                     const custormData = result.data.value.data
                     custormData.company = result.data.value.data.contact.company
                     currentJob.value = $_.cloneDeep(custormData)
-                    
-                    // Set SEO metadata
-                    useHead({
-                        title: currentJob.value.jobName || 'Job Detail',
+                    useSeoMeta({
+                        title: product.value.jobName,
                         meta: [
-                            { name: 'description', content: currentJob.value.jobDescription || 'Job detail page description' },
-                            { name: 'og:title', content: currentJob.value.jobName || 'Job Detail' },
-                            { name: 'og:description', content: currentJob.value.jobDescription || 'Job detail page description' },
-                            { name: 'og:image', content: currentJob.value.jobImageUrl || 'https://example.com/default-image.jpg' },
-                            { name: 'og:url', content: window.location.href },
-                            { name: 'twitter:card', content: 'summary_large_image' },
-                            { name: 'twitter:title', content: currentJob.value.jobName || 'Job Detail' },
-                            { name: 'twitter:description', content: currentJob.value.jobDescription || 'Job detail page description' },
-                            { name: 'twitter:image', content: currentJob.value.jobImageUrl || 'https://example.com/default-image.jpg' }
-                        ]
-                    });
+                            { name: 'description', content: currentJob.value.jobName },
+                            { property: 'og:title', content: currentJob.value.jobName },
+                            { property: 'og:description', content: currentJob.value.jobName },
+                            { property: 'og:image', content: currentJob.value.jobImageUrl },
+                            { property: 'twitter:title', content: currentJob.value.jobName },
+                            { property: 'twitter:description', content: currentJob.value.jobName },
+                            { property: 'twitter:image', content: currentJob.value.jobImageUrl },
+                        ],
+                    })
                 }
             }).catch(error => {
                 router.push("/job")
@@ -175,10 +182,15 @@ onMounted(() => {
             }).finally(() => {
                 loading.value.close()
             })
+}
+onMounted(() => {
+    nextTick().then(() => {
+        setTimeout(() => {
+            loading.value.show()
+            payload()
         }, 1);
     });
 });
-
 const EditFormApplicantion = ref(null)
 const actionEditJob = (event) => {
     if (event) {
@@ -226,8 +238,9 @@ const deleteJob = (id) => {
             triggerToast('success', 'Job is Deleted')
         })
     }, 1);
-}
 
+
+}
 const applications = (isVal) => {
     if (isVal) {
         myFormApplicantion.value.close()
