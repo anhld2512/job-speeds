@@ -164,7 +164,7 @@ const payload = async()=>{
                     custormData.company = result.data.value.data.contact.company
                     currentJob.value = $_.cloneDeep(custormData)
                     useSeoMeta({
-                        title: product.value.jobName,
+                        title: currentJob.value.jobName,
                         meta: [
                             { name: 'description', content: currentJob.value.jobName },
                             { property: 'og:title', content: currentJob.value.jobName },
