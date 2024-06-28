@@ -117,9 +117,9 @@
 </template>
 
 <script setup>
+
 const { $modelAPI, $_, $filters, $textAreaFormatText } = useNuxtApp();
 const { token, logout, userId } = useAuth();
-const { useSeoMeta } = useNuxtApp();
 
 const toastRef = ref(null);
 const showToast = ref(false);
@@ -154,17 +154,19 @@ onMounted(() => {
                     currentJob.value = $_.cloneDeep(custormData)
                     
                     // Set SEO metadata
-                    useSeoMeta({
+                    useHead({
                         title: currentJob.value.jobName || 'Job Detail',
-                        ogTitle: currentJob.value.jobName || 'Job Detail',
-                        description: currentJob.value.jobName || 'Job detail page description',
-                        ogDescription: currentJob.value.jobName || 'Job detail page description',
-                        ogImage: currentJob.value.jobImageUrl || 'https://api.jobspeeds.com/logo/logo.JPG',
-                        twitterCard: 'summary_large_image',
-                        twitterTitle: currentJob.value.jobName || 'Job Detail',
-                        twitterDescription: currentJob.value.jobDescription || 'Job detail page description',
-                        twitterImage: currentJob.value.jobImageUrl || 'https://api.jobspeeds.com/logo/logo.JPG',
-                        ogUrl: window.location.href
+                        meta: [
+                            { name: 'description', content: currentJob.value.jobDescription || 'Job detail page description' },
+                            { property: 'og:title', content: currentJob.value.jobName || 'Job Detail' },
+                            { property: 'og:description', content: currentJob.value.jobDescription || 'Job detail page description' },
+                            { property: 'og:image', content: currentJob.value.jobImageUrl || 'https://example.com/default-image.jpg' },
+                            { property: 'og:url', content: window.location.href },
+                            { name: 'twitter:card', content: 'summary_large_image' },
+                            { name: 'twitter:title', content: currentJob.value.jobName || 'Job Detail' },
+                            { name: 'twitter:description', content: currentJob.value.jobDescription || 'Job detail page description' },
+                            { name: 'twitter:image', content: currentJob.value.jobImageUrl || 'https://example.com/default-image.jpg' }
+                        ]
                     });
                 }
             }).catch(error => {
