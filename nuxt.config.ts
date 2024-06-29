@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     port: 3000, // Cổng mà ứng dụng của bạn sẽ lắng nghe
     host: '0.0.0.0' // Lắng nghe trên tất cả các địa chỉ IP (IPv4 và IPv6)
   },
+  ssr:true,
   appConfig: {
     apiURL: {
       API: (process.env.API_URL || 'https://api.jobspeeds.com').replace(/^\/+|\/+$/g, '')
