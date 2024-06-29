@@ -138,8 +138,8 @@
   </template>
   
   <script setup>
-  import { ref, computed, onMounted, nextTick } from 'vue';
-  import { useRoute, useRouter } from 'vue-router';
+  import { ref, computed } from 'vue';
+  import { useRoute, useRouter, useLazyAsyncData } from 'vue-router';
   import { useNuxtApp } from '#app';
   
   const { $modelAPI, $_, $filters, $textAreaFormatText } = useNuxtApp();
@@ -162,12 +162,24 @@
   const router = useRouter();
   const JobID = route.params.id;
   const myFormApplicantion = ref(null);
-  const currentJob = ref(null);
+  const EditFormApplicantion = ref(null);
   const loading = ref(false);
   
-  const isAuthor = computed(() => {
-    return userId === currentJob?.value?.userId;
-  });
+  const { data: currentJob, refresh } = useLazyAsyncData(
+    'currentJob',
+    () => $modelAPI.jobAPI.getJobById(JobID).then((result) => {
+      if (result.data.value.result) {
+        const customData = result.data.value.data;
+        customData.company = result.data.value.data.contact.company;
+        return $_.cloneDeep(customData);
+      } else {
+        throw new Error('Job not found');
+      }
+    }),
+    { lazy: true }
+  );
+  
+  const isAuthor = computed(() => userId === currentJob.value?.userId);
   
   useSeoMeta({
     title: currentJob.value?.jobName || 'Job Detail',
@@ -182,32 +194,6 @@
     ogUrl: process.client ? window.location.href : ''
   });
   
-  const payload = async () => {
-    try {
-      const result = await $modelAPI.jobAPI.getJobById(JobID);
-      if (result.data.value.result) {
-        const customData = result.data.value.data;
-        customData.company = result.data.value.data.contact.company;
-        currentJob.value = $_.cloneDeep(customData);
-      }
-    } catch (error) {
-      router.push('/job');
-      console.error(error);
-    } finally {
-      loading.value.close();
-    }
-  };
-  
-  onMounted(() => {
-    nextTick().then(() => {
-      setTimeout(() => {
-        loading.value.show();
-        payload();
-      }, 1);
-    });
-  });
-  
-  const EditFormApplicantion = ref(null);
   const actionEditJob = (event) => {
     if (event) {
       event.preventDefault();
@@ -227,6 +213,7 @@
           customData.company = result.data.value.data.contact.company;
           currentJob.value = $_.cloneDeep(customData);
           triggerToast('success', 'Job is updated');
+          refresh(); // Refresh the data after update
         } else {
           triggerToast('error', 'Job update failed');
         }
