@@ -138,8 +138,6 @@
   </template>
   
   <script setup>
-
-  
   const { $modelAPI, $_, $filters, $textAreaFormatText } = useNuxtApp();
   const { userId } = useAuth();
   
@@ -180,16 +178,16 @@
   const isAuthor = computed(() => userId === currentJob.value?.userId);
   
   useSeoMeta({
-    title: currentJob.value?.jobName || 'Job Detail',
-    ogTitle: currentJob.value?.jobName || 'Job Detail',
-    description: currentJob.value?.jobDescription || 'Job detail page description',
-    ogDescription: currentJob.value?.jobDescription || 'Job detail page description',
-    ogImage: currentJob.value?.jobImageUrl || 'https://example.com/default-image.jpg',
+    title: () => currentJob.value?.jobName || 'Job Detail',
+    description: () => currentJob.value?.jobDescription || 'Job detail page description',
+    ogTitle: () => currentJob.value?.jobName || 'Job Detail',
+    ogDescription: () => currentJob.value?.jobDescription || 'Job detail page description',
+    ogImage: () => currentJob.value?.jobImageUrl || 'https://example.com/default-image.jpg',
     twitterCard: 'summary_large_image',
-    twitterTitle: currentJob.value?.jobName || 'Job Detail',
-    twitterDescription: currentJob.value?.jobDescription || 'Job detail page description',
-    twitterImage: currentJob.value?.jobImageUrl || 'https://example.com/default-image.jpg',
-    ogUrl: process.client ? window.location.href : ''
+    twitterTitle: () => currentJob.value?.jobName || 'Job Detail',
+    twitterDescription: () => currentJob.value?.jobDescription || 'Job detail page description',
+    twitterImage: () => currentJob.value?.jobImageUrl || 'https://example.com/default-image.jpg',
+    ogUrl: () => process.client ? window.location.href : ''
   });
   
   const actionEditJob = (event) => {
