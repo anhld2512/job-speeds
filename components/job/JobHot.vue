@@ -141,11 +141,16 @@
   
   }
   // Thiết lập sự kiện cuộn trang và tải dữ liệu khi component được mount
-  onMounted(() => {
-    fetchJobs();
-    window.addEventListener("scroll", onScroll);
+  onMounted( () => {
+    nextTick(()=>{
+      setTimeout(async() => {
+        const result = await fetchJobs();
+        console.log(result)
+        window.addEventListener("scroll", onScroll);
+      }, 1);
+    })
+    
   });
-  
   const deleteJob = async (itemId) => {
     loading.value.show();
     try {
