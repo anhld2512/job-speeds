@@ -138,9 +138,7 @@
   </template>
   
   <script setup>
-  import { ref, computed } from 'vue';
-  import { useRoute, useRouter, useLazyAsyncData } from 'vue-router';
-  import { useNuxtApp } from '#app';
+
   
   const { $modelAPI, $_, $filters, $textAreaFormatText } = useNuxtApp();
   const { userId } = useAuth();
