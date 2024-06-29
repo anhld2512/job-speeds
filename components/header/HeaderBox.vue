@@ -4,8 +4,8 @@
 
 <script setup>
 const { $util, payload: nuxtPayload } = useNuxtApp();
-const baseURL = nuxtPayload.config.app.baseURL;
-const cdnURL = `${nuxtPayload.config.app.cdnURL || ""}`.trim();
+// const baseURL = nuxtPayload.config.app.baseURL;
+// const cdnURL = `${nuxtPayload.config.app.cdnURL || ""}`.trim();
 // const headLinks = computed(() => {
 //   let url = `logo`;
 //   if (cdnURL.length > 0) {

@@ -1,23 +1,23 @@
 <template>
-     <div v-if="loading" id="loading" class="fixed inset-0 flex justify-center items-center bg-white z-50">
-      <div class="text-center">
-        <span class="loading loading-spinner text-accent w-20 h-20"></span>
-      </div>
+  <div v-if="loading" id="loading" class="fixed inset-0 flex justify-center items-center bg-white z-50">
+    <div class="text-center">
+      <span class="loading loading-spinner text-accent w-20 h-20"></span>
     </div>
+  </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
 
-const emits = defineEmits(["payload"]);
-
+const emits = defineEmits(['payload']);
 const loading = ref(true);
+
 const applyTheme = (theme) => {
-  if (theme === 'dark') {
-    document.body.style.backgroundColor = '#1d232a';
-    document.getElementById('loading').style.backgroundColor = '#1d232a';
-  } else {
-    document.body.style.backgroundColor = '#ffffff';
-    document.getElementById('loading').style.backgroundColor = '#ffffff';
+  const bgColor = theme === 'dark' ? '#1d232a' : '#ffffff';
+  document.body.style.backgroundColor = bgColor;
+  const loadingElement = document.getElementById('loading');
+  if (loadingElement) {
+    loadingElement.style.backgroundColor = bgColor;
   }
 };
 
@@ -32,43 +32,43 @@ const isFirstVisit = () => {
     setFirstVisitFlag();
     return true;
   }
-  
+
   const currentTime = new Date().getTime();
-  const timeElapsed = currentTime - firstVisit;
-  
-  // 30 minutes in milliseconds
+  const timeElapsed = currentTime - parseInt(firstVisit, 10);
   const thirtyMinutes = 30 * 60 * 1000;
+
   if (timeElapsed > thirtyMinutes) {
     setFirstVisitFlag();
     return true;
   }
-  
+
   return false;
 };
 
 onMounted(() => {
   const originalTheme = localStorage.getItem('theme') || 'light';
   applyTheme(originalTheme);
+
   if (isFirstVisit()) {
     setTimeout(() => {
       loading.value = false;
-    }, 3000); // 3 seconds timeout
+      emits('payload', loading.value);
+    }, 3000);
   } else {
     loading.value = false;
+    emits('payload', loading.value);
   }
-  emits('payload',loading.value)
 });
-
 </script>
 
-<style  scoped>
+<style scoped>
 #loading {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: #ffffff; /* Default background */
+  background: #ffffff;
   z-index: 9999;
   display: flex;
   justify-content: center;
@@ -81,6 +81,6 @@ html, body {
   overflow: hidden;
 }
 body {
-  background: #ffffff; /* Default background */
+  background: #ffffff;
 }
 </style>

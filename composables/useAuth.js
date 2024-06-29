@@ -2,25 +2,18 @@ export const useAuth = () => {
   const authStore = useAuthStore();
   const { $api } = useNuxtApp();
 
-  /**
-   *Author: AnhLD
-   *Date: 2024-06-09
-   * Function description
-   *
-   * @param {*} username
-   * @param {*} password
-   * @return {*} 
-   */
   const login = async (username, password) => {
     try {
       const response = await $api.post('/auth/login', { username, password });
-      const token = response.data.token;
-      const refreshToken = response.data.refreshToken;
-      const userId = response.data.userId;
+      const { token, refreshToken, userId } = response.data;
       authStore.login(token, refreshToken);
-      localStorage.setItem('token', token);
-      localStorage.setItem('refreshToken', refreshToken);
-      localStorage.setItem('userId', userId);
+
+      if (process.client) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('userId', userId);
+      }
+
       return true;
     } catch (error) {
       console.error(error);
@@ -28,24 +21,18 @@ export const useAuth = () => {
     }
   };
 
-  /**
-   *Author: AnhLD
-   *Date: 2024-06-09
-   * Function description
-   *
-   * @param {*} username
-   * @param {*} password
-   * @return {*} 
-   */
   const signup = async (username, password) => {
     try {
       const response = await $api.post('/auth/signup', { username, password });
       if (response.status === 201) {
-        const token = response.data.token;
-        const refreshToken = response.data.refreshToken;
+        const { token, refreshToken } = response.data;
         authStore.login(token, refreshToken);
-        localStorage.setItem('token', token);
-        localStorage.setItem('refreshToken', refreshToken);
+
+        if (process.client) {
+          localStorage.setItem('token', token);
+          localStorage.setItem('refreshToken', refreshToken);
+        }
+
         return { result: true };
       } else {
         console.error('Error:', response.data.message);
@@ -57,18 +44,15 @@ export const useAuth = () => {
     }
   };
 
-  /**
-   *Author: AnhLD
-   *Date: 2024-06-09
-   * Function description
-   *
-   */
   const logout = () => {
     authStore.logout();
-    localStorage.removeItem('token');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userId');
-    window.location.reload();
+
+    if (process.client) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('userId');
+      window.location.reload();
+    }
   };
 
   return {

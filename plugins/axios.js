@@ -23,7 +23,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       const originalRequest = error.config;
       if (error.response.status === 401 && error.response.data.error === 'jwt expired' && !originalRequest._retry) {
         originalRequest._retry = true;
-        const authStore = useAuthStore(nuxtApp.$pinia); // Tham chiếu đến store với Nuxt context
+        const authStore = useAuthStore(nuxtApp.$pinia);
         const newToken = await authStore.refreshToken();
         if (newToken) {
           originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
@@ -35,13 +35,12 @@ export default defineNuxtPlugin((nuxtApp) => {
       return Promise.reject(error);
     }
   );
-  // Đăng ký Service Worker và xử lý đăng ký thông báo đẩy
-  if ('serviceWorker' in navigator && 'PushManager' in window) {
+
+  if (process.client && 'serviceWorker' in navigator && 'PushManager' in window) {
     navigator.serviceWorker.register('/sw.js')
       .then(swReg => {
         console.log('Service Worker is registered', swReg);
-  
-        // Yêu cầu quyền hiển thị thông báo
+
         Notification.requestPermission().then(permission => {
           if (permission === 'granted') {
             console.log('Notification permission granted.');
@@ -54,76 +53,43 @@ export default defineNuxtPlugin((nuxtApp) => {
       });
   }
 
-  /**
-   *Author: AnhLD
-   *Date: 2024-06-09
-   * Function description
-   *
-   * @param {*} swReg
-   */
   function subscribeUser(swReg) {
     swReg.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: urlBase64ToUint8Array('BA5xnicrkH0hO5H0Y3cK5AAik0G_j62c8mukA0eYjhQ9ShDxDvh9gksXEL-VRMoZaeT2bDh2y_1Wi2C3ro9d_9E')
     }).then(subscription => {
       console.log('User is subscribed:', subscription);
-  
-      // Gửi đăng ký đến máy chủ backend
       saveSubscription(subscription);
     }).catch(err => {
       console.log('Failed to subscribe the user: ', err);
     });
   }
 
-  /**
-   *Author: AnhLD
-   *Date: 2024-06-09
-   * Function description
-   *
-   * @param {*} base64String
-   * @return {*} 
-   */
   function urlBase64ToUint8Array(base64String) {
     const padding = '='.repeat((4 - base64String.length % 4) % 4);
     const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
     const rawData = window.atob(base64);
     const outputArray = new Uint8Array(rawData.length);
-  
+
     for (let i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i); // Sửa lỗi ở đây, đổi I thành i
+      outputArray[i] = rawData.charCodeAt(i);
     }
     return outputArray;
   }
-  /**
-   *Author: AnhLD
-   *Date: 2024-06-09
-   * Function description
-   *
-   * @param {*} subscription
-   */
+
   function saveSubscription(subscription) {
     api.post('/notifications/save-subscription', subscription)
       .then(() => console.log('Subscription saved successfully'))
       .catch(error => console.error('Failed to save subscription', error));
   }
-  /**
-   *Author: AnhLD
-   *Date: 2024-06-09
-   * Function description
-   *
-   * @param {*} title
-   * @param {*} message
-   * @param {*} url
-   * @return {*} 
-   */
-  function sendNotification(title, message,url) {
-    return api.post('/notifications/send-notification', { title, message ,url})
+
+  function sendNotification(title, message, url) {
+    return api.post('/notifications/send-notification', { title, message, url })
       .then(response => console.log('Notification sent successfully'))
       .catch(error => console.error('Failed to send notification', error));
   }
-  
 
-  nuxtApp.provide('api', api); // Cung cấp api cho toàn bộ ứng dụng
+  nuxtApp.provide('api', api);
   nuxtApp.provide('sendNotification', sendNotification);
   nuxtApp.provide('urlBase64ToUint8Array', urlBase64ToUint8Array);
 });
