@@ -131,7 +131,19 @@
   const isAuthor = computed(() => {
     return userId === currentJob?.value?.userId;
   });
-  
+  useSeoMeta({
+  title: 'Trần Đức Corporation',
+  meta: [
+    { name: 'description', content: 'Trần Đức Corporation - Giới thiệu, lĩnh vực tiên phong, tin tức và sự kiện, dự án và sản phẩm, các trang web thành viên và đối tác chiến lược.' },
+    { name: 'keywords', content: 'Trần Đức Corporation, Giới thiệu, Lĩnh vực tiên phong, Tin tức, Sự kiện, Dự án, Sản phẩm, Trang web thành viên, Đối tác chiến lược' },
+    { name: 'author', content: 'Trần Đức Corporation' },
+    { property: 'og:title', content: 'Liên hệ Trần Đức Corporation' },
+    { property: 'og:description', content: 'Trần Đức Corporation - Giới thiệu, lĩnh vực tiên phong, tin tức và sự kiện, dự án và sản phẩm, các trang web thành viên và đối tác chiến lược.' },
+    { property: 'og:image', content: 'https://tranduc.com/wp-content/uploads/2024/02/An-Lam-Saigon-River-Lounge.webp' },
+    { property: 'og:url', content: 'https://tranduc.com' },
+    { name: 'twitter:card', content: 'summary_large_image' }
+  ]
+})
   const payload = async () => {
     $modelAPI.jobAPI.getJobById(JobID)
       .then(result => {
@@ -139,18 +151,18 @@
           const customData = result.data.value.data;
           customData.company = result.data.value.data.contact.company;
           currentJob.value = $_.cloneDeep(customData);
-          useSeoMeta({
-            title: currentJob.value.jobName || 'Job Detail',
-            ogTitle: currentJob.value.jobName || 'Job Detail',
-            description: currentJob.value.jobDescription || 'Job detail page description',
-            ogDescription: currentJob.value.jobDescription || 'Job detail page description',
-            ogImage: currentJob.value.jobImageUrl || 'https://example.com/default-image.jpg',
-            twitterCard: 'summary_large_image',
-            twitterTitle: currentJob.value.jobName || 'Job Detail',
-            twitterDescription: currentJob.value.jobDescription || 'Job detail page description',
-            twitterImage: currentJob.value.jobImageUrl || 'https://example.com/default-image.jpg',
-            ogUrl: window.location.href
-          });
+        //   useSeoMeta({
+        //     title: currentJob.value.jobName || 'Job Detail',
+        //     ogTitle: currentJob.value.jobName || 'Job Detail',
+        //     description: currentJob.value.jobDescription || 'Job detail page description',
+        //     ogDescription: currentJob.value.jobDescription || 'Job detail page description',
+        //     ogImage: currentJob.value.jobImageUrl || 'https://example.com/default-image.jpg',
+        //     twitterCard: 'summary_large_image',
+        //     twitterTitle: currentJob.value.jobName || 'Job Detail',
+        //     twitterDescription: currentJob.value.jobDescription || 'Job detail page description',
+        //     twitterImage: currentJob.value.jobImageUrl || 'https://example.com/default-image.jpg',
+        //     ogUrl: window.location.href
+        //   });
         }
       })
       .catch(error => {
