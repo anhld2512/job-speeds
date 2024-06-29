@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   ssr:true,
   appConfig: {
     apiURL: {
-      API: (process.env.API_URL || 'http://localhost:2024').replace(/^\/+|\/+$/g, '')
+      API: (process.env.API_URL || 'https://api.jobspeeds.com').replace(/^\/+|\/+$/g, '')
     }
   },
   app: {
@@ -17,11 +17,11 @@ export default defineNuxtConfig({
       },
       title: "Job Speeds",
       link: [
-        { rel: 'apple-touch-icon', sizes: '180x180', href: 'http://localhost:2024/logo/logo.JPG' },
-        { rel: 'apple-touch-icon', sizes: '152x152', href: 'http://localhost:2024/logo/logo.JPG' },
-        { rel: 'apple-touch-icon', sizes: '144x144', href: 'http://localhost:2024/logo/logo.JPG' },
-        { rel: 'apple-touch-icon', sizes: '120x120', href: 'http://localhost:2024/logo/logo.JPG' },
-        { rel: 'apple-touch-icon', sizes: '76x76', href: 'http://localhost:2024/logo/logo.JPG'},
+        { rel: 'apple-touch-icon', sizes: '180x180', href: 'https://api.jobspeeds.com/logo/logo.JPG' },
+        { rel: 'apple-touch-icon', sizes: '152x152', href: 'https://api.jobspeeds.com/logo/logo.JPG' },
+        { rel: 'apple-touch-icon', sizes: '144x144', href: 'https://api.jobspeeds.com/logo/logo.JPG' },
+        { rel: 'apple-touch-icon', sizes: '120x120', href: 'https://api.jobspeeds.com/logo/logo.JPG' },
+        { rel: 'apple-touch-icon', sizes: '76x76', href: 'https://api.jobspeeds.com/logo/logo.JPG'},
         { rel: 'manifest', href: '/manifest.json' }
       ],
       meta: [
@@ -35,7 +35,7 @@ export default defineNuxtConfig({
         },
         { name: "author", content: "Anhld" },
         { name: "robots", content: "index, follow" }, // Chỉ định cách bot của công cụ tìm kiếm phải xử lý trang
-        { name: "og:image", content: "http://localhost:2024/logo/logo.JPG" },
+        { name: "og:image", content: "https://api.jobspeeds.com/logo/logo.JPG" },
         { name: "og:url", content: "https://jobspeeds.com" },
         { name: "application-name", content: "Job Speeds" },
         { name: "theme-color", content: "#ffffff" }, // Màu nền của ứng dụng
@@ -47,7 +47,7 @@ export default defineNuxtConfig({
   },
   proxy: {
     '/api': {
-      target: 'http://localhost:2024',
+      target: 'https://api.jobspeeds.com',
       pathRewrite: { '^/api': '/' },
       changeOrigin: true,
     }
