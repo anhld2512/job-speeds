@@ -2,20 +2,22 @@ import { defineStore } from 'pinia';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    token: process.client ? localStorage.getItem('token') || '' : '',
-    refreshToken: process.client ? localStorage.getItem('refreshToken') || '' : '',
-    userId: process.client ? localStorage.getItem('userId') || '' : '',
-    isAuthenticated: process.client ? !!localStorage.getItem('token') : false,
+    token: '',
+    refreshToken: '',
+    userId: '',
+    isAuthenticated: false,
   }),
   actions: {
-    login(token, refreshToken) {
+    login(token, refreshToken, userId) {
       this.token = token;
       this.refreshToken = refreshToken;
+      this.userId = userId;
       this.isAuthenticated = true;
 
       if (process.client) {
         localStorage.setItem('token', token);
         localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('userId', userId);
       }
     },
     logout() {
@@ -43,13 +45,21 @@ export const useAuthStore = defineStore('auth', {
       try {
         const response = await nuxtApp.$api.post('/auth/refresh-token', { refreshToken });
         const newToken = response.data.accessToken;
-        this.login(newToken, refreshToken);
+        this.login(newToken, refreshToken, this.userId);
         localStorage.setItem('token', newToken);
         return newToken;
       } catch (error) {
         console.error('Error refreshing token:', error);
         this.logout();
         return null;
+      }
+    },
+    initializeStore() {
+      if (process.client) {
+        this.token = localStorage.getItem('token') || '';
+        this.refreshToken = localStorage.getItem('refreshToken') || '';
+        this.userId = localStorage.getItem('userId') || '';
+        this.isAuthenticated = !!this.token;
       }
     }
   }

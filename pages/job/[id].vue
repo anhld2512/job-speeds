@@ -103,7 +103,7 @@
           <div class="col-span-1 md:col-span-2/3">
             <figure class="w-full h-60 md:h-full skeleton">
               <div
-                class="h-full w-full bg-cover bg-center rounded-lg"
+                class="h-full w-full bg-contain bg-center rounded-lg"
                 :style="{ backgroundImage: `url(${currentJob?.jobImageUrl || 'https://example.com/default-image.jpg'})` }"
               ></div>
             </figure>

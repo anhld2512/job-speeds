@@ -1,5 +1,9 @@
 export default (appConfig, $moment, $filters, $_) => {
-  const { token, logout, userId } = useAuth();
+  let token = "";
+
+  if (process.client) {
+    token = localStorage.getItem("token");
+  }
   /**
    * Hàm để loại bỏ các ký tự nguy hiểm từ một chuỗi.
    * @param {string} str - Chuỗi cần được kiểm tra và loại bỏ ký tự nguy hiểm.
@@ -70,7 +74,7 @@ export default (appConfig, $moment, $filters, $_) => {
    * @param {*} [option={}]
    * @return {*}
    */
-  const getProfileById = async (userId, option = {}) => {
+  const getProfileById = async (userId, token, option = {}) => {
     //Merge options.
     const fetchOption = {
       ...option,

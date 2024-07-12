@@ -1,5 +1,9 @@
 export default (appConfig, $moment, $filters, $_) => {
-  const { token, logout, userId } = useAuth();
+  let token = "";
+
+  if (process.client) {
+    token = localStorage.getItem("token");
+  }
   /**
    *Author: AnhLD
    *Date: 2024-06-09

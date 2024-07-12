@@ -59,7 +59,7 @@
 
       <InputFile v-model="job.jobImageUrl" label="Job Image" :isEditMode="isEditMode" cssClass="col-span-1 md:col-span-2" />
       <InputFile v-model="job.jobAttachmentUrl" label="Job Attachment" :isEditMode="isEditMode" cssClass="col-span-1 md:col-span-2" />
-      <button @click="onSubmit" :disabled="isValidateForm" class="btn btn-primary w-full col-span-1 md:col-span-2">
+      <button @click="onSubmit"  class="btn btn-primary w-full col-span-1 md:col-span-2">
         <i class="bi bi-save text-lg"></i> Save
       </button>
     </div>

@@ -18,7 +18,7 @@ const { $util, payload: nuxtPayload } = useNuxtApp();
 //     url: url,
 //   }
 // })
-const logoDefault = ref(`https://api.jobspeeds.com/logo/logo.JPG`)
+const logoDefault = ref(`http://localhost:2024/logo/logo.JPG`)
 
 </script>
 
