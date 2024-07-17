@@ -5,8 +5,8 @@ self.addEventListener('push', function(event) {
   const title = data.title || 'Default Title';
   const options = {
     body: data.message || 'Default message body',
-    icon: 'http://localhost:2024/logo/logo.JPG', // Đường dẫn tới biểu tượng của bạn
-    badge: 'http://localhost:2024/logo/logo.JPG', // Đường dẫn tới biểu tượng nhỏ của bạn
+    icon: 'https://api.jobspeeds.com/logo/logo.JPG', // Đường dẫn tới biểu tượng của bạn
+    badge: 'https://api.jobspeeds.com/logo/logo.JPG', // Đường dẫn tới biểu tượng nhỏ của bạn
     data: {
       url: data.url || '/' // Đảm bảo rằng URL được bao gồm trong dữ liệu thông báo
     }
